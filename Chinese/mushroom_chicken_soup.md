@@ -14,7 +14,7 @@
 
 ## Ingredients
 
-- Chicken [0.5][Chopped]
+- Chopped whole chicken [500 g]
 - Dried mushrooms [Any (shiitake mushrooms, bamboo fungus, cordyceps flower, tea tree mushrooms, morels, chanterelles, king oyster mushrooms)]
 - Scallions
 - Ginger

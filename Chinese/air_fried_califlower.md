@@ -11,7 +11,7 @@
 
 ## Ingredients
 
-- Cauliflower [0.5]
+- Cauliflower [0.5 unit]
 - Vegetable oil [2 tbs]
 - Soy sauce [1 tbs]
 - Salt
