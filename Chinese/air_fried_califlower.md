@@ -1,8 +1,13 @@
 # Air Fried Cauliflower
 
+## Cooking Time
+
+- Active cooking time: 10 minutes
+- Ready in: 20 minutes
+
 ## Ingredients
 
-- Cauliflower [Half]
+- Cauliflower [0.5]
 - Vegetable oil [2 tbs]
 - Soy sauce [1 tbs]
 - Salt
