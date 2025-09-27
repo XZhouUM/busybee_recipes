@@ -2,8 +2,9 @@
 
 Recipe book for people who are crazily busy but still want to eat healthy home-cooked food:
 - Simple
-- Easy-to-use
-- Short active cooking time (the time a person actually spends in the kitchen)
+- Easy to use
+- Short active cooking time, i.e., less time a person actually spends in the kitchen
+- Promote use of efficiency tools in the kitchen
 - Multicultural and diverse
 
 For tech-savvy users, it can also be interactive with the help of Gemini CLI.
