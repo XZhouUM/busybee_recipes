@@ -2,7 +2,12 @@
 
 ## Ingredients
 
-Half a chicken, dried mushrooms (shiitake mushrooms, bamboo fungus, cordyceps flower, tea tree mushrooms, morels, chanterelles, king oyster mushrooms), scallions, ginger, goji berries, and red dates
+- Chicken [Half]
+- Dried mushrooms [Any (shiitake mushrooms, bamboo fungus, cordyceps flower, tea tree mushrooms, morels, chanterelles, king oyster mushrooms)]
+- Scallions
+- Ginger
+- Goji berries
+- Red dates
 
 ## Instructions
 
