@@ -7,6 +7,11 @@
   - 1 hour 40 minutes
   - With fast hack: 40 minutes
 
+## Efficiency Tools
+
+- Timer
+- (Automatic) pressure cooker
+
 ## Ingredients
 
 - Chicken [0.5][Chopped]

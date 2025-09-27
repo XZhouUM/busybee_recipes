@@ -6,7 +6,7 @@ This project is a collection of recipes in Markdown format. The goal is to creat
 
 ## Recipe Format
 
-The recipes in this project start with the section Cooking Time, which feature short active cooking time (i.e., the time a person is actively involved in the cooking process). Sometimes the total cooking time can be much longer than the active cooking time, but the rest of the cooking time is fully hands-off and without any supervision. Tools needed to create the fully hands-off cooking time is also provided in the Tools section of each recipe.
+The recipes in this project start with the section Cooking Time, which feature short active cooking time (i.e., the time a person is actively involved in the cooking process). Sometimes the total cooking time can be much longer than the active cooking time, but the rest of the cooking time is fully hands-off and without any supervision. Tools needed to create the fully hands-off cooking time is also provided in the Efficiency Tools section of each recipe.
 
 ## User Goals
 

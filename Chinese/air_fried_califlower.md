@@ -5,6 +5,10 @@
 - Active cooking time: 10 minutes
 - Ready in: 20 minutes
 
+## Efficiency Tools
+
+- Air fryer
+
 ## Ingredients
 
 - Cauliflower [0.5]
