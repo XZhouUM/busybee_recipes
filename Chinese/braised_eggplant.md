@@ -2,7 +2,7 @@
 
 ## Cooking Time
 
-- Active Cooking Time: 15 minutes
+- Active cooking time: 15 minutes
 - Ready in: 40 minutes
 
 ## Ingredients
