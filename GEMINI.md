@@ -10,7 +10,7 @@ The recipes in this project start with the section Cooking Time, which feature s
 
 ## User Goals
 
-The user wants to be able to easily search, select, and filter recipes based on their preferences. They also want to be able to easily obtain the details of a recipe, including the ingredients, instructions, and cooking time.
+The user wants to be able to easily search, select, and filter recipes based on their preferences. They also want to be able to easily obtain the details of a recipe, including the ingredients, instructions, and cooking time. The user may also want to translate the recipe into their native languages.
 
 ## Important Files
 
