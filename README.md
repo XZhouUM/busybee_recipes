@@ -7,7 +7,7 @@ Recipe book for people who are crazily busy but still want to eat healthy home-c
 - Promote use of efficiency tools in the kitchen
 - Multicultural and diverse
 
-For tech-savvy users, it can also be interactive with the help of Gemini CLI.
+For tech-savvy users, it can also be interactive with the help of Gemini CLI. All recipes are written in English, but Gemini CLI can translate the recipes to other languages and other unit systems.
 
 ## Advanced Features
 
