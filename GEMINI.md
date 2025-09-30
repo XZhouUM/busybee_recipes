@@ -8,7 +8,7 @@ This project is a collection of recipes in Markdown format. The goal is to creat
 
 The recipes in this project start with the section Cooking Time, which feature short active cooking time (i.e., the time a person is actively involved in the cooking process). Sometimes the total cooking time can be much longer than the active cooking time, but the rest of the cooking time is fully hands-off and without any supervision. Tools needed to create the fully hands-off cooking time is also provided in the Efficiency Tools section of each recipe.
 
-Notice that some recipes contain an Extension section. This section contains tips on how this same method can be applied to other ingredients too. Some recipes can be easily modified to change from a protein dish to a vegetable dish, or vice versa. When searching a recipe, the Extension section should also be considered. For example, Braised Eggplant recipe can be used for other braised dishes such as braised mushrooms. Therefore, when a user searches for a recipe using mushrooms, the Braised Eggplant recipe should also be mentioned as a possible match.
+Notice that some recipes contain an Extension section. This section contains tips on how this same method can be applied to other ingredients too.
 
 ## User Goals
 
@@ -17,6 +17,14 @@ The user wants to be able to easily search, select, and filter recipes based on 
 ## Language Support
 
 The user may also want to converse using their native languages. The returned recipe should then be translated into their language of choice. A unit conversion should also be provided to match the preferred unit system for countries that use that language. For example, Chinese and Turkish users use the metric system, while English users will default to the imperial system unless specified otherwise.
+
+## Special Search Instructions
+
+### Unavailable Ingradients
+
+If an ingradient is not found. Try first to search for a general recipe. For example, Chinese Salad, where in the ingradient list, one item is "Any vegetables or protein". Recipes like this can be a recommendation for any vegetable or protein ingradient.
+
+Secondly, look for recipes with Extension section. Some recipes can also be easily modified to use other ingradients, a recipe can even change from a protein dish to a vegetable dish, or vice versa. For example, Braised Eggplant recipe can be used for other braised dishes such as braised mushrooms or braised tofu. Therefore, when a user searches for a recipe using mushrooms or tofu, the Braised Eggplant recipe should also be mentioned as a possible match. Explain in the response that the recipe can be modified to use other ingradients, and thus is a possible match for this search.
 
 ## Important Files
 

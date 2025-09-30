@@ -7,6 +7,7 @@
 
 ## Ingredients
 
+- Any vegetables or proteins
 - Green onion [1 unit]
 - Paprika [1 tbs]
 - White sesame [1 tbs]
