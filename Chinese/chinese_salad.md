@@ -9,14 +9,14 @@
 
 - Any vegetables or proteins
 - Green onion [1 unit]
-- Paprika [1 tbs]
-- White sesame [1 tbs]
-- Garlic powder [1 tbs]
-- Soy sauce [3 tbs]
-- Vinegar [2 tbs]
-- Salt [0.5 tbs]
-- Sugar [1 tbs]
-- Sesame oil [1 tbs]
+- Paprika [1 tablespoon]
+- White sesame [1 tablespoon]
+- Garlic powder [1 tablespoon]
+- Soy sauce [3 tablespoons]
+- Vinegar [2 tablespoons]
+- Salt [0.5 tablespoons]
+- Sugar [1 tablespoon]
+- Sesame oil [1 tablespoon]
 
 ## Instructions
 

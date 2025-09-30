@@ -9,11 +9,11 @@
 
 - Chinese eggplants [2 units]
 - Jalapeno pepper [1 unit]
-- Soy sauce [2 tbs]
-- Oyster sauce [1 tbs]
-- Sugar [0.5 tbs]
+- Soy sauce [2 tablespoons]
+- Oyster sauce [1 tablespoon]
+- Sugar [0.5 tablespoon]
 - Drinking water [0.5 bowl]
-- Olive oil [1 tbs]
+- Olive oil [1 tablespoon]
 
 ## Instructions
 
