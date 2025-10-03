@@ -69,3 +69,5 @@ Secondly, look for recipes with Extension section. Some recipes can also be easi
 A developer can add new recipes to the repo by creating a new markdown file in the appropriate folder based on the recipe's origin, and writing down the recipe in any language and in any format. The Gemini CLI will automatically translate the recipe to English and convert the recipe to the correct format.
 
 Usually the list of ingredients is already given in a recipe. When the ingredient list is not available, the CLI can deduce the ingredient list from the instructions.
+
+Order the list of ingredients in the way that the ones with quantity and unit come first, followed by the ones without quantity and unit.
