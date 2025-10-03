@@ -71,3 +71,5 @@ A developer can add new recipes to the repo by creating a new markdown file in t
 Usually the list of ingredients is already given in a recipe. When the ingredient list is not available, the CLI can deduce the ingredient list from the instructions.
 
 Order the list of ingredients in the way that the ones with quantity and unit come first, followed by the ones without quantity and unit.
+
+At last, polish the instruction section for better readability.
