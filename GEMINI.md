@@ -7,36 +7,69 @@ This project is a collection of recipes in Markdown format. The goal is to creat
 ### Recipe Format
 
 Each recipe in this project follows a structured format designed for busy home cooks:
+```
+# Title
 
-## Title
+## Cooking Time
+
+- Active Cooking Time: [number] minutes
+- Total Cooking Time: [number] minutes
+
+## Efficiency Tools
+
+- [tool name]
+
+## Ingredients
+
+- Ingredient name 1 [quantity unit]
+- Ingredient name 2 [quantity unit]
+- Ingredient name 3 [quantity unit]
+...
+- Ingredient name
+
+## Instructions
+
+1. Step 1
+2. Step 2
+3. Step 3
+
+## Extension (optional)
+
+- Tip 1
+- Tip 2
+```
+
+#### Explanation of Each Section
+
+- Title
 
 The title should be the same as the file name. For example, `fried_yellow_croaker.md` should have the title `Fried Yellow Croaker`.
 
-#### Cooking Time
+- Cooking Time
 
-- Active Cooking Time: The time you need to be actively involved in the cooking process
-- Total Cooking Time: May be longer than active time, but includes hands-off periods that require no or minimal supervision
+    - Active Cooking Time: The time you need to be actively involved in the cooking process
+    - Total Cooking Time: May be longer than active time, but includes hands-off periods that require no or minimal supervision
 
-#### Efficiency Tools (optional)
+- Efficiency Tools (optional)
 
 - Tools and equipment in each recipe to help achieve the hands-off cooking periods
 
-#### Ingredients
+- Ingredients
 
-- List of ingredients required for the recipe
-- Ingredients are written in the format. The bracket that contains quantity and unit is optional for ingredients that are very little.
+    - List of ingredients required for the recipe
+    - Ingredients are written in the format. The bracket that contains quantity and unit is optional for ingredients that are very little.
 ```
 - Ingredient name [quantity unit]
 ```
 
-#### Instructions
+- Instructions
 
-- Step-by-step instructions for preparing the dish
-- The steps are numbered for easy reference
+    - Step-by-step instructions for preparing the dish
+    - The steps are numbered for easy reference
 
-#### Extension (optional)
+- Extension (optional)
 
-- Tips for adapting the recipe method to other ingredients
+    - Tips for adapting the recipe method to other ingredients
 
 ### Folder Structure
 
@@ -82,4 +115,4 @@ Usually the list of ingredients is already given in a recipe. When the ingredien
 
 Order the list of ingredients in the way that the ones with quantity and unit come first, followed by the ones without quantity and unit.
 
-At last, polish the instruction section for better readability.
+At last, polish the wording in the instruction section for better readability. There is no need to add special formatting.
