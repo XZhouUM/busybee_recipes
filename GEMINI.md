@@ -8,7 +8,7 @@ This project is a collection of recipes in Markdown format. The goal is to creat
 
 Each recipe in this project follows a structured format designed for busy home cooks:
 
-#### Cooking Time Structure
+#### Cooking Time
 - Active Cooking Time: The time you need to be actively involved in the cooking process
 - Total Cooking Time: May be longer than active time, but includes hands-off periods that require no or minimal supervision
 
