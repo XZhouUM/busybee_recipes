@@ -8,14 +8,21 @@ This project is a collection of recipes in Markdown format. The goal is to creat
 
 Each recipe in this project follows a structured format designed for busy home cooks:
 
+## Title
+
+The title should be the same as the file name. For example, `fried_yellow_croaker.md` should have the title `Fried Yellow Croaker`.
+
 #### Cooking Time
+
 - Active Cooking Time: The time you need to be actively involved in the cooking process
 - Total Cooking Time: May be longer than active time, but includes hands-off periods that require no or minimal supervision
 
 #### Efficiency Tools (optional)
+
 - Tools and equipment in each recipe to help achieve the hands-off cooking periods
 
 #### Ingredients
+
 - List of ingredients required for the recipe
 - Ingredients are written in the format. The bracket that contains quantity and unit is optional for ingredients that are very little.
 ```
@@ -23,9 +30,12 @@ Each recipe in this project follows a structured format designed for busy home c
 ```
 
 #### Instructions
+
 - Step-by-step instructions for preparing the dish
+- The steps are numbered for easy reference
 
 #### Extension (optional)
+
 - Tips for adapting the recipe method to other ingredients
 
 ### Folder Structure
