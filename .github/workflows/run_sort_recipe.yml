@@ -24,6 +24,6 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run sort_recipe_by_cooking_time.py
-        run: python tools/sort_recipe_by_cooking_time.py
+      - name: Run sort_recipes_by_cooking_time.py
+        run: python tools/sort_recipes_by_cooking_time.py
 
