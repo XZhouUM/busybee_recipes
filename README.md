@@ -9,12 +9,18 @@ Recipe book for people who are crazily busy but still want to eat healthy home-c
 
 For tech-savvy users, it can also be interactive with the help of Gemini CLI. All recipes are written in English, but Gemini CLI can translate the recipes to other languages and other unit systems.
 
-## Advanced Features
-
-### Menu Planning and Shopping List Generation
-
-To come soon.
-
-### Search, Selection, and Filtering with Gemini CLI
+## Advanced Features: Gemini CLI Support
 
 This repo contains a GEMINI.md file that configures the Gemini CLI to work more finely with this repo. You need to [install the Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/README.md) to use it.
+
+### Add Recipes of Various Languages 
+
+Add a new file in any language and in any format. Then ask Gemini to format the recipe.
+
+### Search, Selection, and Filtering
+
+Search with ingredients, cooking time, and other attributes. Select and filter recipes based on your preferences.
+
+### Menu Planning and Shopping List Generation (Beta)
+
+Plan your menu for the week and generate a shopping list. Specify the amount of time you want to spend on active cooking each day, the total time you can spend in the kitchen, and how many meals you need to plan for each day. Gemini will plan each meal for you. You can further ask for a shopping list based on the menu plan.
