@@ -39,6 +39,11 @@ Each recipe in this project follows a structured format designed for busy home c
 
 - Tip 1
 - Tip 2
+
+## Fast Hack (optional)
+
+1. Tip 1
+2. Tip 2
 ```
 
 #### Explanation of Each Section
@@ -80,6 +85,10 @@ Tags are used to help users search for recipes. Right now, the following tags ar
 - Extension (Second level heading; optional)
 
     - Tips for adapting the recipe method to other ingredients
+
+- Fast Hack (Second level heading; optional)
+
+    - Tips for making the recipe faster
 
 ### Folder Structure
 
