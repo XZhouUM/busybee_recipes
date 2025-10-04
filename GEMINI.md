@@ -4,7 +4,7 @@
 
 This project is a collection of recipes in Markdown format. The goal is to create a simple, easy-to-use, and interactive recipe book for people who are crazily busy but still want to eat healthy home-cooked food.
 
-### Recipe Format {#recipe-format}
+### Recipe Format
 
 Each recipe in this project follows a structured format designed for busy home cooks:
 ```
@@ -59,6 +59,12 @@ Tags are used to help users search for recipes. Right now, the following tags ar
 `#Treat_Day`: Recipes whose active cook time is longer than 30 minutes. These recipes are not suitable for busy days, but are great for treat days when you have more time.
 
 `#Full_Meal`: Recipes that are suitable for full meals, such as breakfast, lunch, and dinner.
+
+`#Vegetables`: Recipes that are made of vegetables only.
+
+`#Protein`: Recipes that are made of protein only.
+
+`#Vegetables_Protein`: Recipes that are made of both vegetables and protein.
 
 - Cooking Time (Second level heading)
 

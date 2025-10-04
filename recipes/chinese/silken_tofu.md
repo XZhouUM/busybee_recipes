@@ -1,5 +1,7 @@
 # Silken Tofu
 
+#Protein #Vegetables_Protein
+
 ## Cooking Time
 
 - Active Cooking Time: 10 minutes

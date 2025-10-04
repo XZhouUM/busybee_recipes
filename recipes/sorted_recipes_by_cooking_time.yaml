@@ -1,0 +1,112 @@
+sorted_recipes_by_active_cooking_time:
+  - name: "Firm Tofu"
+    active_cooking_time_minutes: 5
+    total_cooking_time_minutes: 10
+    tags: ['Protein', 'Vegetables_Protein']
+    file_path: "recipes/chinese/firm_tofu.md"
+  - name: "Egg Drop Soup"
+    active_cooking_time_minutes: 5
+    total_cooking_time_minutes: 15
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/chinese/egg_drop_soup.md"
+  - name: "Steamed Fish"
+    active_cooking_time_minutes: 5
+    total_cooking_time_minutes: 25
+    tags: ['Protein']
+    file_path: "recipes/chinese/steamed_fish.md"
+  - name: "Chinese Salad"
+    active_cooking_time_minutes: 5
+    total_cooking_time_minutes: 25
+    tags: ['Vegetables', 'Protein']
+    file_path: "recipes/chinese/chinese_salad.md"
+  - name: "Fried Vegetables"
+    active_cooking_time_minutes: 10
+    total_cooking_time_minutes: 10
+    tags: ['Vegetables']
+    file_path: "recipes/chinese/fried_vegetables.md"
+  - name: "Silken Tofu"
+    active_cooking_time_minutes: 10
+    total_cooking_time_minutes: 15
+    tags: ['Protein', 'Vegetables_Protein']
+    file_path: "recipes/chinese/silken_tofu.md"
+  - name: "Air Fried Cauliflower"
+    active_cooking_time_minutes: 10
+    total_cooking_time_minutes: 20
+    tags: ['Vegetables']
+    file_path: "recipes/chinese/air_fried_califlower.md"
+  - name: "Fried Beef"
+    active_cooking_time_minutes: 10
+    total_cooking_time_minutes: 25
+    tags: ['Protein']
+    file_path: "recipes/chinese/fried_beef.md"
+  - name: "Baked Fish Salad"
+    active_cooking_time_minutes: 10
+    total_cooking_time_minutes: 30
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/home_creation/baked_fish_salad.md"
+  - name: "Curry Rice"
+    active_cooking_time_minutes: 10
+    total_cooking_time_minutes: 40
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/chinese/curry_rice.md"
+  - name: "Shrimp and Mango Salsa"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 20
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/mexico/shrimp_mango_salsa.md"
+  - name: "Teriyaki Salmon"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 25
+    tags: ['Protein']
+    file_path: "recipes/japanese/teriyaki_salmon.md"
+  - name: "Dumpling Filling"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 25
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/chinese/dumpling_filling_beef_carrots.md"
+  - name: "Mushroom Chicken Soup"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 40
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/chinese/mushroom_chicken_soup.md"
+  - name: "Braised Eggplant"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 40
+    tags: ['Vegetables']
+    file_path: "recipes/chinese/braised_eggplant.md"
+  - name: "Homemade Nachos"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 45
+    tags: ['Vegetables']
+    file_path: "recipes/mexico/nachos.md"
+  - name: "Fried Yellow Croaker"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 50
+    tags: ['Protein']
+    file_path: "recipes/chinese/fried_yellow_croaker.md"
+  - name: "Popcorn Chicken"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 195
+    tags: ['Protein']
+    file_path: "recipes/chinese/popcorn_chicken.md"
+  - name: "Pickles"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 2880
+    tags: ['Vegetables']
+    file_path: "recipes/chinese/pickles.md"
+  - name: "Tomato Hot Pot"
+    active_cooking_time_minutes: 30
+    total_cooking_time_minutes: 30
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/chinese/tomato_hot_pot.md"
+  - name: "Sushi Meal"
+    active_cooking_time_minutes: 60
+    total_cooking_time_minutes: 90
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/japanese/sushi_meal.md"
+
+summary:
+  total_recipes: 21
+  active_cooking_time_range:
+    min_minutes: 5
+    max_minutes: 60

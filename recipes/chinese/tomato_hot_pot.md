@@ -1,6 +1,6 @@
 # Tomato Hot Pot
 
-#Treat_Day
+#Treat_Day #Vegetables_Protein
 
 ## Cooking Time
 
