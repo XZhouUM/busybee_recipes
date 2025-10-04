@@ -5,9 +5,7 @@
 ## Cooking Time
 
 - Active cooking time: 15 minutes
-- Ready in:
-  - 1 hour 40 minutes
-  - With fast hack: 40 minutes
+- Total cooking time: 40 minutes
 
 ## Efficiency Tools
 
