@@ -1,0 +1,29 @@
+# .github/workflows/run_sort_recipe.yml
+name: Run sort_recipe_by_cooking_time
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'  # or specify '3.11' etc.
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run sort_recipe_by_cooking_time.py
+        run: python tools/sort_recipe_by_cooking_time.py
+
