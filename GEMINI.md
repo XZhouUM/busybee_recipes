@@ -10,6 +10,8 @@ Each recipe in this project follows a structured format designed for busy home c
 ```
 # Title
 
+#Tag_1 #Tag_2 #Tag_3
+
 ## Cooking Time
 
 - Active Cooking Time: [number] minutes
@@ -44,6 +46,14 @@ Each recipe in this project follows a structured format designed for busy home c
 - Title (First line of the recipe, first level heading)
 
 The title should be the same as the file name. For example, `fried_yellow_croaker.md` should have the title `Fried Yellow Croaker`.
+
+- Tags (Second line of the recipe; starting with `#`; optional)
+
+Tags are used to help users search for recipes. Right now, the following tags are used:
+
+`#Treat_Day`: Recipes whose active cook time is longer than 30 minutes. These recipes are not suitable for busy days, but are great for treat days when you have more time.
+
+`#Full_Meal`: Recipes that are suitable for full meals, such as breakfast, lunch, and dinner.
 
 - Cooking Time (Second level heading)
 
