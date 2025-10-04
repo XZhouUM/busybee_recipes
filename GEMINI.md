@@ -4,7 +4,7 @@
 
 This project is a collection of recipes in Markdown format. The goal is to create a simple, easy-to-use, and interactive recipe book for people who are crazily busy but still want to eat healthy home-cooked food.
 
-### Recipe Format
+### Recipe Format {#recipe-format}
 
 Each recipe in this project follows a structured format designed for busy home cooks:
 ```
@@ -41,20 +41,20 @@ Each recipe in this project follows a structured format designed for busy home c
 
 #### Explanation of Each Section
 
-- Title
+- Title (First line of the recipe, first level heading)
 
 The title should be the same as the file name. For example, `fried_yellow_croaker.md` should have the title `Fried Yellow Croaker`.
 
-- Cooking Time
+- Cooking Time (Second level heading)
 
     - Active Cooking Time: The time you need to be actively involved in the cooking process
     - Total Cooking Time: May be longer than active time, but includes hands-off periods that require no or minimal supervision
 
-- Efficiency Tools (optional)
+- Efficiency Tools (Second level heading; optional)
 
 - Tools and equipment in each recipe to help achieve the hands-off cooking periods
 
-- Ingredients
+- Ingredients (Second level heading)
 
     - List of ingredients required for the recipe
     - Ingredients are written in the format. The bracket that contains quantity and unit is optional for ingredients that are very little.
@@ -62,12 +62,12 @@ The title should be the same as the file name. For example, `fried_yellow_croake
 - Ingredient name [quantity unit]
 ```
 
-- Instructions
+- Instructions (Second level heading)
 
     - Step-by-step instructions for preparing the dish
     - The steps are numbered for easy reference
 
-- Extension (optional)
+- Extension (Second level heading; optional)
 
     - Tips for adapting the recipe method to other ingredients
 
@@ -109,7 +109,7 @@ Secondly, look for recipes with Extension section. Some recipes can also be easi
 
 ### Convert New Recipes to English and the Correct Format
 
-A developer can add new recipes to the repo by creating a new markdown file in the appropriate folder based on the recipe's origin, and writing down the recipe in any language and in any format. The Gemini CLI will automatically translate the recipe to English and convert the recipe to the correct format.
+A developer can add new recipes to the repo by creating a new markdown file in the appropriate folder based on the recipe's origin, and writing down the recipe in any language and in any format. The Gemini CLI will automatically translate the recipe to English and convert the recipe to the correct format. The format is given in the section [Recipe Format](#recipe-format) above.
 
 Usually the list of ingredients is already given in a recipe. When the ingredient list is not available, the CLI can deduce the ingredient list from the instructions.
 
