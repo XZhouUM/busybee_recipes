@@ -27,3 +27,19 @@ jobs:
       - name: Run sort_recipes_by_cooking_time.py
         run: python tools/sort_recipes_by_cooking_time.py
 
+      - name: Commit and push sorted recipes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add recipes/sorted_recipes_by_cooking_time.yaml
+
+          # Commit only if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update sorted recipes [auto]"
+            git push
+          fi
+
+
