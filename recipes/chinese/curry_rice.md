@@ -1,5 +1,7 @@
 # Curry Rice
 
+#Vegetables_Protein #Treat_Day
+
 ## Cooking Time
 
 - Active Cooking Time: 10 minutes

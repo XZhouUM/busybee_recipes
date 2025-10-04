@@ -1,5 +1,7 @@
 # Fried Vegetables
 
+#Vegetables
+
 ## Cooking Time
 
 - Active Cooking Time: 10 minutes

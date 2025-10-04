@@ -1,9 +1,11 @@
 # Firm Tofu
 
+#Protein #Vegetables_Protein
+
 ## Cooking Time
 
-- Active Cooking Time: 2-5 minutes
-- Total Cooking Time: 6-10 minutes
+- Active Cooking Time: 5 minutes
+- Total Cooking Time: 10 minutes
 
 ## Efficiency Tools
 

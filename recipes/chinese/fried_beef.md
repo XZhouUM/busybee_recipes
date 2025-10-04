@@ -1,5 +1,7 @@
 # Fried Beef
 
+#Protein
+
 ## Cooking Time
 
 - Active cooking time: 10 minutes

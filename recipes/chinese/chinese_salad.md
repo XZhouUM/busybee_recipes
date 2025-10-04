@@ -1,5 +1,7 @@
 # Chinese Salad
 
+#Vegetables #Protein
+
 ## Cooking Time
 
 - Active cooking time: 5 minutes

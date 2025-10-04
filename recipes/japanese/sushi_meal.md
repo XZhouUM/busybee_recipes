@@ -1,6 +1,6 @@
 # Sushi Meal
 
-#Treat_Day #Full_Meal
+#Vegetables_Protein #Treat_Day #Full_Meal
 
 ## Cooking Time
 

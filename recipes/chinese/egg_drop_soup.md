@@ -1,6 +1,11 @@
 # Egg Drop Soup
 
+#Vegetables_Protein
+
 ## Cooking Time
+
+- Active Cooking Time: 5 minutes
+- Total Cooking Time: 15 minutes
 
 ## Ingredients
 

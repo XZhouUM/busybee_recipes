@@ -1,5 +1,7 @@
 # Air Fried Cauliflower
 
+#Vegetables
+
 ## Cooking Time
 
 - Active cooking time: 10 minutes

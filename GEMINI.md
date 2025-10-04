@@ -60,6 +60,12 @@ Tags are used to help users search for recipes. Right now, the following tags ar
 
 `#Full_Meal`: Recipes that are suitable for full meals, such as breakfast, lunch, and dinner.
 
+`#Vegetables`: Recipes that are made of vegetables only.
+
+`#Protein`: Recipes that are made of protein only.
+
+`#Vegetables_Protein`: Recipes that are made of both vegetables and protein.
+
 - Cooking Time (Second level heading)
 
     - Active Cooking Time: The time you need to be actively involved in the cooking process
