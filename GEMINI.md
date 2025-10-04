@@ -4,7 +4,7 @@
 
 This project is a collection of recipes in Markdown format. The goal is to create a simple, easy-to-use, and interactive recipe book for people who are crazily busy but still want to eat healthy home-cooked food.
 
-### Recipe Format {#recipe-format}
+### Recipe Format
 
 Each recipe in this project follows a structured format designed for busy home cooks:
 ```
