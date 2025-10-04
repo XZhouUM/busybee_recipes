@@ -1,21 +1,29 @@
-咖喱焖饭
+# Curry Rice
 
-原料：
+## Cooking Time
 
-板栗
+- Active Cooking Time: 10 minutes
+- Total Cooking Time: 40 minutes
 
-腊肠
+## Efficiency Tools
 
-香菇
+- Rice cooker
 
-胡萝卜
+## Ingredients
 
-教程:
+- Rice [2 cups]
+- Chestnut [0.5 cup]
+- Shiitake mushroom [4 units]
+- Carrot [1 unit]
+- Corn [0.5 cup]
+- Chinese ham sausage [1 unit]
+- Curry block [1 block]
+- Soy sauce [2 tablespoons]
+- Sesame oil [1 tablespoon]
 
-1、大米洗净,加入两勺生抽搅拌均匀
+## Instructions
 
-2、火腿肠、玉米胡萝卜切丁、铺上咖喱块
-
-3、加一勺香油,加水没过食材
-
-4,按煮饭键煮熟即可。
+1. Wash the rice and mix it with two tablespoons of soy sauce.
+2. Dice the Chinese ham sausage, corn, and carrot, and lay them on top of the rice, along with the curry block.
+3. Add one tablespoon of sesame oil and enough water to cover all the ingredients.
+4. Press the cook button on your rice cooker and wait for it to finish.
