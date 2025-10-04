@@ -9,10 +9,8 @@
 
 ## Efficiency Tools
 
-- Microwave
-- Electronic Steamer
+- Rice Cooker
 - Blender
-- Air fryer
 - Takoyaki pan
 
 ## Ingredients
@@ -67,7 +65,7 @@
     - Cut octopus leg into small pieces. Fry until cooked and season with a hint of salt.
     - Dice 1 onion and mix with the octopus.
 3.  **Cook takoyaki:**
-    - In a ball-making pan, put in some mashed potato, add the octopus and onion mix, and then cover with more mashed potato.
+    - In a takoyaki pan, put in some mashed potato, add the octopus and onion mix, and then cover with more mashed potato.
     - Rotate the ball until it is fully cooked.
 
 ## Extension
