@@ -1,5 +1,7 @@
 # Mushroom Chicken Soup
 
+#Vegetables_Protein
+
 ## Cooking Time
 
 - Active cooking time: 15 minutes
