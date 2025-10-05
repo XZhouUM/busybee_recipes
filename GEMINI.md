@@ -124,6 +124,19 @@ The user wants to be able to easily search, select, and filter recipes based on 
 
 The user may also want to converse using their native languages. The returned recipe should then be translated into their language of choice. A unit conversion should also be provided to match the preferred unit system for countries that use that language. For example, Chinese and Turkish users use the metric system, while English users will default to the imperial system unless specified otherwise.
 
+### Menu Planning and Shopping List Generation
+
+The user may also want to plan their menu for the week and generate a shopping list. The user can specify the amount of time they want to spend on active cooking each day, the total time they can spend in the kitchen, and how many meals they need to plan for each day.
+
+When generating a meal plan, ensure that each meal is complete and contains both a protein and a vegetable component.
+
+- If a single recipe already contains both protein and vegetables, it can be used as a complete meal.
+- If a recipe only contains protein or only vegetables, combine it with another suitable recipe to form a complete meal.
+- When combining recipes, ensure the total active cooking time for the combined meal respects the user's constraints.
+- The output for each meal should clearly state the protein and vegetable components, the name of the recipe(s), and the total active cooking time.
+
+The user may further ask for the shopping list based on the menu plan. The shopping list should include all the ingredients needed for all the recipes in the menu plan, together with the total quantity for each ingredient.
+
 ### Search Instructions
 
 #### Unavailable Ingradients
