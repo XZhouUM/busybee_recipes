@@ -9,6 +9,13 @@ Recipe book for people who are crazily busy but still want to eat healthy home-c
 
 For tech-savvy users, it can also be interactive with the help of Gemini CLI. All recipes are written in English, but Gemini CLI can translate the recipes to other languages and other unit systems.
 
+## Set up Automation for Recipe Format Checking and Indexing
+
+After cloning the repo, run the following command to set up the pre-push hook for automatic recipe format checking and indexing:
+```bash
+./post_clone.sh
+```
+
 ## Advanced Features
 
 ### Menu Planning and Shopping List Generation
