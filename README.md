@@ -26,7 +26,9 @@ python tools/plan_menu.py --days 3 --meals-per-day 2 --active-time 20 --total-ti
 ```
 This command means that you would like to plan meals for 3 days, with 2 meals per day. Each meal should have a maximum active cooking time of 20 minutes and a maximum total time (including hands-off time) of 45 minutes.
 
-## Developer Guide: Set up Automation for Recipe Format Checking and Indexing
+## Developer Guide
+
+### Set up Automation for Recipe Format Checking and Indexing
 
 After cloning the repo, run the following command to set up the pre-push hook for automatic recipe format checking and indexing:
 ```bash
