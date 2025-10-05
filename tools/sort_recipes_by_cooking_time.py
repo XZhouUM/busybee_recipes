@@ -10,7 +10,7 @@ import os
 import re
 import argparse
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 
 def parse_cooking_time(time_str: str) -> int:
@@ -183,7 +183,7 @@ def find_recipe_files(recipes_dir: Path) -> List[Path]:
     return recipe_files
 
 
-def main(verbose: int = 1):
+def main(verbose: int = 1) -> None:
     """Main function to process recipes and generate sorted YAML output.
 
     Args:
