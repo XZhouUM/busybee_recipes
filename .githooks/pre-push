@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# stop if anything fails
+set -e
+
+# Read stdin to get info about what is being pushed
+read local_ref local_sha remote_ref remote_sha
+
+# If there’s nothing to push (local == remote), skip
+if [ "$local_sha" = "$remote_sha" ]; then
+  exit 0
+fi
+
+echo "Running sort_recipes_by_cooking_time.py before push..."
+
+python3 tools/sort_recipes_by_cooking_time.py --verbose 1
+
+git add recipes/sorted_recipes_by_cooking_time.yaml
+
+if git diff --cached --quiet; then
+  echo "No recipe changes to commit."
+else
+  git commit -m "Auto-update sorted recipes"
+  echo "Auto-committed updated recipe database."
+fi

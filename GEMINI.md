@@ -98,11 +98,13 @@ Tags are used to help users search for recipes. Right now, the following tags ar
 
 ### Folder Structure
 
-The recipes are designed intentionally to be multi-cultural so that more diversity is provided. All receipes are contained in folders based on their origin.
+All recipes are contained in the `recipes` folder. The recipes are designed intentionally to be multi-cultural so that more diversity is provided. All receipes are contained in folders based on their origin.
 
 Example:
 - `Chinese/`: This directory contains Chinese recipes.
 - `Turkish/`: This directory contains Turkish recipes.
+
+In the `recipes` folder, there is also a file named `sorted_recipes_by_cooking_time.yaml`. This file stores a list of all recipes sorted first by active cooking time and then by total cooking time. The list contains information about each recipe, including its name, active cooking time, total cooking time, tags, and file path. The file is automatically updated after a new recipe is added and before push to the repo.
 
 ## User Support
 

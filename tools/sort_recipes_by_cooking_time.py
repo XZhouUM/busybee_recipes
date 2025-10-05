@@ -8,6 +8,7 @@ by active cooking time, outputting the results to a YAML file.
 
 import os
 import re
+import argparse
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -116,7 +117,7 @@ def parse_recipe_file(file_path: Path) -> Optional[Dict]:
         active_time = 0
         total_time = 0
         
-        for i, line in enumerate(lines):
+        for line in lines:
             line = line.strip()
             
             # Extract recipe name from first header
@@ -174,7 +175,7 @@ def find_recipe_files(recipes_dir: Path) -> List[Path]:
     """
     recipe_files = []
     
-    for root, dirs, files in os.walk(recipes_dir):
+    for root, _, files in os.walk(recipes_dir):
         for file in files:
             if file.endswith('.md'):
                 recipe_files.append(Path(root) / file)
@@ -182,8 +183,12 @@ def find_recipe_files(recipes_dir: Path) -> List[Path]:
     return recipe_files
 
 
-def main():
-    """Main function to process recipes and generate sorted YAML output."""
+def main(verbose: int = 1):
+    """Main function to process recipes and generate sorted YAML output.
+
+    Args:
+        verbose: Verbosity level (0=quiet, 1=normal, 2=verbose)
+    """
     
     # Search all recipes in the recipes folder
     recipes_dir = Path('recipes')
@@ -192,17 +197,19 @@ def main():
     if not recipes_dir.exists():
         print(f"Error: Recipes directory '{recipes_dir}' not found!")
         return
-    
+
     recipe_files = find_recipe_files(recipes_dir)
-    print(f"Found {len(recipe_files)} recipe files")
-    
+    if verbose >= 1:
+        print(f"Found {len(recipe_files)} recipe files")
+
     # Parse all recipes for cooking times
     recipes = []
     for file_path in recipe_files:
         recipe_data = parse_recipe_file(file_path)
         if recipe_data:
             recipes.append(recipe_data)
-            print(f"Parsed: {recipe_data['name']} - Active: {recipe_data['active_cooking_time_minutes']}min")
+            if verbose >= 2:
+                print(f"Parsed: {recipe_data['name']} - Active: {recipe_data['active_cooking_time_minutes']}min")
     
     # Sort recipes by active cooking time, then by total cooking time
     recipes.sort(key=lambda x: (x['active_cooking_time_minutes'], x['total_cooking_time_minutes']))
@@ -234,10 +241,30 @@ def main():
         f.write(f"    min_minutes: {output_data['summary']['active_cooking_time_range']['min_minutes']}\n")
         f.write(f"    max_minutes: {output_data['summary']['active_cooking_time_range']['max_minutes']}\n")
     
-    print(f"\nSorted recipes saved to: {output_file}")
-    print(f"Total recipes processed: {len(recipes)}")
-    print(f"Active cooking time range: {output_data['summary']['active_cooking_time_range']['min_minutes']}-{output_data['summary']['active_cooking_time_range']['max_minutes']} minutes")
+    if verbose >= 1:
+        print(f"\nSorted recipes saved to: {output_file}")
+        print(f"Total recipes processed: {len(recipes)}")
+        print(f"Active cooking time range: {output_data['summary']['active_cooking_time_range']['min_minutes']}-{output_data['summary']['active_cooking_time_range']['max_minutes']} minutes")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Sort recipes by active cooking time and generate YAML output",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Verbosity levels:
+  0 - Quiet mode (no output except errors)
+  1 - Normal mode (default, shows summary)
+  2 - Verbose mode (shows each recipe being parsed)
+        """
+    )
+    parser.add_argument(
+        '-v', '--verbose',
+        type=int,
+        choices=[0, 1, 2],
+        default=1,
+        help='Set verbosity level (0=quiet, 1=normal, 2=verbose)'
+    )
+
+    args = parser.parse_args()
+    main(verbose=args.verbose)
