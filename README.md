@@ -8,7 +8,7 @@ Interactive recipe book for people who are crazily busy but still want to eat he
 - Multicultural and diverse
 - Support menu planning and grocery shopping list generation from the recipe book
 
-For tech-savvy users, it can also offers more advanced experience with the help of Gemini CLI. All recipes are written in English, but Gemini CLI can automatically format the recipe, translate the recipes to other languages and other unit systems, provide search and meal planning functions.
+For tech-savvy users, it can also offers more advanced experience with the help of Gemini CLI. Gemini CLI can translate the original English recipes to other languages and other unit systems, support search of recipes by ingredients and cooking time, and provide meal planning functions.
 
 ## User Guide
 
