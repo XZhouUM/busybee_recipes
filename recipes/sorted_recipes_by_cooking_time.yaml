@@ -53,7 +53,7 @@ sorted_recipes_by_active_cooking_time:
     active_cooking_time_minutes: 15
     total_cooking_time_minutes: 20
     tags: ['Vegetables_Protein']
-    file_path: "recipes/mexico/shrimp_mango_salsa.md"
+    file_path: "recipes/mexican/shrimp_mango_salsa.md"
   - name: "Teriyaki Salmon"
     active_cooking_time_minutes: 15
     total_cooking_time_minutes: 25
@@ -78,7 +78,7 @@ sorted_recipes_by_active_cooking_time:
     active_cooking_time_minutes: 15
     total_cooking_time_minutes: 45
     tags: ['Vegetables']
-    file_path: "recipes/mexico/nachos.md"
+    file_path: "recipes/mexican/nachos.md"
   - name: "Fried Yellow Croaker"
     active_cooking_time_minutes: 15
     total_cooking_time_minutes: 50
