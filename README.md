@@ -35,9 +35,7 @@ After cloning the repo, run the following command to set up the pre-push hook fo
 ./post_clone.sh
 ```
 
-## Advanced Features
-
-### LLM Support through GEMINI CLI for both Users and Developers
+## LLM Support through GEMINI CLI for both Users and Developers
 
 This repo contains a GEMINI.md file that configures the Gemini CLI to work more finely with this repo. You need to [install the Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/README.md) to use it.
 
