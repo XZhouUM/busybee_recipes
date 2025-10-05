@@ -1,13 +1,14 @@
 # BusyBee Recipes
 
-Recipe book for people who are crazily busy but still want to eat healthy home-cooked food:
+Interactive recipe book for people who are crazily busy but still want to eat healthy home-cooked food:
 - Simple
 - Easy to use
 - Short active cooking time, i.e., less time a person actually spends in the kitchen
 - Promote use of efficiency tools in the kitchen
 - Multicultural and diverse
+- Support menu planning and grocery shopping list generation from the recipe book
 
-For tech-savvy users, it can also be interactive with the help of Gemini CLI. All recipes are written in English, but Gemini CLI can translate the recipes to other languages and other unit systems.
+For tech-savvy users, it can also offers more advanced experience with the help of Gemini CLI. All recipes are written in English, but Gemini CLI can automatically format the recipe, translate the recipes to other languages and other unit systems, provide search and meal planning functions.
 
 ## User Guide
 
