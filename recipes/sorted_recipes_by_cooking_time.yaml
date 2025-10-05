@@ -104,9 +104,14 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 90
     tags: ['Vegetables_Protein']
     file_path: "recipes/japanese/sushi_meal.md"
+  - name: "Lahmacun"
+    active_cooking_time_minutes: 60
+    total_cooking_time_minutes: 210
+    tags: ['Protein']
+    file_path: "recipes/turkish/lahmacun.md"
 
 summary:
-  total_recipes: 21
+  total_recipes: 22
   active_cooking_time_range:
     min_minutes: 5
     max_minutes: 60
