@@ -1,9 +1,20 @@
 #!/bin/bash
-set -e  # stop if anything fails
+
+# stop if anything fails
+set -e
+
+# Read stdin to get info about what is being pushed
+read local_ref local_sha remote_ref remote_sha
+
+# If there’s nothing to push (local == remote), skip
+if [ "$local_sha" = "$remote_sha" ]; then
+  echo "No new commits to push — skipping pre-push tasks."
+  exit 0
+fi
 
 echo "Running sort_recipes_by_cooking_time.py before push..."
 
-python3 tools/sort_recipes_by_cooking_time.py
+python3 tools/sort_recipes_by_cooking_time.py --verbose 1
 
 git add recipes/sorted_recipes_by_cooking_time.yaml
 
