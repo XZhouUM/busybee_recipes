@@ -8,7 +8,6 @@ read local_ref local_sha remote_ref remote_sha
 
 # If there’s nothing to push (local == remote), skip
 if [ "$local_sha" = "$remote_sha" ]; then
-  echo "No new commits to push — skipping pre-push tasks."
   exit 0
 fi
 
