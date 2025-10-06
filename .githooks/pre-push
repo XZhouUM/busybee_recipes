@@ -3,14 +3,41 @@
 # stop if anything fails
 set -e
 
-# Read stdin to get info about what is being pushed
-read local_ref local_sha remote_ref remote_sha
+# Read local and remote refs from stdin (Git passes them to pre-push)
+while read local_ref local_sha remote_ref remote_sha; do
 
-# If there’s nothing to push (local == remote), skip
-if [ "$local_sha" = "$remote_sha" ]; then
-  exit 0
-fi
+  # If no commits to push, exit
+  if [ "$local_sha" = "$remote_sha" ]; then
+    echo "No new commits to push."
+    exit 0
+  fi
 
+  # Get all changed Python files in the commits to push
+  CHANGED_FILES=$(git diff --name-only "$remote_sha" "$local_sha" -- '*.py')
+
+  if [ -z "$CHANGED_FILES" ]; then
+    echo "No Python files changed."
+    exit 0
+  fi
+
+  echo "Running code checks on Python files:"
+  echo "$CHANGED_FILES"
+
+  # Run Black (formatting)
+  black $CHANGED_FILES
+
+  # Run isort (imports)
+  isort $CHANGED_FILES
+
+  # Run Flake8 (linting)
+  flake8 $CHANGED_FILES
+
+  # Run pytype (static type checking)
+  pytype $CHANGED_FILES
+
+done
+
+# Sort recipes by cooking time
 echo "Running sort_recipes_by_cooking_time.py before push..."
 
 python3 tools/sort_recipes_by_cooking_time.py --verbose 1
