@@ -6,14 +6,19 @@ set -e
 # Read local and remote refs from stdin (Git passes them to pre-push)
 while read local_ref local_sha remote_ref remote_sha; do
 
-  # If no commits to push, exit
-  if [ "$local_sha" = "$remote_sha" ]; then
+    # Handle different push cases
+  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+    echo "Remote branch does not exist yet — first push detected."
+    # Get all Python files in local commits (since branch creation)
+    CHANGED_FILES=$(git diff --name-only --cached -- '*.py')
+  elif [ "$local_sha" = "$remote_sha" ]; then
     echo "No new commits to push."
     exit 0
+  else
+    # Normal push — diff between remote and local
+    CHANGED_FILES=$(git diff --name-only "$remote_sha" "$local_sha" -- '*.py')
   fi
 
-  # Get all changed Python files in the commits to push
-  CHANGED_FILES=$(git diff --name-only "$remote_sha" "$local_sha" -- '*.py')
 
   if [ -z "$CHANGED_FILES" ]; then
     echo "No Python files changed."
