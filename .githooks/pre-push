@@ -6,7 +6,7 @@ set -e
 # Read local and remote refs from stdin (Git passes them to pre-push)
 while read local_ref local_sha remote_ref remote_sha; do
 
-    # Handle different push cases
+  # Handle different push cases
   if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
     echo "Remote branch does not exist yet — first push detected."
     # Get all Python files in local commits (since branch creation)
