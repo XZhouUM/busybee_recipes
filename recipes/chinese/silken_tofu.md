@@ -11,7 +11,7 @@
 
 - Silken tofu [1 box]
 - Garlic [1 clove]
-- Pixian Doubanjiang [1 tablespoon]
+- Pixian Doubanjiang 郫县豆瓣酱 [1 tablespoon]
 - Starch [a pinch]
 - Various vegetables
 - Meat
