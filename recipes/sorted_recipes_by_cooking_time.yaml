@@ -49,11 +49,6 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 40
     tags: ['Vegetables_Protein']
     file_path: "recipes/chinese/curry_rice.md"
-  - name: "Sauteed Vermicelli with Minced Meat"
-    active_cooking_time_minutes: 15
-    total_cooking_time_minutes: 15
-    tags: ['Protein']
-    file_path: "recipes/chinese/sauteed_vermicelli_with_minced_meat.md"
   - name: "Shrimp and Mango Salsa"
     active_cooking_time_minutes: 15
     total_cooking_time_minutes: 20
@@ -69,6 +64,11 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 25
     tags: ['Vegetables_Protein']
     file_path: "recipes/chinese/dumpling_filling_beef_carrots.md"
+  - name: "Sauteed Vermicelli with Minced Meat"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 25
+    tags: ['Protein']
+    file_path: "recipes/chinese/sauteed_vermicelli_with_minced_meat.md"
   - name: "Mushroom Chicken Soup"
     active_cooking_time_minutes: 15
     total_cooking_time_minutes: 40
