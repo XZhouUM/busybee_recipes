@@ -4,6 +4,11 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 10
     tags: ['Protein', 'Vegetables_Protein']
     file_path: "recipes/chinese/firm_tofu.md"
+  - name: "Popcorn Chicken"
+    active_cooking_time_minutes: 5
+    total_cooking_time_minutes: 15
+    tags: ['Protein']
+    file_path: "recipes/chinese/popcorn_chicken.md"
   - name: "Egg Drop Soup"
     active_cooking_time_minutes: 5
     total_cooking_time_minutes: 15
@@ -49,6 +54,11 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 40
     tags: ['Vegetables_Protein']
     file_path: "recipes/chinese/curry_rice.md"
+  - name: "Pickles"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 15
+    tags: ['Vegetables']
+    file_path: "recipes/chinese/pickles.md"
   - name: "Shrimp and Mango Salsa"
     active_cooking_time_minutes: 15
     total_cooking_time_minutes: 20
@@ -89,16 +99,6 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 50
     tags: ['Protein']
     file_path: "recipes/chinese/fried_yellow_croaker.md"
-  - name: "Popcorn Chicken"
-    active_cooking_time_minutes: 15
-    total_cooking_time_minutes: 195
-    tags: ['Protein']
-    file_path: "recipes/chinese/popcorn_chicken.md"
-  - name: "Pickles"
-    active_cooking_time_minutes: 15
-    total_cooking_time_minutes: 2880
-    tags: ['Vegetables']
-    file_path: "recipes/chinese/pickles.md"
   - name: "Simplified Gongbao Chicken"
     active_cooking_time_minutes: 20
     total_cooking_time_minutes: 20
@@ -109,16 +109,16 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 30
     tags: ['Vegetables_Protein']
     file_path: "recipes/chinese/tomato_hot_pot.md"
+  - name: "Lahmacun"
+    active_cooking_time_minutes: 60
+    total_cooking_time_minutes: 60
+    tags: ['Protein']
+    file_path: "recipes/turkish/lahmacun.md"
   - name: "Sushi Meal"
     active_cooking_time_minutes: 60
     total_cooking_time_minutes: 90
     tags: ['Vegetables_Protein']
     file_path: "recipes/japanese/sushi_meal.md"
-  - name: "Lahmacun"
-    active_cooking_time_minutes: 60
-    total_cooking_time_minutes: 210
-    tags: ['Protein']
-    file_path: "recipes/turkish/lahmacun.md"
 
 summary:
   total_recipes: 24
