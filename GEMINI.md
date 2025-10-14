@@ -70,6 +70,7 @@ Tags are used to help users search for recipes. Right now, the following tags ar
 
     - Active Cooking Time: The time you need to be actively involved in the cooking process
     - Total Cooking Time: May be longer than active time, but includes hands-off periods that require no or minimal supervision
+    - Preparation Time [optional]: Time required for preparation before the active cooking time starts; this can sometimes include prep work like marinating, resting, or soaking
 
 - Efficiency Tools (Second level heading; optional)
 
@@ -78,7 +79,9 @@ Tags are used to help users search for recipes. Right now, the following tags ar
 - Ingredients (Second level heading)
 
     - List of ingredients required for the recipe
-    - Ingredients are written in the format. The bracket that contains quantity and unit is optional for ingredients that are very little.
+    - Ingredients are written in the following format. The bracket that contains quantity and unit is optional for ingredients that are very little.
+    - The ingredient list starts with the ingedients with quantity and unit, followed by the ones without.
+    - Spell out the unit instead of using abbreviation. For example, use "teaspoon" instead of "tsp", and use "tablespoon" instead of "tbsp".
 ```
 - Ingredient name [quantity unit]
 ```
