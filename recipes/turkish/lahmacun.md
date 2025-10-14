@@ -5,7 +5,8 @@
 ## Cooking Time
 
 - Active Cooking Time: 60 minutes
-- Total Cooking Time: 210 minutes
+- Total Cooking Time: 60 minutes
+- Preparation Time: 3 hours
 
 ## Efficiency Tools
 

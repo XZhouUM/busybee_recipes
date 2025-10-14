@@ -5,7 +5,8 @@
 ## Cooking Time
 
 - Active Cooking Time: 15 minutes
-- Total Cooking Time: 25 minutes (plus overnight marination)
+- Total Cooking Time: 25 minutes
+- Preparation Time: 1 day
 
 ## Efficiency Tools
 
