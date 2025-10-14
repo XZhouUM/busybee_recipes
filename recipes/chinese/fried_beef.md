@@ -5,7 +5,7 @@
 ## Cooking Time
 
 - Active cooking time: 10 minutes
-- Ready in: 25 minutes
+- Total cooking time: 25 minutes
 
 ## Efficiency Tools
 
