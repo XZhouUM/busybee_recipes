@@ -32,6 +32,10 @@ After cloning the repo, run the following command to set up the repo. This comma
 2. Ask Gemini to format the recipe file. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the GEMINI.md file.
 3. The pre-push hook will automatically update the index file before the changes are pushed to the repo.
 
+Alternatively,
+1. Ask Gemini to search for a recipe on the internet and add it to the repo. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the GEMINI.md file.
+2. The pre-push hook will automatically update the index file before the changes are pushed to the repo.
+
 ### Search, Selection, and Filtering
 
 You can search for recipes using the Gemini CLI. You can also use the CLI to select and filter recipes based on your preferences.
