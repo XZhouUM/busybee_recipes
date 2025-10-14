@@ -81,7 +81,7 @@ Tags are used to help users search for recipes. Right now, the following tags ar
     - List of ingredients required for the recipe
     - Ingredients are written in the following format. The bracket that contains quantity and unit is optional for ingredients that are very little.
     - The ingredient list starts with the ingedients with quantity and unit, followed by the ones without.
-    - Spell out the unit instead of using abbreviation. For example, use "teaspoon" instead of "tsp", and use "tablespoon" instead of "tbsp".
+    - Spell out the unit instead of using abbreviation. For example, use "teaspoon" instead of "tsp", and use "tablespoon" instead of "tbsp". If there is no unit but just quantity, use "unit" instead of abbreviation.
 ```
 - Ingredient name [quantity unit]
 ```
@@ -159,3 +159,12 @@ Usually the list of ingredients is already given in a recipe. When the ingredien
 Order the list of ingredients in the way that the ones with quantity and unit come first, followed by the ones without quantity and unit.
 
 At last, polish the wording in the instruction section for better readability. There is no need to add special formatting.
+
+### Add New Recipes through Internet Search
+
+A developer can also ask Gemini to search for a recipe on the internet and add them to the repo. The recipe found on the internet should be converted to the correct format as described in [Recipe Format](#recipe-format) after added to the corresponding folder. An example search can be
+
+- Search the internet for a recipe for Chinese fried vegetables, and add to the repo.
+- Search the internet for a recipe that uses ground beef and califlower, and add to the repo.
+
+The search can also be in other languages to aim for the most accurate results.
