@@ -114,6 +114,11 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 30
     tags: ['Vegetables_Protein']
     file_path: "recipes/chinese/tomato_hot_pot.md"
+  - name: "La Zi Ji"
+    active_cooking_time_minutes: 30
+    total_cooking_time_minutes: 40
+    tags: ['Protein']
+    file_path: "recipes/chinese/la_zi_ji.md"
   - name: "Lahmacun"
     active_cooking_time_minutes: 60
     total_cooking_time_minutes: 60
