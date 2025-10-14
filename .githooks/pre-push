@@ -3,55 +3,56 @@
 # stop if anything fails
 set -e
 
+# Initialize flags
+PYTHON_FILES_CHANGED=false
+RECIPE_FILES_CHANGED=false
+
 # Read local and remote refs from stdin (Git passes them to pre-push)
 while read local_ref local_sha remote_ref remote_sha; do
 
-  # Handle different push cases
+  # First push of a new branch
   if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
     echo "Remote branch does not exist yet — first push detected."
     # Get all Python files in local commits (since branch creation)
-    CHANGED_FILES=$(git diff --name-only --cached -- '*.py')
+    CHANGED_PYTHON_FILES=$(git diff --name-only --cached -- '*.py')
+    # Get all recipe files in local commits
+    CHANGED_RECIPE_FILES=$(git diff --name-only --cached -- '*.md')
   elif [ "$local_sha" = "$remote_sha" ]; then
     echo "No new commits to push."
     exit 0
   else
     # Normal push — diff between remote and local
-    CHANGED_FILES=$(git diff --name-only "$remote_sha" "$local_sha" -- '*.py')
+    CHANGED_PYTHON_FILES=$(git diff --name-only "$remote_sha" "$local_sha" -- '*.py')
+    CHANGED_RECIPE_FILES=$(git diff --name-only "$remote_sha" "$local_sha" -- '*.md')
   fi
 
+  # If any Python files changed, format them
+  if [ -n "$CHANGED_PYTHON_FILES" ]; then
+    PYTHON_FILES_CHANGED=true
+    echo "Running code checks on Python files:"
+    echo "$CHANGED_PYTHON_FILES"
 
-  if [ -z "$CHANGED_FILES" ]; then
-    echo "No Python files changed."
-    exit 0
+    # Run Black (formatting)
+    black $CHANGED_PYTHON_FILES
+
+    # Run isort (imports)
+    isort $CHANGED_PYTHON_FILES
+
+    # Run Flake8 (linting)
+    flake8 $CHANGED_PYTHON_FILES
+
+    # Run pytype (static type checking)
+    pytype $CHANGED_PYTHON_FILES
   fi
 
-  echo "Running code checks on Python files:"
-  echo "$CHANGED_FILES"
+  # If any recipe files changed, run the sorting script
+  if [ -n "$CHANGED_RECIPE_FILES" ]; then
+    RECIPE_FILES_CHANGED=true
+    echo "Recipe files changed:"
+    echo "$CHANGED_RECIPE_FILES"
 
-  # Run Black (formatting)
-  black $CHANGED_FILES
-
-  # Run isort (imports)
-  isort $CHANGED_FILES
-
-  # Run Flake8 (linting)
-  flake8 $CHANGED_FILES
-
-  # Run pytype (static type checking)
-  pytype $CHANGED_FILES
+    # Run the sorting script with error handling
+    python3 tools/sort_recipes_by_cooking_time.py --verbose 1
+  fi
 
 done
-
-# Sort recipes by cooking time
-echo "Running sort_recipes_by_cooking_time.py before push..."
-
-python3 tools/sort_recipes_by_cooking_time.py --verbose 1
-
-git add recipes/sorted_recipes_by_cooking_time.yaml
-
-if git diff --cached --quiet; then
-  echo "No recipe changes to commit."
-else
-  git commit -m "Auto-update sorted recipes"
-  echo "Auto-committed updated recipe database."
-fi
