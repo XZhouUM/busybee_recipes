@@ -158,12 +158,12 @@ def parse_quantity(quantity_str: str) -> Tuple[float, str]:
         if "/" in value_str:
             try:
                 value = float(Fraction(value_str))
-            except:
+            except Exception:
                 value = 0.0
         else:
             try:
                 value = float(value_str)
-            except:
+            except Exception:
                 value = 0.0
 
         # Normalize units (convert plural to singular)
@@ -352,9 +352,9 @@ def extract_ingredients_from_recipe(recipe_file_path: Path) -> Dict[str, List[st
 
             # Check if we're leaving the ingredients section (next ## section)
             if (
-                in_ingredients_section
-                and line.strip().startswith("## ")
-                and line.strip().lower() != "## ingredients"
+                in_ingredients_section and
+                line.strip().startswith("## ") and
+                line.strip().lower() != "## ingredients"
             ):
                 break
 
@@ -566,7 +566,7 @@ Examples:
             print("\n" + formatted_list)
 
         # Show recipe summary
-        print(f"\nRecipes processed:")
+        print("\nRecipes processed:")
         for recipe_name in args.recipe_names:
             print(f"  • {recipe_name}")
 
