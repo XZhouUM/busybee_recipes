@@ -35,7 +35,7 @@ while read local_ref local_sha remote_ref remote_sha; do
   isort $CHANGED_FILES
 
   # Run Flake8 (linting)
-  flake8 $CHANGED_FILES --line-length=88
+  flake8 $CHANGED_FILES --max-line-length=88
 
 done
 
