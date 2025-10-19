@@ -18,10 +18,10 @@ grocery_list = generate_grocery_list(recipe_dir, recipe_names)
 
 # grocery_list will be a dictionary like:
 # {
-#   'Firm tofu': ['1 block'],
-#   'Soy sauce': ['1 tablespoon', '2 tablespoons'],
-#   'Beef': ['350 grams'],
-#   'Egg': ['1 unit'],
+#   'Firm tofu': (1.0, 'block'),
+#   'Soy sauce': (3.0, 'tablespoon'),
+#   'Beef': (350.0, 'gram'),
+#   'Egg': (1.0, 'unit'),
 #   ...
 # }
 
@@ -54,9 +54,12 @@ CONSOLIDATION LOGIC:
 
 1. Extracts ingredients from each recipe file
 2. Groups identical ingredient names together
-3. Preserves all quantity specifications for manual consolidation
+3. Automatically combines quantities with the same units (e.g., "1 tablespoon" + "2 tablespoons" = "3 tablespoons")
 4. Handles ingredients without specified quantities
-5. Provides a clean, organized shopping list
+5. Returns consolidated quantities as (value, unit) tuples
+6. Filters out unwanted ingredients (e.g., water)
+7. Sorts ingredients by priority: numerical quantities first, "as needed" second, small amounts last
+8. Provides a clean, organized shopping list
 
 REQUIREMENTS:
 =============
@@ -71,6 +74,7 @@ from pathlib import Path
 import re
 import argparse
 import yaml
+from fractions import Fraction
 
 
 def parse_ingredient_line(line: str) -> Optional[Tuple[str, str]]:
@@ -101,6 +105,207 @@ def parse_ingredient_line(line: str) -> Optional[Tuple[str, str]]:
         return (ingredient_name, quantity)
     
     return None
+
+
+def parse_quantity(quantity_str: str) -> Tuple[float, str]:
+    """
+    Parse a quantity string to extract numeric value and unit.
+
+    Args:
+        quantity_str (str): Quantity string like "1 block", "2 tablespoons", "0.5 cup"
+
+    Returns:
+        Tuple[float, str]: (numeric_value, unit) or (0.0, quantity_str) if parsing fails
+    """
+    if not quantity_str or quantity_str.strip().lower() == "as needed":
+        return (0.0, "as needed")
+
+    # Handle complex quantities like "1 tablespoon + 1 teaspoon"
+    if '+' in quantity_str:
+        parts = quantity_str.split('+')
+        total_value = 0.0
+        main_unit = ""
+
+        for part in parts:
+            part = part.strip()
+            value, unit = parse_quantity(part)
+            if main_unit == "":
+                main_unit = unit
+            # Convert to main unit if possible (basic conversions)
+            if unit == "teaspoon" and main_unit == "tablespoon":
+                value = value / 3  # 3 teaspoons = 1 tablespoon
+            elif unit == "tablespoon" and main_unit == "teaspoon":
+                main_unit = "tablespoon"
+                total_value = total_value / 3  # Convert previous teaspoons to tablespoons
+
+            total_value += value
+
+        return (total_value, main_unit)
+
+    # Regular expression to match number and unit
+    # Handles: "1 block", "2.5 cups", "0.5 tablespoon", "350 grams"
+    pattern = r'^(\d*\.?\d+(?:/\d+)?)\s*(.*)$'
+    match = re.match(pattern, quantity_str.strip())
+
+    if match:
+        value_str = match.group(1)
+        unit = match.group(2).strip()
+
+        # Handle fractions like "1/2"
+        if '/' in value_str:
+            try:
+                value = float(Fraction(value_str))
+            except:
+                value = 0.0
+        else:
+            try:
+                value = float(value_str)
+            except:
+                value = 0.0
+
+        # Normalize units (convert plural to singular)
+        unit = normalize_unit(unit)
+
+        return (value, unit)
+
+    # If parsing fails, return the original string as unit with 0 value
+    return (0.0, quantity_str.strip())
+
+
+def normalize_unit(unit: str) -> str:
+    """
+    Normalize unit names to singular form for consistent aggregation.
+
+    Args:
+        unit (str): Unit name like "tablespoons", "grams", "units"
+
+    Returns:
+        str: Normalized unit name
+    """
+    unit = unit.lower().strip()
+
+    # Basic normalization by removing trailing 's' if exists.
+    if unit.endswith('s'):
+        unit = unit[:-1]
+    
+    return unit
+
+
+def combine_quantities(quantities: List[str]) -> Tuple[float, str]:
+    """
+    Combine a list of quantity strings with the same ingredient.
+
+    Args:
+        quantities (List[str]): List of quantity strings for the same ingredient
+
+    Returns:
+        Tuple[float, str]: Combined (total_value, unit) or (0.0, "mixed units") if units differ
+    """
+    if not quantities:
+        return (0.0, "as needed")
+
+    # Parse all quantities
+    parsed_quantities = [parse_quantity(q) for q in quantities]
+
+    # Group by unit
+    unit_groups = {}
+    for value, unit in parsed_quantities:
+        if unit not in unit_groups:
+            unit_groups[unit] = []
+        unit_groups[unit].append(value)
+
+    # If all quantities have the same unit, sum them
+    if len(unit_groups) == 1:
+        unit = list(unit_groups.keys())[0]
+        total_value = sum(unit_groups[unit])
+        return (total_value, unit)
+
+    # If there are multiple units, try to find the most common one
+    # or return the first non-zero unit with total
+    main_unit = ""
+    main_total = 0.0
+
+    for unit, values in unit_groups.items():
+        total = sum(values)
+        if unit != "as needed" and (main_unit == "" or total > main_total):
+            main_unit = unit
+            main_total = total
+
+    if main_unit:
+        return (main_total, main_unit)
+
+    # Fallback: return "mixed units" if we can't consolidate
+    return (0.0, "mixed units")
+
+
+def filter_ingredients(grocery_list: Dict[str, Tuple[float, str]]) -> Dict[str, Tuple[float, str]]:
+    """
+    Remove unwanted ingredients from the grocery list.
+
+    Args:
+        grocery_list (Dict[str, Tuple[float, str]]): Original grocery list
+
+    Returns:
+        Dict[str, Tuple[float, str]]: Filtered grocery list with unwanted ingredients removed
+    """
+    # List of ingredients to filter out (case-insensitive)
+    ingredients_to_remove = {'water', 'drinking water'}
+
+    filtered_list = {}
+    for ingredient_name, quantity_tuple in grocery_list.items():
+        if ingredient_name.lower() not in ingredients_to_remove:
+            filtered_list[ingredient_name] = quantity_tuple
+
+    return filtered_list
+
+
+def sort_grocery_list(grocery_list: Dict[str, Tuple[float, str]]) -> Dict[str, Tuple[float, str]]:
+    """
+    Sort the grocery list by priority: numerical quantities first, "as needed" second, small amounts last.
+
+    Args:
+        grocery_list (Dict[str, Tuple[float, str]]): Unsorted grocery list
+
+    Returns:
+        Dict[str, Tuple[float, str]]: Sorted grocery list
+    """
+    def get_sort_priority(item):
+        ingredient_name, (value, unit) = item
+
+        # Priority 1: Items with numerical quantities (value > 0 and not special units)
+        if value > 0 and unit not in ["as needed"] and not is_small_amount_unit(unit):
+            return (1, ingredient_name.lower())
+
+        # Priority 2: Items marked as "as needed"
+        elif unit == "as needed":
+            return (2, ingredient_name.lower())
+
+        # Priority 3: Small amounts (pinch, hint, handful, etc.)
+        else:
+            return (3, ingredient_name.lower())
+
+    # Sort items by priority, then alphabetically within each priority
+    sorted_items = sorted(grocery_list.items(), key=get_sort_priority)
+
+    # Convert back to dictionary (preserving order in Python 3.7+)
+    return dict(sorted_items)
+
+
+def is_small_amount_unit(unit: str) -> bool:
+    """
+    Check if a unit represents a small/imprecise amount.
+
+    Args:
+        unit (str): Unit name to check
+
+    Returns:
+        bool: True if the unit represents a small/imprecise amount
+    """
+    small_amount_units = {
+        'pinch', 'hint', 'handful', 'a handful', 'a pinch', 'a hint',
+        'dash', 'splash', 'sprinkle', 'to taste'
+    }
+    return unit.lower() in small_amount_units
 
 
 def extract_ingredients_from_recipe(recipe_file_path: Path) -> Dict[str, List[str]]:
@@ -181,75 +386,90 @@ def load_recipe_paths(recipe_dir: Path) -> Dict[str, str]:
         raise Exception(f"Error loading recipe database: {e}")
 
 
-def generate_grocery_list(recipe_dir: Path, recipe_names: List[str]) -> Dict[str, List[str]]:
+def generate_grocery_list(recipe_dir: Path, recipe_names: List[str]) -> Dict[str, Tuple[float, str]]:
     """
     Generate a consolidated grocery shopping list from recipe names.
-    
+
     Args:
         recipe_dir (Path): Directory containing the recipes
         recipe_names (List[str]): List of recipe names to include
-        
+
     Returns:
-        Dict[str, List[str]]: Consolidated grocery list with ingredient names and quantities
+        Dict[str, Tuple[float, str]]: Consolidated grocery list with ingredient names and combined quantities as (value, unit) tuples
     """
     # Load recipe name to file path mapping
     recipe_paths = load_recipe_paths(recipe_dir)
-    
-    # Consolidated grocery list
-    grocery_list = {}
-    
+
+    # Consolidated grocery list (temporarily store as lists, then combine)
+    temp_grocery_list = {}
+
     # Process each recipe
     for recipe_name in recipe_names:
         if recipe_name not in recipe_paths:
             print(f"Warning: Recipe '{recipe_name}' not found in database")
             continue
-        
+
         recipe_file_path = recipe_dir / recipe_paths[recipe_name]
         recipe_ingredients = extract_ingredients_from_recipe(recipe_file_path)
-        
-        # Merge ingredients into grocery list
+
+        # Merge ingredients into temporary grocery list
         for ingredient_name, quantities in recipe_ingredients.items():
-            if ingredient_name not in grocery_list:
-                grocery_list[ingredient_name] = []
-            grocery_list[ingredient_name].extend(quantities)
-    
+            if ingredient_name not in temp_grocery_list:
+                temp_grocery_list[ingredient_name] = []
+            temp_grocery_list[ingredient_name].extend(quantities)
+
+    # Convert to final format with combined quantities
+    grocery_list = {}
+    for ingredient_name, quantities in temp_grocery_list.items():
+        combined_value, combined_unit = combine_quantities(quantities)
+        grocery_list[ingredient_name] = (combined_value, combined_unit)
+
+    # Filter out unwanted ingredients
+    grocery_list = filter_ingredients(grocery_list)
+
+    # Sort the grocery list by priority
+    grocery_list = sort_grocery_list(grocery_list)
+
     return grocery_list
 
 
-def format_grocery_list(grocery_list: Dict[str, List[str]]) -> str:
+def format_grocery_list(grocery_list: Dict[str, Tuple[float, str]]) -> str:
     """
     Format the grocery list for display or saving.
-    
+
     Args:
-        grocery_list (Dict[str, List[str]]): Consolidated grocery list
-        
+        grocery_list (Dict[str, Tuple[float, str]]): Consolidated grocery list with combined quantities
+
     Returns:
         str: Formatted grocery list as a string
     """
     if not grocery_list:
         return "No ingredients found."
-    
+
     output_lines = ["GROCERY SHOPPING LIST", "=" * 50, ""]
-    
+
     # Sort ingredients alphabetically
-    for ingredient_name in sorted(grocery_list.keys()):
-        quantities = grocery_list[ingredient_name]
-        
-        # Remove duplicates while preserving order
-        unique_quantities = []
-        for qty in quantities:
-            if qty not in unique_quantities:
-                unique_quantities.append(qty)
-        
-        if len(unique_quantities) == 1:
-            output_lines.append(f"• {ingredient_name}: {unique_quantities[0]}")
+    for ingredient_name in grocery_list.keys():
+        value, unit = grocery_list[ingredient_name]
+
+        # Format the quantity display
+        if unit == "as needed":
+            output_lines.append(f"• {ingredient_name}: as needed")
+        elif unit == "mixed units":
+            output_lines.append(f"• {ingredient_name}: mixed units (check recipes)")
+        elif value == 0.0:
+            output_lines.append(f"• {ingredient_name}: {unit}")
         else:
-            output_lines.append(f"• {ingredient_name}:")
-            for qty in unique_quantities:
-                output_lines.append(f"  - {qty}")
-    
+            # Format the number nicely (remove .0 for whole numbers)
+            if value == int(value):
+                formatted_value = str(int(value))
+            else:
+                formatted_value = str(value)
+
+            output_lines.append(f"• {ingredient_name}: {formatted_value} {unit}")
+
     output_lines.extend(["", f"Total ingredients: {len(grocery_list)}"])
-    
+
     return "\n".join(output_lines)
 
 
