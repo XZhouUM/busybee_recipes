@@ -33,11 +33,20 @@ while read local_ref local_sha remote_ref remote_sha; do
     echo "$CHANGED_PYTHON_FILES"
 
     # Run Black (formatting)
-    black $CHANGED_PYTHON_FILES
+    black $CHANGED_PYTHON_FILES --line-length 88
 
     # Run isort (imports)
     isort $CHANGED_PYTHON_FILES
 
+    # Run Flake8 (linting) but some errors are ignored
+    flake8 $CHANGED_PYTHON_FILES --max-line-length=88 --ignore=E501,W503
+
+    # Run pytype (static type checking)
+    pytype $CHANGED_PYTHON_FILES
+done
+
+# Sort recipes by cooking time
+echo "Running sort_recipes_by_cooking_time.py before push..."
     # Run Flake8 (linting)
     flake8 $CHANGED_PYTHON_FILES
 
