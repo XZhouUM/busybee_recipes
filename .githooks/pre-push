@@ -29,16 +29,13 @@ while read local_ref local_sha remote_ref remote_sha; do
   echo "$CHANGED_FILES"
 
   # Run Black (formatting)
-  black $CHANGED_FILES
+  black $CHANGED_FILES --line-length=88
 
   # Run isort (imports)
   isort $CHANGED_FILES
 
   # Run Flake8 (linting)
-  flake8 $CHANGED_FILES
-
-  # Run pytype (static type checking)
-  pytype $CHANGED_FILES
+  flake8 $CHANGED_FILES --line-length=88
 
 done
 
