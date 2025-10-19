@@ -352,9 +352,9 @@ def extract_ingredients_from_recipe(recipe_file_path: Path) -> Dict[str, List[st
 
             # Check if we're leaving the ingredients section (next ## section)
             if (
-                in_ingredients_section and
-                line.strip().startswith("## ") and
-                line.strip().lower() != "## ingredients"
+                in_ingredients_section
+                and line.strip().startswith("## ")
+                and line.strip().lower() != "## ingredients"
             ):
                 break
 

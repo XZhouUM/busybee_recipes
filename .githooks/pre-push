@@ -35,7 +35,7 @@ while read local_ref local_sha remote_ref remote_sha; do
   isort $CHANGED_FILES
 
   # Run Flake8 (linting) but some line length errors are ignored
-  flake8 $CHANGED_FILES --max-line-length=88 --ignore=E501
+  flake8 $CHANGED_FILES --max-line-length=88 --ignore=E501,W503
 
 done
 
