@@ -69,41 +69,42 @@ REQUIREMENTS:
 - Python packages: pathlib, typing, re, argparse, yaml
 """
 
-from typing import List, Dict, Tuple, Optional
-from pathlib import Path
-import re
 import argparse
-import yaml
+import re
 from fractions import Fraction
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
+
+import yaml
 
 
 def parse_ingredient_line(line: str) -> Optional[Tuple[str, str]]:
     """
     Parse a single ingredient line to extract ingredient name and quantity.
-    
+
     Args:
         line (str): Raw ingredient line from markdown file
-        
+
     Returns:
         Optional[Tuple[str, str]]: (ingredient_name, quantity) or None if not an ingredient
     """
     # Remove leading/trailing whitespace and markdown list markers
-    line = line.strip().lstrip('- ').strip()
-    
+    line = line.strip().lstrip("- ").strip()
+
     # Skip empty lines or non-ingredient lines
-    if not line or line.startswith('#') or line.startswith('##'):
+    if not line or line.startswith("#") or line.startswith("##"):
         return None
-    
+
     # Pattern to match: ingredient_name [quantity] (optional_notes)
     # Examples: "Firm tofu [1 block]", "Hot pepper sauce", "Garlic [1 clove] (optional)"
-    pattern = r'^([^[\(]+?)(?:\s*\[([^\]]+)\])?(?:\s*\([^)]+\))?(?:\s*\[optional\])?$'
+    pattern = r"^([^[\(]+?)(?:\s*\[([^\]]+)\])?(?:\s*\([^)]+\))?(?:\s*\[optional\])?$"
     match = re.match(pattern, line, re.IGNORECASE)
-    
+
     if match:
         ingredient_name = match.group(1).strip()
         quantity = match.group(2).strip() if match.group(2) else "as needed"
         return (ingredient_name, quantity)
-    
+
     return None
 
 
@@ -121,8 +122,8 @@ def parse_quantity(quantity_str: str) -> Tuple[float, str]:
         return (0.0, "as needed")
 
     # Handle complex quantities like "1 tablespoon + 1 teaspoon"
-    if '+' in quantity_str:
-        parts = quantity_str.split('+')
+    if "+" in quantity_str:
+        parts = quantity_str.split("+")
         total_value = 0.0
         main_unit = ""
 
@@ -136,7 +137,9 @@ def parse_quantity(quantity_str: str) -> Tuple[float, str]:
                 value = value / 3  # 3 teaspoons = 1 tablespoon
             elif unit == "tablespoon" and main_unit == "teaspoon":
                 main_unit = "tablespoon"
-                total_value = total_value / 3  # Convert previous teaspoons to tablespoons
+                total_value = (
+                    total_value / 3
+                )  # Convert previous teaspoons to tablespoons
 
             total_value += value
 
@@ -144,7 +147,7 @@ def parse_quantity(quantity_str: str) -> Tuple[float, str]:
 
     # Regular expression to match number and unit
     # Handles: "1 block", "2.5 cups", "0.5 tablespoon", "350 grams"
-    pattern = r'^(\d*\.?\d+(?:/\d+)?)\s*(.*)$'
+    pattern = r"^(\d*\.?\d+(?:/\d+)?)\s*(.*)$"
     match = re.match(pattern, quantity_str.strip())
 
     if match:
@@ -152,7 +155,7 @@ def parse_quantity(quantity_str: str) -> Tuple[float, str]:
         unit = match.group(2).strip()
 
         # Handle fractions like "1/2"
-        if '/' in value_str:
+        if "/" in value_str:
             try:
                 value = float(Fraction(value_str))
             except:
@@ -185,9 +188,9 @@ def normalize_unit(unit: str) -> str:
     unit = unit.lower().strip()
 
     # Basic normalization by removing trailing 's' if exists.
-    if unit.endswith('s'):
+    if unit.endswith("s"):
         unit = unit[:-1]
-    
+
     return unit
 
 
@@ -238,7 +241,9 @@ def combine_quantities(quantities: List[str]) -> Tuple[float, str]:
     return (0.0, "mixed units")
 
 
-def filter_ingredients(grocery_list: Dict[str, Tuple[float, str]]) -> Dict[str, Tuple[float, str]]:
+def filter_ingredients(
+    grocery_list: Dict[str, Tuple[float, str]],
+) -> Dict[str, Tuple[float, str]]:
     """
     Remove unwanted ingredients from the grocery list.
 
@@ -249,7 +254,7 @@ def filter_ingredients(grocery_list: Dict[str, Tuple[float, str]]) -> Dict[str, 
         Dict[str, Tuple[float, str]]: Filtered grocery list with unwanted ingredients removed
     """
     # List of ingredients to filter out (case-insensitive)
-    ingredients_to_remove = {'water', 'drinking water'}
+    ingredients_to_remove = {"water", "drinking water"}
 
     filtered_list = {}
     for ingredient_name, quantity_tuple in grocery_list.items():
@@ -259,7 +264,9 @@ def filter_ingredients(grocery_list: Dict[str, Tuple[float, str]]) -> Dict[str, 
     return filtered_list
 
 
-def sort_grocery_list(grocery_list: Dict[str, Tuple[float, str]]) -> Dict[str, Tuple[float, str]]:
+def sort_grocery_list(
+    grocery_list: Dict[str, Tuple[float, str]],
+) -> Dict[str, Tuple[float, str]]:
     """
     Sort the grocery list by priority: numerical quantities first, "as needed" second, small amounts last.
 
@@ -269,6 +276,7 @@ def sort_grocery_list(grocery_list: Dict[str, Tuple[float, str]]) -> Dict[str, T
     Returns:
         Dict[str, Tuple[float, str]]: Sorted grocery list
     """
+
     def get_sort_priority(item):
         ingredient_name, (value, unit) = item
 
@@ -302,8 +310,16 @@ def is_small_amount_unit(unit: str) -> bool:
         bool: True if the unit represents a small/imprecise amount
     """
     small_amount_units = {
-        'pinch', 'hint', 'handful', 'a handful', 'a pinch', 'a hint',
-        'dash', 'splash', 'sprinkle', 'to taste'
+        "pinch",
+        "hint",
+        "handful",
+        "a handful",
+        "a pinch",
+        "a hint",
+        "dash",
+        "splash",
+        "sprinkle",
+        "to taste",
     }
     return unit.lower() in small_amount_units
 
@@ -311,33 +327,37 @@ def is_small_amount_unit(unit: str) -> bool:
 def extract_ingredients_from_recipe(recipe_file_path: Path) -> Dict[str, List[str]]:
     """
     Extract ingredients from a single recipe markdown file.
-    
+
     Args:
         recipe_file_path (Path): Path to the recipe markdown file
-        
+
     Returns:
         Dict[str, List[str]]: Dictionary mapping ingredient names to list of quantities
     """
     ingredients = {}
-    
+
     try:
-        with open(recipe_file_path, 'r', encoding='utf-8') as f:
+        with open(recipe_file_path, "r", encoding="utf-8") as f:
             content = f.read()
-        
+
         # Find the ingredients section
-        lines = content.split('\n')
+        lines = content.split("\n")
         in_ingredients_section = False
-        
+
         for line in lines:
             # Check if we're entering the ingredients section
-            if line.strip().lower() == '## ingredients':
+            if line.strip().lower() == "## ingredients":
                 in_ingredients_section = True
                 continue
-            
+
             # Check if we're leaving the ingredients section (next ## section)
-            if in_ingredients_section and line.strip().startswith('## ') and line.strip().lower() != '## ingredients':
+            if (
+                in_ingredients_section
+                and line.strip().startswith("## ")
+                and line.strip().lower() != "## ingredients"
+            ):
                 break
-            
+
             # Parse ingredient lines
             if in_ingredients_section:
                 parsed = parse_ingredient_line(line)
@@ -345,48 +365,50 @@ def extract_ingredients_from_recipe(recipe_file_path: Path) -> Dict[str, List[st
                     ingredient_name, quantity = parsed
                     # Normalize ingredient name (title case)
                     ingredient_name = ingredient_name.title()
-                    
+
                     if ingredient_name not in ingredients:
                         ingredients[ingredient_name] = []
                     ingredients[ingredient_name].append(quantity)
-    
+
     except FileNotFoundError:
         print(f"Warning: Recipe file not found: {recipe_file_path}")
     except Exception as e:
         print(f"Warning: Error reading recipe file {recipe_file_path}: {e}")
-    
+
     return ingredients
 
 
 def load_recipe_paths(recipe_dir: Path) -> Dict[str, str]:
     """
     Load recipe name to file path mapping from the YAML file.
-    
+
     Args:
         recipe_dir (Path): Directory containing the recipes
-        
+
     Returns:
         Dict[str, str]: Mapping of recipe names to file paths
     """
     yaml_file = recipe_dir / "recipes" / "sorted_recipes_by_cooking_time.yaml"
-    
+
     try:
-        with open(yaml_file, 'r') as f:
+        with open(yaml_file, "r") as f:
             data = yaml.safe_load(f)
-        
+
         recipe_paths = {}
-        for recipe in data['sorted_recipes_by_active_cooking_time']:
-            recipe_paths[recipe['name']] = recipe['file_path']
-        
+        for recipe in data["sorted_recipes_by_active_cooking_time"]:
+            recipe_paths[recipe["name"]] = recipe["file_path"]
+
         return recipe_paths
-    
+
     except FileNotFoundError:
         raise FileNotFoundError(f"Recipe database not found: {yaml_file}")
     except Exception as e:
         raise Exception(f"Error loading recipe database: {e}")
 
 
-def generate_grocery_list(recipe_dir: Path, recipe_names: List[str]) -> Dict[str, Tuple[float, str]]:
+def generate_grocery_list(
+    recipe_dir: Path, recipe_names: List[str]
+) -> Dict[str, Tuple[float, str]]:
     """
     Generate a consolidated grocery shopping list from recipe names.
 
@@ -488,23 +510,34 @@ def main():
     """
     # Set up command line argument parsing
     parser = argparse.ArgumentParser(
-        description='Generate a consolidated grocery shopping list from recipe names',
+        description="Generate a consolidated grocery shopping list from recipe names",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   %(prog)s "Firm Tofu" "Fried Beef" "Egg Drop Soup"
   %(prog)s "Curry Rice" "Chinese Salad" --output grocery_list.txt
   %(prog)s "Tomato Hot Pot" --recipe-dir /path/to/recipes
-        """
+        """,
     )
 
     # Define command line arguments
-    parser.add_argument('recipe_names', nargs='+',
-                        help='Names of recipes to include in the grocery list')
-    parser.add_argument('--recipe-dir', type=str, default='.',
-                        help='Directory containing the recipes (default: current directory)')
-    parser.add_argument('--output', type=str, default=None,
-                        help='Output file path to save the grocery list (optional)')
+    parser.add_argument(
+        "recipe_names",
+        nargs="+",
+        help="Names of recipes to include in the grocery list",
+    )
+    parser.add_argument(
+        "--recipe-dir",
+        type=str,
+        default=".",
+        help="Directory containing the recipes (default: current directory)",
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+        default=None,
+        help="Output file path to save the grocery list (optional)",
+    )
 
     # Parse command line arguments
     args = parser.parse_args()
@@ -524,7 +557,7 @@ Examples:
         if args.output:
             # Save to file
             output_path = Path(args.output)
-            with open(output_path, 'w', encoding='utf-8') as f:
+            with open(output_path, "w", encoding="utf-8") as f:
                 f.write(formatted_list)
             print(f"Grocery list saved to: {output_path}")
             print(f"Found {len(grocery_list)} unique ingredients")
