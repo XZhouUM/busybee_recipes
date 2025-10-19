@@ -12,4 +12,27 @@ else
   echo "Warning: .githooks/pre-push not found!"
 fi
 
+# Create virtual environment to install dependencies
+if [ ! -d ".venv" ]; then
+  echo "Creating virtual environment..."
+  python3 -m venv .venv
+  echo "Virtual environment created."
+else
+  echo "Virtual environment already exists."
+fi
+echo "Installing Python dependencies..."
+source .venv/bin/activate
+pip install -r requirements.txt
+echo "Dependencies installed in virtual environment."
+
+# Install GEMINI CLI
+read -p "Do you want to install GEMINI CLI? (y/n): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "Installing GEMINI CLI..."
+  brew install gemini-cli
+else
+  echo "Skipping GEMINI CLI installation."
+fi
+
 echo "Repo setup complete."
