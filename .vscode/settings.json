@@ -3,7 +3,7 @@
     "editor.formatOnType": false,
     "editor.formatOnPaste": false,
     "[python]": {
-        "editor.defaultFormatter": "ms-python.python",
+        "editor.defaultFormatter": "mikoz.black-py",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
