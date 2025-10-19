@@ -37,6 +37,8 @@ while read local_ref local_sha remote_ref remote_sha; do
   # Run Flake8 (linting) but some line length errors are ignored
   flake8 $CHANGED_FILES --max-line-length=88 --ignore=E501,W503
 
+  # Run pytype (static type checking)
+  pytype $CHANGED_FILES
 done
 
 # Sort recipes by cooking time
