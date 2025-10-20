@@ -37,8 +37,16 @@ jobs:
     - name: Upload meal plan artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: weekly-meal-plan-${{ github.run_number }}
+        name: weekly-meal-plan
         path: |
           weekly_groceries.txt
           weekly_meal_plan.ics
         retention-days: 7
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: ./weekly_meal_plan.ics
+
