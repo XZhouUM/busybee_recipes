@@ -14,8 +14,6 @@ on:
 jobs:
   plan-weekly-meals:
     runs-on: ubuntu-latest
-    # Only run on master branch
-    if: github.ref == 'refs/heads/master'
     
     steps:
     - name: Checkout repository
