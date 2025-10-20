@@ -462,12 +462,14 @@ def create_meal_calendar(
                 base_name = f"{recipe_name.lower().replace(" ", "_")}.md"
 
                 # Search in all subdirectories with exact matches first
-                for path in search_dir.rglob(base_name):
-                    return path.relative_to(search_dir)
+                full_dir = Path.cwd()/search_dir
+                for path in full_dir.rglob(base_name):
+                    return path.relative_to(full_dir)
 
                 return None
 
             recipe_file_path = find_recipe_file(recipe, Path("recipes"))
+            print(recipe_file_path)
 
             if recipe_file_path:
                 # Create GitHub link with found path
