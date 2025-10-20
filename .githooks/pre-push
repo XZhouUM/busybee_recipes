@@ -43,6 +43,7 @@ while read local_ref local_sha remote_ref remote_sha; do
 
     # Run pytype (static type checking)
     pytype $CHANGED_PYTHON_FILES
+  fi
 done
 
 # Sort recipes by cooking time
