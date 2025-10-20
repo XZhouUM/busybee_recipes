@@ -381,7 +381,9 @@ def create_meal_calendar(
     if start_date is None:
         # Default to next Saturday in specified timezone
         today = datetime.now(target_tz)
-        days_ahead = 5 - today.weekday()  # Saturday is 5 (Monday=0, Tuesday=1, ..., Saturday=5)
+        days_ahead = (
+            5 - today.weekday()
+        )  # Saturday is 5 (Monday=0, Tuesday=1, ..., Saturday=5)
         if days_ahead <= 0:  # Target day already happened this week
             days_ahead += 7
         start_date = today + timedelta(days=days_ahead)
@@ -547,9 +549,7 @@ def create_meal_calendar(
         )
 
     # Add grocery shopping event (Saturday 10 AM)
-    shopping_datetime = start_date.replace(
-        hour=10, minute=0, second=0, microsecond=0
-    )
+    shopping_datetime = start_date.replace(hour=10, minute=0, second=0, microsecond=0)
     shopping_start = shopping_datetime.strftime("%Y%m%dT%H%M%S")
     shopping_end = (shopping_datetime + timedelta(hours=1)).strftime("%Y%m%dT%H%M%S")
     shopping_uid = (
