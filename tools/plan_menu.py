@@ -12,14 +12,23 @@ USAGE AS A LIBRARY:
 from pathlib import Path
 from tools.plan_menu import plan_menu
 
-# Plan meals for 3 days, 2 meals per day, with time constraints
+# Plan meals with flexible time constraints per meal
 recipe_dir = Path(".")
+meal_plan = {
+    "Monday": {
+        1: (20, 45),    # Meal 1: 20 min active, 45 min total
+        2: (15, 30),    # Meal 2: 15 min active, 30 min total
+        3: (25, 60)     # Meal 3: 25 min active, 60 min total
+    },
+    "Tuesday": {
+        1: (10, 25),    # Meal 1: 10 min active, 25 min total
+        2: (30, 50)     # Meal 2: 30 min active, 50 min total
+    }
+}
+
 meals = plan_menu(
     recipe_dir=recipe_dir,
-    number_of_days=3,
-    number_of_meals_per_day=2,
-    active_cooking_time_per_meal=20,  # max 20 minutes active cooking
-    total_time_per_meal=45            # max 45 minutes total time
+    meal_plan=meal_plan
 )
 
 # meals will be a list of lists, e.g.:
@@ -70,7 +79,7 @@ ERROR HANDLING:
 - FileNotFoundError: If the recipe YAML file cannot be found
 """
 
-from typing import List
+from typing import List, Dict, Tuple
 from pathlib import Path
 import yaml
 import random
@@ -78,26 +87,24 @@ import argparse
 
 
 def plan_menu(recipe_dir: Path,
-        number_of_days: int,
-        number_of_meals_per_day: int,
-        active_cooking_time_per_meal: int,
-        total_time_per_meal: int
+        meal_plan: Dict[str, Dict[int, Tuple[int, int]]]
     ) -> List[List[str]]:
     """
     Plan the menu for the specified period.
 
     Args:
         recipe_dir (Path): Directory containing all the recipes.
-        number_of_days (int): Number of days to plan the menu for.
-        number_of_meals_per_day (int): Number of meals to plan per day.
-        active_cooking_time_per_meal (int): Maximum active cooking time per meal.
-        total_time_per_meal (int): Maximum total time (including hands-off time) per meal.
+        meal_plan (Dict[str, Dict[int, Tuple[int, int]]]): Dictionary mapping day names to meals
+            with their time constraints. Format: {day: {meal_number: (active_time, total_time)}}
+            Example: {"Monday": {1: (20, 45), 2: (15, 30)}, "Tuesday": {1: (25, 50)}}
 
     Returns:
         List[List[str]]: List of meals, where each meal is a list of recipe names.
+                        Meals are returned in the order: Day 1 Meal 1, Day 1 Meal 2, ..., Day 2 Meal 1, etc.
 
     Raises:
-        ValueError: If active_cooking_time_per_meal is outside the available recipe range.
+        ValueError: If any active_cooking_time constraint is outside the available recipe range.
+        ValueError: If no valid meal combinations can be found for any meal.
     """
     # Load the sorted recipes YAML file
     yaml_file = recipe_dir / "recipes" / "sorted_recipes_by_cooking_time.yaml"
@@ -107,12 +114,14 @@ def plan_menu(recipe_dir: Path,
     recipes = data['sorted_recipes_by_active_cooking_time']
     time_range = data['summary']['active_cooking_time_range']
 
-    # Validate active_cooking_time_per_meal is within range
-    if not (time_range['min_minutes'] <= active_cooking_time_per_meal <= time_range['max_minutes']):
-        raise ValueError(
-            f"active_cooking_time_per_meal ({active_cooking_time_per_meal}) must be between "
-            f"{time_range['min_minutes']} and {time_range['max_minutes']} minutes"
-        )
+    # Validate all active_cooking_time constraints are within range
+    for day, meals in meal_plan.items():
+        for meal_num, (active_time, total_time) in meals.items():
+            if not (time_range['min_minutes'] <= active_time <= time_range['max_minutes']):
+                raise ValueError(
+                    f"active_cooking_time for {day} meal {meal_num} ({active_time}) must be between "
+                    f"{time_range['min_minutes']} and {time_range['max_minutes']} minutes"
+                )
 
     # Separate recipes by tags
     vegetables_protein_recipes = []
@@ -128,39 +137,53 @@ def plan_menu(recipe_dir: Path,
         elif 'Vegetables' in tags:
             vegetables_recipes.append(recipe)
 
-    # Result set to store all valid meal combinations
-    result_set = []
+    def get_valid_meals_for_constraints(active_time_limit: int, total_time_limit: int) -> List[List[str]]:
+        """Get all valid meal combinations for specific time constraints."""
+        valid_meals = []
 
-    # 1. Find Vegetables_Protein recipes within time limits (single recipe meals)
-    for recipe in vegetables_protein_recipes:
-        if (recipe['active_cooking_time_minutes'] <= active_cooking_time_per_meal and
-            recipe['total_cooking_time_minutes'] <= total_time_per_meal):
-            result_set.append([recipe['name']])
+        # 1. Find Vegetables_Protein recipes within time limits (single recipe meals)
+        for recipe in vegetables_protein_recipes:
+            if (recipe['active_cooking_time_minutes'] <= active_time_limit and
+                recipe['total_cooking_time_minutes'] <= total_time_limit):
+                valid_meals.append([recipe['name']])
 
-    # 2. Find Protein + Vegetables combinations
-    for protein_recipe in protein_recipes:
-        if protein_recipe['active_cooking_time_minutes'] <= active_cooking_time_per_meal:
-            # Calculate remaining time after protein recipe
-            remaining_active_time = active_cooking_time_per_meal - protein_recipe['active_cooking_time_minutes']
-            remaining_total_time = total_time_per_meal - protein_recipe['total_cooking_time_minutes']
+        # 2. Find Protein + Vegetables combinations
+        for protein_recipe in protein_recipes:
+            if protein_recipe['active_cooking_time_minutes'] <= active_time_limit:
+                # Calculate remaining time after protein recipe
+                remaining_active_time = active_time_limit - protein_recipe['active_cooking_time_minutes']
+                remaining_total_time = total_time_limit - protein_recipe['total_cooking_time_minutes']
 
-            # Find vegetables recipes that fit in the remaining time
-            for veg_recipe in vegetables_recipes:
-                if (veg_recipe['active_cooking_time_minutes'] <= remaining_active_time and
-                    veg_recipe['total_cooking_time_minutes'] <= remaining_total_time):
-                    result_set.append([protein_recipe['name'], veg_recipe['name']])
+                # Find vegetables recipes that fit in the remaining time
+                for veg_recipe in vegetables_recipes:
+                    if (veg_recipe['active_cooking_time_minutes'] <= remaining_active_time and
+                        veg_recipe['total_cooking_time_minutes'] <= remaining_total_time):
+                        valid_meals.append([protein_recipe['name'], veg_recipe['name']])
 
-    # Calculate total number of meals needed
-    total_meals_needed = number_of_days * number_of_meals_per_day
+        return valid_meals
 
-    # Randomly draw from result set
-    if len(result_set) == 0:
-        raise ValueError("No valid meal combinations found with the given time constraints")
-
-    # Random selection with replacement
+    # Generate meals for each day and meal in order
     selected_meals = []
-    for _ in range(total_meals_needed):
-        selected_meals.append(random.choice(result_set))
+
+    # Process days in sorted order to ensure consistent output
+    for day in sorted(meal_plan.keys()):
+        meals_for_day = meal_plan[day]
+
+        # Process meals in numerical order
+        for meal_num in sorted(meals_for_day.keys()):
+            active_time_limit, total_time_limit = meals_for_day[meal_num]
+
+            # Get valid meal options for this specific time constraint
+            valid_meals = get_valid_meals_for_constraints(active_time_limit, total_time_limit)
+
+            if len(valid_meals) == 0:
+                raise ValueError(
+                    f"No valid meal combinations found for {day} meal {meal_num} "
+                    f"with constraints: {active_time_limit} min active, {total_time_limit} min total"
+                )
+
+            # Randomly select one meal from valid options
+            selected_meals.append(random.choice(valid_meals))
 
     return selected_meals
 
@@ -219,13 +242,18 @@ Examples:
         # Convert recipe directory to Path object
         recipe_dir = Path(args.recipe_dir)
 
+        # Create meal_plan dictionary from command line arguments
+        meal_plan_dict = {}
+        for day_num in range(args.days):
+            day_name = f"Day {day_num + 1}"
+            meal_plan_dict[day_name] = {}
+            for meal_num in range(1, args.meals_per_day + 1):
+                meal_plan_dict[day_name][meal_num] = (args.active_time, args.total_time)
+
         # Generate meal plan using the core planning function
         meals = plan_menu(
             recipe_dir=recipe_dir,
-            number_of_days=args.days,
-            number_of_meals_per_day=args.meals_per_day,
-            active_cooking_time_per_meal=args.active_time,
-            total_time_per_meal=args.total_time
+            meal_plan=meal_plan_dict
         )
 
         # Display the generated meal plan in a user-friendly format
