@@ -62,9 +62,9 @@ python tools/plan_week.py --timezone America/Los_Angeles
 If you are ok with the default meal plan (shown as follows), you can download the latest weekly meal plan from GitHub Action artifacts from the [Weekly Meal Planning](https://github.com/XZhouUM/busybee_recipes/actions/workflows/weekly-meal-plan.yml) workflow.
 
 The default meal plan is:
-Weekdays (Monday-Friday): 1 meal (dinner) per day with (20 active, 40 total) cooking time
-Weekends (Saturday-Sunday): 2 meals (lunch and dinner) per day with (30 active, 60 total) cooking time
-Exception: Saturday dinner has (60 active, 120 total) cooking time for a special meal
+- Weekdays (Monday-Friday): 1 meal (dinner) per day with (20 active, 40 total) cooking time
+- Weekends (Saturday-Sunday): 2 meals (lunch and dinner) per day with (30 active, 60 total) cooking time
+- Exception: Saturday dinner has (60 active, 120 total) cooking time for a special meal
 
 
 ### Meal Planning Tool
