@@ -458,7 +458,7 @@ def create_meal_calendar(
             # Convert recipe name to GitHub-friendly filename
             github_filename = re.sub(r"[^\w\s-]", "", recipe).strip()
             github_filename = re.sub(r"[-\s]+", "_", github_filename)
-            github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/{github_filename}.yaml"
+            github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/{github_filename}.md"
             recipe_links.append(f"• {recipe}: {github_link}")
 
             # Check for preparation time in recipe file
