@@ -41,19 +41,3 @@ jobs:
           weekly_groceries.txt
           weekly_meal_plan.ics
         retention-days: 7
-        
-    - name: Create commit with meal plan files
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        
-        # Add the generated files
-        git add weekly_groceries.txt weekly_meal_plan.ics
-        
-        # Only commit if there are changes
-        if ! git diff --staged --quiet; then
-          git commit -m "Weekly meal plan for $(date +'%Y-%m-%d')"
-          git push
-        else
-          echo "No changes to commit"
-        fi
