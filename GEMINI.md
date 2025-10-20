@@ -16,6 +16,7 @@ Each recipe in this project follows a structured format designed for busy home c
 
 - Active Cooking Time: [number] minutes
 - Total Cooking Time: [number] minutes
+- Preparation Time: [number] minutes/hours/days (optional)
 
 ## Efficiency Tools
 
