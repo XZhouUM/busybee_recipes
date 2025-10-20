@@ -546,7 +546,9 @@ def create_meal_calendar(
         )
 
     # Add grocery shopping event (Saturday 10 AM of previous week)
-    previous_saturday_date = start_date - timedelta(days=2)  # Saturday is 2 days before Monday
+    previous_saturday_date = start_date - timedelta(
+        days=2
+    )  # Saturday is 2 days before Monday
     shopping_datetime = previous_saturday_date.replace(
         hour=10, minute=0, second=0, microsecond=0
     )
