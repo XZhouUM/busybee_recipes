@@ -455,28 +455,23 @@ def create_meal_calendar(
         recipes_with_prep = []
 
         for recipe in meal:
+            # Find the recipe file path
+            def find_file_relative_path(filename: str, search_dir: Path):
+                full_dir = Path.cwd() / search_dir
+                for path in full_dir.rglob(filename):
+                    return path.relative_to(full_dir)
+                return None
+            
+            recipe_file_path = find_file_relative_path(f"{recipe}.md", Path("recipes"))
             # Convert recipe name to GitHub-friendly filename
-            github_filename = re.sub(r"[^\w\s-]", "", recipe).strip()
-            github_filename = re.sub(r"[-\s]+", "_", github_filename)
-            github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/{github_filename}.md"
+            
+            github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/{recipe_file_path}"
             recipe_links.append(f"• {recipe}: {github_link}")
 
-            # Check for preparation time in recipe file
-            # Try different possible file paths and extensions
-            possible_paths = [
-                f"recipes/chinese/{github_filename.lower()}.md",
-                f"recipes/home_creation/{github_filename.lower()}.md",
-                f"recipes/japanese/{github_filename.lower()}.md",
-                f"recipes/mexican/{github_filename.lower()}.md",
-                f"recipes/turkish/{github_filename.lower()}.md",
-            ]
-
-            for recipe_path in possible_paths:
-                prep_time = get_recipe_preparation_time(recipe_path)
-                if prep_time > 0:
-                    max_prep_time_minutes = max(max_prep_time_minutes, prep_time)
-                    recipes_with_prep.append((recipe, prep_time))
-                    break
+            prep_time = get_recipe_preparation_time(f"recipes/{recipe_file_path}")
+            if prep_time > 0:
+                max_prep_time_minutes = max(max_prep_time_minutes, prep_time)
+                recipes_with_prep.append((recipe, prep_time))
 
         # Create preparation event if any recipe requires preparation
         if max_prep_time_minutes > 0:
