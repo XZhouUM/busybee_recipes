@@ -6,6 +6,7 @@ This script provides a predefined weekly meal plan with specific time constraint
 - Weekdays (Monday-Friday): 1 meal per day with (20, 40) cooking time
 - Weekends (Saturday-Sunday): 2 meals per day with (30, 60) cooking time
 - Exception: Saturday dinner has (60, 120) cooking time for a special meal
+- Week runs from Saturday to Friday
 
 USAGE AS A LIBRARY:
 ==================
@@ -18,8 +19,8 @@ recipe_dir = Path(".")
 meals = plan_week(recipe_dir=recipe_dir)
 
 # meals will be a list of lists with 9 total meals:
-# - 5 weekday meals (Mon-Fri)
 # - 4 weekend meals (Sat lunch, Sat dinner, Sun lunch, Sun dinner)
+# - 5 weekday meals (Mon-Fri)
 
 USAGE AS COMMAND LINE TOOL:
 ===========================
@@ -47,16 +48,16 @@ python tools/plan_week.py --timezone UTC
 # Show help and all options
 python tools/plan_week.py --help
 
-WEEKLY SCHEDULE:
-===============
-
-Weekdays (Monday-Friday):
-- 1 meal per day: 20 minutes active, 40 minutes total
+WEEKLY SCHEDULE (Saturday to Friday):
+====================================
 
 Weekends (Saturday-Sunday):
 - Lunch: 30 minutes active, 60 minutes total
 - Dinner: 30 minutes active, 60 minutes total
-- Exception: Saturday dinner: 60 minutes active, 120 minutes total (special meal)
+- Exception: Saturday dinner: 60 minutes active, 120 minutes total
+
+Weekdays (Monday-Friday):
+- 1 meal per day: 20 minutes active, 40 minutes total (special meal)
 
 Total meals per week: 9 meals
 """
@@ -80,13 +81,8 @@ from tools.plan_menu import plan_menu
 
 
 def get_default_meal_plan() -> Dict[str, Dict[int, Tuple[int, int]]]:
-    """Get the default weekly meal plan."""
+    """Get the default weekly meal plan (Saturday to Friday)."""
     return {
-        "Monday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
-        "Tuesday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
-        "Wednesday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
-        "Thursday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
-        "Friday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
         "Saturday": {
             1: (30, 60),  # Weekend lunch: 30 min active, 60 min total
             2: (60, 120),  # Special Saturday dinner: 60 min active, 120 min total
@@ -95,6 +91,11 @@ def get_default_meal_plan() -> Dict[str, Dict[int, Tuple[int, int]]]:
             1: (30, 60),  # Weekend lunch: 30 min active, 60 min total
             2: (30, 60),  # Weekend dinner: 30 min active, 60 min total
         },
+        "Monday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
+        "Tuesday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
+        "Wednesday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
+        "Thursday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
+        "Friday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
     }
 
 
@@ -368,7 +369,7 @@ def create_meal_calendar(
         meals (List[List[str]]): List of meals from plan_week function
         grocery_list_text (str): Formatted grocery list text
         meal_plan (Dict[str, Dict[int, Tuple[int, int]]]): The meal plan used to generate the meals
-        start_date (datetime, optional): Start date for the week. Defaults to next Monday.
+        start_date (datetime, optional): Start date for the week. Defaults to next Saturday.
         timezone_name (str): IANA timezone name (e.g., "America/New_York", "America/Los_Angeles"). Defaults to Eastern Time.
 
     Returns:
@@ -378,9 +379,9 @@ def create_meal_calendar(
     target_tz = zoneinfo.ZoneInfo(timezone_name)
 
     if start_date is None:
-        # Default to next Monday in specified timezone
+        # Default to next Saturday in specified timezone
         today = datetime.now(target_tz)
-        days_ahead = 0 - today.weekday()  # Monday is 0
+        days_ahead = 5 - today.weekday()  # Saturday is 5 (Monday=0, Tuesday=1, ..., Saturday=5)
         if days_ahead <= 0:  # Target day already happened this week
             days_ahead += 7
         start_date = today + timedelta(days=days_ahead)
@@ -430,13 +431,13 @@ def create_meal_calendar(
 
         # Calculate the date for this meal
         day_offset = [
+            "Saturday",
+            "Sunday",
             "Monday",
             "Tuesday",
             "Wednesday",
             "Thursday",
             "Friday",
-            "Saturday",
-            "Sunday",
         ].index(day_name)
         meal_date = start_date + timedelta(days=day_offset)
         meal_datetime = meal_date.replace(
@@ -545,11 +546,8 @@ def create_meal_calendar(
             ]
         )
 
-    # Add grocery shopping event (Saturday 10 AM of previous week)
-    previous_saturday_date = start_date - timedelta(
-        days=2
-    )  # Saturday is 2 days before Monday
-    shopping_datetime = previous_saturday_date.replace(
+    # Add grocery shopping event (Saturday 10 AM)
+    shopping_datetime = start_date.replace(
         hour=10, minute=0, second=0, microsecond=0
     )
     shopping_start = shopping_datetime.strftime("%Y%m%dT%H%M%S")
@@ -605,10 +603,10 @@ def main():
         description="Plan a week of meals with predefined schedule and time constraints",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Weekly Schedule:
-  Weekdays (Mon-Fri): 1 meal per day (20 min active, 40 min total)
+Weekly Schedule (Saturday to Friday):
   Weekends (Sat-Sun): 2 meals per day (30 min active, 60 min total)
   Special: Saturday dinner (60 min active, 120 min total)
+  Weekdays (Mon-Fri): 1 meal per day (20 min active, 40 min total)
 
 Examples:
   %(prog)s
