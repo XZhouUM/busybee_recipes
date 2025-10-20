@@ -59,20 +59,20 @@ You can also specify the time zone for the calendar events created. For example:
 python tools/plan_week.py --timezone America/Los_Angeles
 ```
 
-If you are ok with the default meal plan (shown as follows), you can choose the following options:
+#### Use Default Meal Plan
+[![Weekly Meal Planning](https://github.com/XZhouUM/busybee_recipes/actions/workflows/weekly-meal-plan.yml/badge.svg)](https://github.com/XZhouUM/busybee_recipes/actions/workflows/weekly-meal-plan.yml)
+[![pages-build-deployment](https://github.com/XZhouUM/busybee_recipes/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/XZhouUM/busybee_recipes/actions/workflows/pages/pages-build-deployment)
+
+The default meal plan is:
+- Weekdays (Monday-Friday): 1 meal (dinner) per day with (20 active, 40 total) cooking time;
+- Weekends (Saturday-Sunday): 2 meals (lunch and dinner) per day with (30 active, 60 total) cooking time;
+- Exception: Saturday dinner has (60 active, 120 total) cooking time for a special meal.
+
+You can choose the following options to add it to your calendar:
 - Directly subscribe to the calendar file hosted on GitHub Pages [https://XZhouUM.github.io/busybee_recipes/weekly_meal_plan.ics
 ](https://XZhouUM.github.io/busybee_recipes/weekly_meal_plan.ics
 ) in your Google Calendar
 - Download the latest weekly meal plan from GitHub Action artifacts from the [Weekly Meal Planning](https://github.com/XZhouUM/busybee_recipes/actions/workflows/weekly-meal-plan.yml) workflow.
-
-The default meal plan is:
-- Weekdays (Monday-Friday): 1 meal (dinner) per day with (20 active, 40 total) cooking time
-- Weekends (Saturday-Sunday): 2 meals (lunch and dinner) per day with (30 active, 60 total) cooking time
-- Exception: Saturday dinner has (60 active, 120 total) cooking time for a special meal
-
-Check the GitHub Action status:
-[![Weekly Meal Planning](https://github.com/XZhouUM/busybee_recipes/actions/workflows/weekly-meal-plan.yml/badge.svg)](https://github.com/XZhouUM/busybee_recipes/actions/workflows/weekly-meal-plan.yml)
-[![pages-build-deployment](https://github.com/XZhouUM/busybee_recipes/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/XZhouUM/busybee_recipes/actions/workflows/pages/pages-build-deployment)
 
 ### Meal Planning Tool
 
