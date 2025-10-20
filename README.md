@@ -40,6 +40,22 @@ Alternatively,
 
 You can search for recipes using the Gemini CLI. You can also use the CLI to select and filter recipes based on your preferences.
 
+### Plan a Week of Meals
+
+You can use the `plan_week.py` script to plan a week of meals. The script will automatically generate a calendar file for the week. The calendar file can be imported into your calendar app to see meal events, grocery shopping reminder, and preparation time reminder.
+
+Example usage:
+```bash
+python tools/plan_week.py
+```
+
+If you want to specify the meal plan, you can do so by providing a JSON-like string as an argument. For example:
+```bash
+python tools/plan_week.py --meal-plan '{Monday: {1: [20, 40]}, Tuesday: {1: [30, 60]}}'
+```
+
+If you are ok with the default meal plan, you can download the latest weekly meal plan from GitHub Action artifacts.
+
 ### Meal Planning Tool
 
 This repo contains a script to plan meals based on cooking time constraints. The tool reads from `sorted_recipes_by_cooking_time.yaml` file containing sorted recipes and generates meal combinations that fit within specified time limits.
@@ -56,3 +72,12 @@ python tools/plan_menu.py --days 3 --meals-per-day 2 --active-time 20 --total-ti
 This command means that you would like to plan meals for 3 days, with 2 meals per day. Each meal should have a maximum active cooking time of 20 minutes and a maximum total time (including hands-off time) of 45 minutes.
 
 ```BETA: This function can also be achieved using Gemini CLI.```
+
+### Grocery List Generator
+
+You can use the `generate_grocery_list.py` script to generate a grocery list from a list of recipe names. The script will automatically consolidate the ingredients and quantities for you.
+
+Example usage:
+```bash
+python tools/generate_grocery_list.py "Firm Tofu" "Fried Beef" "Egg Drop Soup"
+```
