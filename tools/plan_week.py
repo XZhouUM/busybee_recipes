@@ -393,7 +393,7 @@ def create_meal_calendar(
                     f"DTSTART:{prep_start}",
                     f"DTEND:{prep_end}",
                     f"SUMMARY:Prep for {day_name} {meal_type} ({prep_time_str} ahead)",
-                    f"DESCRIPTION:Preparation needed for:\\n{'\\n'.join(prep_recipes)}",
+                    f"DESCRIPTION:Preparation needed for:\n{'\n'.join(prep_recipes)}",
                     "LOCATION:Kitchen",
                     "END:VEVENT",
                 ]
