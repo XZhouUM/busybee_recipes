@@ -455,25 +455,34 @@ def create_meal_calendar(
         recipes_with_prep = []
 
         for recipe in meal:
-            # Find the recipe file path
-            def find_file_relative_path(filename: str, search_dir: Path):
-                full_dir = Path.cwd() / search_dir
-                for path in full_dir.rglob(filename):
-                    return path.relative_to(full_dir)
+            # Find the recipe file path with improved logic
+            def find_recipe_file(recipe_name: str, search_dir: Path) -> Optional[Path]:
+                """Find recipe file by searching through subdirectories with fuzzy matching."""
+                # Convert recipe name to filename
+                base_name = f"{recipe_name.lower().replace(" ", "_")}.md"
+
+                # Search in all subdirectories with exact matches first
+                for path in search_dir.rglob(base_name):
+                    return path.relative_to(search_dir)
+
                 return None
 
-            recipe_file_path = find_file_relative_path(
-                f"{recipe.lower()}.md", Path("recipes")
-            )
-            # Convert recipe name to GitHub-friendly filename
+            recipe_file_path = find_recipe_file(recipe, Path("recipes"))
 
-            github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/{recipe_file_path}"
-            recipe_links.append(f"• {recipe}: {github_link}")
+            if recipe_file_path:
+                # Create GitHub link with found path
+                github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/{recipe_file_path}"
+                recipe_links.append(f"• {recipe}: {github_link}")
 
-            prep_time = get_recipe_preparation_time(f"recipes/{recipe_file_path}")
-            if prep_time > 0:
-                max_prep_time_minutes = max(max_prep_time_minutes, prep_time)
-                recipes_with_prep.append((recipe, prep_time))
+                # Get preparation time
+                full_recipe_path = Path("recipes") / recipe_file_path
+                prep_time = get_recipe_preparation_time(str(full_recipe_path))
+                if prep_time > 0:
+                    max_prep_time_minutes = max(max_prep_time_minutes, prep_time)
+                    recipes_with_prep.append((recipe, prep_time))
+            else:
+                # Fallback if file not found
+                recipe_links.append(f"• {recipe}: (recipe file not found)")
 
         # Create preparation event if any recipe requires preparation
         if max_prep_time_minutes > 0:
