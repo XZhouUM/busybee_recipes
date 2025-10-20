@@ -39,6 +39,11 @@ python tools/plan_week.py --meal-plan '{Monday: {1: [20, 40]}, Tuesday: {1: [30,
 # Specify custom recipe directory
 python tools/plan_week.py --recipe-dir /path/to/recipes
 
+# Use different timezone for calendar events
+python tools/plan_week.py --timezone America/Los_Angeles
+python tools/plan_week.py --timezone America/Chicago
+python tools/plan_week.py --timezone UTC
+
 # Show help and all options
 python tools/plan_week.py --help
 
@@ -65,6 +70,7 @@ import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+import zoneinfo
 
 # Add the parent directory to the Python path to import plan_menu
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -137,6 +143,106 @@ def parse_meal_plan(meal_plan_str: str) -> Dict[str, Dict[int, Tuple[int, int]]]
         raise ValueError(f"Invalid JSON format in meal plan: {e}")
     except (KeyError, ValueError, TypeError) as e:
         raise ValueError(f"Invalid meal plan structure: {e}")
+
+
+def get_timezone_definition(timezone_name: str) -> List[str]:
+    """
+    Generate VTIMEZONE definition for common timezones.
+
+    Args:
+        timezone_name (str): IANA timezone name
+
+    Returns:
+        List[str]: VTIMEZONE definition lines for .ics file
+    """
+    # Common timezone definitions
+    timezone_definitions = {
+        "America/New_York": [
+            "BEGIN:VTIMEZONE",
+            "TZID:America/New_York",
+            "BEGIN:DAYLIGHT",
+            "TZOFFSETFROM:-0500",
+            "TZOFFSETTO:-0400",
+            "TZNAME:EDT",
+            "DTSTART:20070311T020000",
+            "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU",
+            "END:DAYLIGHT",
+            "BEGIN:STANDARD",
+            "TZOFFSETFROM:-0400",
+            "TZOFFSETTO:-0500",
+            "TZNAME:EST",
+            "DTSTART:20071104T020000",
+            "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU",
+            "END:STANDARD",
+            "END:VTIMEZONE",
+        ],
+        "America/Los_Angeles": [
+            "BEGIN:VTIMEZONE",
+            "TZID:America/Los_Angeles",
+            "BEGIN:DAYLIGHT",
+            "TZOFFSETFROM:-0800",
+            "TZOFFSETTO:-0700",
+            "TZNAME:PDT",
+            "DTSTART:20070311T020000",
+            "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU",
+            "END:DAYLIGHT",
+            "BEGIN:STANDARD",
+            "TZOFFSETFROM:-0700",
+            "TZOFFSETTO:-0800",
+            "TZNAME:PST",
+            "DTSTART:20071104T020000",
+            "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU",
+            "END:STANDARD",
+            "END:VTIMEZONE",
+        ],
+        "America/Chicago": [
+            "BEGIN:VTIMEZONE",
+            "TZID:America/Chicago",
+            "BEGIN:DAYLIGHT",
+            "TZOFFSETFROM:-0600",
+            "TZOFFSETTO:-0500",
+            "TZNAME:CDT",
+            "DTSTART:20070311T020000",
+            "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU",
+            "END:DAYLIGHT",
+            "BEGIN:STANDARD",
+            "TZOFFSETFROM:-0500",
+            "TZOFFSETTO:-0600",
+            "TZNAME:CST",
+            "DTSTART:20071104T020000",
+            "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU",
+            "END:STANDARD",
+            "END:VTIMEZONE",
+        ],
+        "UTC": [
+            "BEGIN:VTIMEZONE",
+            "TZID:UTC",
+            "BEGIN:STANDARD",
+            "TZOFFSETFROM:+0000",
+            "TZOFFSETTO:+0000",
+            "TZNAME:UTC",
+            "DTSTART:19700101T000000",
+            "END:STANDARD",
+            "END:VTIMEZONE",
+        ],
+    }
+
+    # Return the definition if available, otherwise create a basic one
+    if timezone_name in timezone_definitions:
+        return timezone_definitions[timezone_name]
+    else:
+        # Create a basic timezone definition for unknown timezones
+        return [
+            "BEGIN:VTIMEZONE",
+            f"TZID:{timezone_name}",
+            "BEGIN:STANDARD",
+            "TZOFFSETFROM:+0000",
+            "TZOFFSETTO:+0000",
+            f"TZNAME:{timezone_name}",
+            "DTSTART:19700101T000000",
+            "END:STANDARD",
+            "END:VTIMEZONE",
+        ]
 
 
 def parse_preparation_time(time_str: str) -> int:
@@ -253,6 +359,7 @@ def create_meal_calendar(
     grocery_list_text: str,
     meal_plan: Dict[str, Dict[int, Tuple[int, int]]],
     start_date: Optional[datetime] = None,
+    timezone_name: str = "America/New_York",
 ) -> str:
     """
     Create an .ics calendar file content for the weekly meal plan.
@@ -262,17 +369,27 @@ def create_meal_calendar(
         grocery_list_text (str): Formatted grocery list text
         meal_plan (Dict[str, Dict[int, Tuple[int, int]]]): The meal plan used to generate the meals
         start_date (datetime, optional): Start date for the week. Defaults to next Monday.
+        timezone_name (str): IANA timezone name (e.g., "America/New_York", "America/Los_Angeles"). Defaults to Eastern Time.
 
     Returns:
         str: .ics file content
     """
+    # Set timezone based on parameter
+    target_tz = zoneinfo.ZoneInfo(timezone_name)
+
     if start_date is None:
-        # Default to next Monday
-        today = datetime.now()
+        # Default to next Monday in specified timezone
+        today = datetime.now(target_tz)
         days_ahead = 0 - today.weekday()  # Monday is 0
         if days_ahead <= 0:  # Target day already happened this week
             days_ahead += 7
         start_date = today + timedelta(days=days_ahead)
+    else:
+        # Ensure start_date has the specified timezone
+        if start_date.tzinfo is None:
+            start_date = start_date.replace(tzinfo=target_tz)
+        else:
+            start_date = start_date.astimezone(target_tz)
 
     # Create dynamic meal schedule based on the actual meal plan
     meal_schedule = []
@@ -303,6 +420,9 @@ def create_meal_calendar(
         "CALSCALE:GREGORIAN",
         "METHOD:PUBLISH",
     ]
+
+    # Add timezone definition
+    ics_content.extend(get_timezone_definition(timezone_name))
 
     # Add meal events
     for i, (day_name, meal_type, hour, minute) in enumerate(meal_schedule):
@@ -390,10 +510,10 @@ def create_meal_calendar(
                 [
                     "BEGIN:VEVENT",
                     f"UID:{prep_uid}",
-                    f"DTSTART:{prep_start}",
-                    f"DTEND:{prep_end}",
+                    f"DTSTART;TZID={timezone_name}:{prep_start}",
+                    f"DTEND;TZID={timezone_name}:{prep_end}",
                     f"SUMMARY:Prep for {day_name} {meal_type} ({prep_time_str} ahead)",
-                    f"DESCRIPTION:Preparation needed for:\n{'\n'.join(prep_recipes)}",
+                    f"DESCRIPTION:Preparation needed for:\\n{'\\n'.join(prep_recipes)}",
                     "LOCATION:Kitchen",
                     "END:VEVENT",
                 ]
@@ -408,8 +528,8 @@ def create_meal_calendar(
             [
                 "BEGIN:VEVENT",
                 f"UID:{event_uid}",
-                f"DTSTART:{event_start}",
-                f"DTEND:{event_end}",
+                f"DTSTART;TZID={timezone_name}:{event_start}",
+                f"DTEND;TZID={timezone_name}:{event_end}",
                 f"SUMMARY:{day_name} {meal_type}: {meal_name}",
                 f"DESCRIPTION:Recipes:\\n{'\\n'.join(recipe_links)}",
                 "LOCATION:Kitchen",
@@ -435,8 +555,8 @@ def create_meal_calendar(
         [
             "BEGIN:VEVENT",
             f"UID:{shopping_uid}",
-            f"DTSTART:{shopping_start}",
-            f"DTEND:{shopping_end}",
+            f"DTSTART;TZID={timezone_name}:{shopping_start}",
+            f"DTEND;TZID={timezone_name}:{shopping_end}",
             "SUMMARY:Grocery Shopping for Weekly Meals",
             f"DESCRIPTION:{escaped_grocery_list}",
             "LOCATION:Grocery Store",
@@ -458,6 +578,7 @@ def main():
     - --seed: Random seed for reproducible results (optional)
     - --save-grocery-list: Save grocery list to specified file path
     - --meal-plan: Custom meal plan as JSON string (optional, uses default if not provided)
+    - --timezone: IANA timezone name for calendar events (default: America/New_York)
 
     Examples:
     python tools/plan_week.py
@@ -465,6 +586,7 @@ def main():
     python tools/plan_week.py --save-grocery-list weekly_groceries.txt
     python tools/plan_week.py --meal-plan '{Monday: {1: [20, 40]}, Tuesday: {1: [30, 60]}}'
     python tools/plan_week.py --recipe-dir /path/to/recipes
+    python tools/plan_week.py --timezone America/Los_Angeles
 
     Note: Grocery list and calendar file (weekly_meal_plan.ics) are automatically generated.
     """
@@ -484,6 +606,7 @@ Examples:
   %(prog)s --save-grocery-list weekly_groceries.txt
   %(prog)s --meal-plan '{Monday: {1: [20, 40]}, Tuesday: {1: [30, 60]}}'
   %(prog)s --recipe-dir /path/to/recipes
+  %(prog)s --timezone America/Los_Angeles
 
 Note: Grocery list and calendar file are automatically generated.
       Ensures variety by avoiding duplicate recipes across meals when possible.
@@ -511,6 +634,12 @@ Note: Grocery list and calendar file are automatically generated.
         type=str,
         default=None,
         help="Custom meal plan as JSON-like string. Example: '{Monday: {1: [20, 40]}, Tuesday: {1: [20, 40]}}'",
+    )
+    parser.add_argument(
+        "--timezone",
+        type=str,
+        default="America/New_York",
+        help="IANA timezone name for calendar events (default: America/New_York). Examples: America/Los_Angeles, America/Chicago, UTC",
     )
 
     # Parse command line arguments
@@ -595,8 +724,9 @@ Note: Grocery list and calendar file are automatically generated.
         # Create calendar file automatically
         calendar_filename = "weekly_meal_plan.ics"
         print(f"\nCreating calendar file: {calendar_filename}")
+        print(f"Using timezone: {args.timezone}")
         calendar_content = create_meal_calendar(
-            meals, formatted_grocery_list, meal_plan_used
+            meals, formatted_grocery_list, meal_plan_used, timezone_name=args.timezone
         )
         calendar_path = Path(calendar_filename)
         with open(calendar_path, "w", encoding="utf-8") as f:
