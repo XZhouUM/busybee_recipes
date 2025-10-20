@@ -33,6 +33,9 @@ python tools/plan_week.py --seed 42
 # Save grocery list to file (grocery list and calendar are always created)
 python tools/plan_week.py --save-grocery-list weekly_groceries.txt
 
+# Use custom meal plan
+python tools/plan_week.py --meal-plan '{Monday: {1: [20, 40]}, Tuesday: {1: [30, 60]}}'
+
 # Specify custom recipe directory
 python tools/plan_week.py --recipe-dir /path/to/recipes
 
@@ -54,13 +57,14 @@ Total meals per week: 9 meals
 """
 
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Dict, Tuple
 import argparse
 import random
 import sys
 import os
 from datetime import datetime, timedelta
 import re
+import json
 
 # Add the parent directory to the Python path to import plan_menu
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -68,24 +72,9 @@ from tools.plan_menu import plan_menu
 from tools.generate_grocery_list import generate_grocery_list, format_grocery_list
 
 
-def plan_week(recipe_dir: Path) -> List[List[str]]:
-    """
-    Plan a week of meals with predefined schedule and time constraints.
-
-    Args:
-        recipe_dir (Path): Directory containing all the recipes.
-
-    Returns:
-        List[List[str]]: List of meals, where each meal is a list of recipe names.
-                        Meals are returned in order: Mon, Tue, Wed, Thu, Fri, Sat lunch, Sat dinner, Sun lunch, Sun dinner.
-
-    Raises:
-        ValueError: If no valid meal combinations can be found for any meal.
-        FileNotFoundError: If the recipe YAML file cannot be found.
-    """
-
-    # Define the weekly meal plan
-    meal_plan = {
+def get_default_meal_plan() -> Dict[str, Dict[int, Tuple[int, int]]]:
+    """Get the default weekly meal plan."""
+    return {
         "Monday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
         "Tuesday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
         "Wednesday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
@@ -101,6 +90,76 @@ def plan_week(recipe_dir: Path) -> List[List[str]]:
         },
     }
 
+
+def parse_meal_plan(meal_plan_str: str) -> Dict[str, Dict[int, Tuple[int, int]]]:
+    """
+    Parse a meal plan string into the required dictionary format.
+
+    Expected format: JSON-like string representing the meal plan dictionary.
+    Supports both quoted and unquoted keys for convenience.
+
+    Examples:
+    - '{"Monday": {"1": [20, 40]}, "Tuesday": {"1": [20, 40]}}'
+    - '{Monday: {1: [20, 40]}, Tuesday: {1: [20, 40]}}'
+
+    Args:
+        meal_plan_str (str): JSON-like string representation of the meal plan
+
+    Returns:
+        Dict[str, Dict[int, Tuple[int, int]]]: Parsed meal plan dictionary
+
+    Raises:
+        ValueError: If the meal plan string is invalid or malformed
+    """
+    try:
+        # First try to parse as standard JSON
+        try:
+            parsed = json.loads(meal_plan_str)
+        except json.JSONDecodeError:
+            # If that fails, try to convert unquoted keys to quoted keys
+            # This regex finds unquoted keys (word characters followed by colon)
+            # and adds quotes around them
+            fixed_str = re.sub(r'(\w+):', r'"\1":', meal_plan_str)
+            parsed = json.loads(fixed_str)
+
+        # Convert to the expected format
+        meal_plan = {}
+        for day, meals in parsed.items():
+            meal_plan[day] = {}
+            for meal_num, times in meals.items():
+                # Convert meal number to int and times list to tuple
+                meal_plan[day][int(meal_num)] = tuple(times)
+
+        return meal_plan
+
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid JSON format in meal plan: {e}")
+    except (KeyError, ValueError, TypeError) as e:
+        raise ValueError(f"Invalid meal plan structure: {e}")
+
+
+def plan_week(recipe_dir: Path, meal_plan: Optional[Dict[str, Dict[int, Tuple[int, int]]]] = None) -> List[List[str]]:
+    """
+    Plan a week of meals with configurable schedule and time constraints.
+
+    Args:
+        recipe_dir (Path): Directory containing all the recipes.
+        meal_plan (Optional[Dict[str, Dict[int, Tuple[int, int]]]]): Custom meal plan.
+                   If None, uses the default weekly meal plan.
+
+    Returns:
+        List[List[str]]: List of meals, where each meal is a list of recipe names.
+                        Meals are returned in order: Mon, Tue, Wed, Thu, Fri, Sat lunch, Sat dinner, Sun lunch, Sun dinner.
+
+    Raises:
+        ValueError: If no valid meal combinations can be found for any meal.
+        FileNotFoundError: If the recipe YAML file cannot be found.
+    """
+
+    # Use default meal plan if none provided
+    if meal_plan is None:
+        meal_plan = get_default_meal_plan()
+
     # Use the flexible meal planning function
     return plan_menu(recipe_dir=recipe_dir, meal_plan=meal_plan)
 
@@ -108,6 +167,7 @@ def plan_week(recipe_dir: Path) -> List[List[str]]:
 def create_meal_calendar(
     meals: List[List[str]],
     grocery_list_text: str,
+    meal_plan: Dict[str, Dict[int, Tuple[int, int]]],
     start_date: Optional[datetime] = None,
 ) -> str:
     """
@@ -116,6 +176,7 @@ def create_meal_calendar(
     Args:
         meals (List[List[str]]): List of meals from plan_week function
         grocery_list_text (str): Formatted grocery list text
+        meal_plan (Dict[str, Dict[int, Tuple[int, int]]]): The meal plan used to generate the meals
         start_date (datetime, optional): Start date for the week. Defaults to next Monday.
 
     Returns:
@@ -129,18 +190,26 @@ def create_meal_calendar(
             days_ahead += 7
         start_date = today + timedelta(days=days_ahead)
 
-    # Meal schedule mapping to match plan_week output order
-    meal_schedule = [
-        ("Monday", "Dinner", 18, 0),  # 6:00 PM
-        ("Tuesday", "Dinner", 18, 0),  # 6:00 PM
-        ("Wednesday", "Dinner", 18, 0),  # 6:00 PM
-        ("Thursday", "Dinner", 18, 0),  # 6:00 PM
-        ("Friday", "Dinner", 18, 0),  # 6:00 PM
-        ("Saturday", "Lunch", 12, 0),  # 12:00 PM
-        ("Saturday", "Dinner", 18, 0),  # 6:00 PM
-        ("Sunday", "Lunch", 12, 0),  # 12:00 PM
-        ("Sunday", "Dinner", 18, 0),  # 6:00 PM
-    ]
+    # Create dynamic meal schedule based on the actual meal plan
+    meal_schedule = []
+    for day, day_meals in meal_plan.items():
+        for meal_num, (active_time, total_time) in day_meals.items():
+            # Determine meal type and time based on meal number
+            if meal_num == 1:
+                if day in ["Saturday", "Sunday"]:
+                    meal_type = "Lunch"
+                    hour, minute = 12, 0  # 12:00 PM
+                else:
+                    meal_type = "Dinner"
+                    hour, minute = 18, 0  # 6:00 PM
+            elif meal_num == 2:
+                meal_type = "Dinner"
+                hour, minute = 18, 0  # 6:00 PM
+            else:
+                meal_type = f"Meal {meal_num}"
+                hour, minute = 18, 0  # Default to 6:00 PM
+
+            meal_schedule.append((day, meal_type, hour, minute))
 
     # Start building the .ics content
     ics_content = [
@@ -182,7 +251,7 @@ def create_meal_calendar(
             # Convert recipe name to GitHub-friendly filename
             github_filename = re.sub(r"[^\w\s-]", "", recipe).strip()
             github_filename = re.sub(r"[-\s]+", "_", github_filename)
-            github_link = f"https://github.com/xinzhouwang2000/busybee_recipes/blob/main/recipes/{github_filename}.yaml"
+            github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/main/recipes/{github_filename}.yaml"
             recipe_links.append(f"• {recipe}: {github_link}")
 
         # Create event
@@ -243,11 +312,13 @@ def main():
     - --recipe-dir: Path to directory containing recipe files (default: current directory)
     - --seed: Random seed for reproducible results (optional)
     - --save-grocery-list: Save grocery list to specified file path
+    - --meal-plan: Custom meal plan as JSON string (optional, uses default if not provided)
 
     Examples:
     python tools/plan_week.py
     python tools/plan_week.py --seed 42
     python tools/plan_week.py --save-grocery-list weekly_groceries.txt
+    python tools/plan_week.py --meal-plan '{Monday: {1: [20, 40]}, Tuesday: {1: [30, 60]}}'
     python tools/plan_week.py --recipe-dir /path/to/recipes
 
     Note: Grocery list and calendar file (weekly_meal_plan.ics) are automatically generated.
@@ -266,6 +337,7 @@ Examples:
   %(prog)s
   %(prog)s --seed 42
   %(prog)s --save-grocery-list weekly_groceries.txt
+  %(prog)s --meal-plan '{Monday: {1: [20, 40]}, Tuesday: {1: [30, 60]}}'
   %(prog)s --recipe-dir /path/to/recipes
 
 Note: Grocery list and calendar file are automatically generated.
@@ -288,6 +360,12 @@ Note: Grocery list and calendar file are automatically generated.
         default=None,
         help="Save grocery list to specified file path",
     )
+    parser.add_argument(
+        "--meal-plan",
+        type=str,
+        default=None,
+        help='Custom meal plan as JSON-like string. Example: \'{Monday: {1: [20, 40]}, Tuesday: {1: [20, 40]}}\'',
+    )
 
     # Parse command line arguments
     args = parser.parse_args()
@@ -301,37 +379,48 @@ Note: Grocery list and calendar file are automatically generated.
         # Convert recipe directory to Path object
         recipe_dir = Path(args.recipe_dir)
 
+        # Parse custom meal plan if provided
+        custom_meal_plan = None
+        if args.meal_plan:
+            custom_meal_plan = parse_meal_plan(args.meal_plan)
+
         # Generate weekly meal plan
-        meals = plan_week(recipe_dir=recipe_dir)
+        meals = plan_week(recipe_dir=recipe_dir, meal_plan=custom_meal_plan)
 
         # Display the generated meal plan in a user-friendly format
         print("Generated weekly meal plan:")
         print("=" * 60)
 
-        # Define the meal schedule for display
-        meal_schedule = [
-            ("Monday", "Dinner", (20, 40)),
-            ("Tuesday", "Dinner", (20, 40)),
-            ("Wednesday", "Dinner", (20, 40)),
-            ("Thursday", "Dinner", (20, 40)),
-            ("Friday", "Dinner", (20, 40)),
-            ("Saturday", "Lunch", (30, 60)),
-            ("Saturday", "Dinner", (60, 120)),
-            ("Sunday", "Lunch", (30, 60)),
-            ("Sunday", "Dinner", (30, 60)),
-        ]
+        # Create dynamic meal schedule based on the actual meal plan used
+        meal_plan_used = custom_meal_plan if custom_meal_plan else get_default_meal_plan()
+        meal_schedule = []
+        for day, day_meals in meal_plan_used.items():
+            for meal_num, (active_time, total_time) in day_meals.items():
+                # Determine meal type based on meal number
+                if meal_num == 1:
+                    if day in ["Saturday", "Sunday"]:
+                        meal_type = "Lunch"
+                    else:
+                        meal_type = "Dinner"
+                elif meal_num == 2:
+                    meal_type = "Dinner"
+                else:
+                    meal_type = f"Meal {meal_num}"
+
+                meal_schedule.append((day, meal_type, (active_time, total_time)))
 
         # Display meals with their constraints
         for i, (day, meal_type, (active_time, total_time)) in enumerate(meal_schedule):
-            meal = meals[i]
+            if i < len(meals):  # Safety check to avoid index out of range
+                meal = meals[i]
 
-            # Format output differently for single vs. multiple recipe meals
-            if len(meal) == 1:
-                meal_str = meal[0]
-            else:
-                meal_str = " + ".join(meal)
+                # Format output differently for single vs. multiple recipe meals
+                if len(meal) == 1:
+                    meal_str = meal[0]
+                else:
+                    meal_str = " + ".join(meal)
 
-            print(f"{day} {meal_type}: {meal_str}")
+                print(f"{day} {meal_type}: {meal_str}")
 
         # Extract all recipe names from the planned meals
         recipe_names = []
@@ -356,7 +445,7 @@ Note: Grocery list and calendar file are automatically generated.
         # Create calendar file automatically
         calendar_filename = "weekly_meal_plan.ics"
         print(f"\nCreating calendar file: {calendar_filename}")
-        calendar_content = create_meal_calendar(meals, formatted_grocery_list)
+        calendar_content = create_meal_calendar(meals, formatted_grocery_list, meal_plan_used)
         calendar_path = Path(calendar_filename)
         with open(calendar_path, "w", encoding="utf-8") as f:
             f.write(calendar_content)
