@@ -1,0 +1,59 @@
+name: Weekly Meal Planning
+
+on:
+  schedule:
+    # Run every Friday at 5 PM Eastern Time
+    # During EST (Nov-Mar): 5 PM EST = 10 PM UTC (22:00)
+    # During EDT (Mar-Nov): 5 PM EDT = 9 PM UTC (21:00)
+    # Using 9 PM UTC to cover EDT (most of the year)
+    - cron: '0 21 * * 5'
+  
+  # Allow manual triggering of the workflow
+  workflow_dispatch:
+
+jobs:
+  plan-weekly-meals:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run weekly meal planner
+      run: |
+        python tools/plan_week.py --save-grocery-list weekly_groceries.txt
+        
+    - name: Upload meal plan artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: weekly-meal-plan-${{ github.run_number }}
+        path: |
+          weekly_groceries.txt
+          weekly_meal_plan.ics
+        retention-days: 7
+        
+    - name: Create commit with meal plan files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Add the generated files
+        git add weekly_groceries.txt weekly_meal_plan.ics
+        
+        # Only commit if there are changes
+        if ! git diff --staged --quiet; then
+          git commit -m "Weekly meal plan for $(date +'%Y-%m-%d')"
+          git push
+        else
+          echo "No changes to commit"
+        fi
