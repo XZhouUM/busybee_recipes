@@ -540,7 +540,7 @@ def create_meal_calendar(
     # Add grocery shopping event (Saturday 10 PM)
     saturday_date = start_date + timedelta(days=5)  # Saturday is 5 days after Monday
     shopping_datetime = saturday_date.replace(
-        hour=22, minute=0, second=0, microsecond=0
+        hour=10, minute=0, second=0, microsecond=0
     )
     shopping_start = shopping_datetime.strftime("%Y%m%dT%H%M%S")
     shopping_end = (shopping_datetime + timedelta(hours=1)).strftime("%Y%m%dT%H%M%S")
