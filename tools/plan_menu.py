@@ -87,7 +87,8 @@ import argparse
 
 
 def plan_menu(recipe_dir: Path,
-        meal_plan: Dict[str, Dict[int, Tuple[int, int]]]
+        meal_plan: Dict[str, Dict[int, Tuple[int, int]]],
+        ensure_variety: bool = True
     ) -> List[List[str]]:
     """
     Plan the menu for the specified period.
@@ -97,6 +98,8 @@ def plan_menu(recipe_dir: Path,
         meal_plan (Dict[str, Dict[int, Tuple[int, int]]]): Dictionary mapping day names to meals
             with their time constraints. Format: {day: {meal_number: (active_time, total_time)}}
             Example: {"Monday": {1: (20, 45), 2: (15, 30)}, "Tuesday": {1: (25, 50)}}
+        ensure_variety (bool): If True, tries to avoid duplicate recipes across all meals.
+            If False, allows duplicate recipes. Default: True.
 
     Returns:
         List[List[str]]: List of meals, where each meal is a list of recipe names.
@@ -164,6 +167,7 @@ def plan_menu(recipe_dir: Path,
 
     # Generate meals for each day and meal in order
     selected_meals = []
+    used_recipes = set()  # Track used recipes for variety
 
     # Process days in sorted order to ensure consistent output
     for day in sorted(meal_plan.keys()):
@@ -182,8 +186,29 @@ def plan_menu(recipe_dir: Path,
                     f"with constraints: {active_time_limit} min active, {total_time_limit} min total"
                 )
 
-            # Randomly select one meal from valid options
-            selected_meals.append(random.choice(valid_meals))
+            # Select meal with variety consideration
+            if ensure_variety:
+                # Filter out meals that use already-used recipes
+                unused_meals = []
+                for meal in valid_meals:
+                    if not any(recipe in used_recipes for recipe in meal):
+                        unused_meals.append(meal)
+
+                # If we have unused meals, prefer them; otherwise fall back to any valid meal
+                if unused_meals:
+                    selected_meal = random.choice(unused_meals)
+                else:
+                    selected_meal = random.choice(valid_meals)
+            else:
+                # No variety constraint - randomly select any valid meal
+                selected_meal = random.choice(valid_meals)
+
+            # Add selected recipes to used set
+            if ensure_variety:
+                for recipe in selected_meal:
+                    used_recipes.add(recipe)
+
+            selected_meals.append(selected_meal)
 
     return selected_meals
 

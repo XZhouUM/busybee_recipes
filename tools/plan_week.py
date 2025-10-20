@@ -213,7 +213,7 @@ def get_recipe_preparation_time(recipe_file_path: str) -> int:
         return 0
 
 
-def plan_week(recipe_dir: Path, meal_plan: Optional[Dict[str, Dict[int, Tuple[int, int]]]] = None) -> List[List[str]]:
+def plan_week(recipe_dir: Path, meal_plan: Optional[Dict[str, Dict[int, Tuple[int, int]]]] = None, ensure_variety: bool = True) -> List[List[str]]:
     """
     Plan a week of meals with configurable schedule and time constraints.
 
@@ -221,6 +221,8 @@ def plan_week(recipe_dir: Path, meal_plan: Optional[Dict[str, Dict[int, Tuple[in
         recipe_dir (Path): Directory containing all the recipes.
         meal_plan (Optional[Dict[str, Dict[int, Tuple[int, int]]]]): Custom meal plan.
                    If None, uses the default weekly meal plan.
+        ensure_variety (bool): If True, tries to avoid duplicate recipes across all meals.
+                              If False, allows duplicate recipes. Default: True.
 
     Returns:
         List[List[str]]: List of meals, where each meal is a list of recipe names.
@@ -236,7 +238,7 @@ def plan_week(recipe_dir: Path, meal_plan: Optional[Dict[str, Dict[int, Tuple[in
         meal_plan = get_default_meal_plan()
 
     # Use the flexible meal planning function
-    return plan_menu(recipe_dir=recipe_dir, meal_plan=meal_plan)
+    return plan_menu(recipe_dir=recipe_dir, meal_plan=meal_plan, ensure_variety=ensure_variety)
 
 
 def create_meal_calendar(
@@ -469,6 +471,7 @@ Examples:
   %(prog)s --recipe-dir /path/to/recipes
 
 Note: Grocery list and calendar file are automatically generated.
+      Ensures variety by avoiding duplicate recipes across meals when possible.
         """,
     )
 
@@ -512,8 +515,8 @@ Note: Grocery list and calendar file are automatically generated.
         if args.meal_plan:
             custom_meal_plan = parse_meal_plan(args.meal_plan)
 
-        # Generate weekly meal plan
-        meals = plan_week(recipe_dir=recipe_dir, meal_plan=custom_meal_plan)
+        # Generate weekly meal plan (with variety by default)
+        meals = plan_week(recipe_dir=recipe_dir, meal_plan=custom_meal_plan, ensure_variety=True)
 
         # Display the generated meal plan in a user-friendly format
         print("Generated weekly meal plan:")
