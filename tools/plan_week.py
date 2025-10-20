@@ -56,20 +56,21 @@ Weekends (Saturday-Sunday):
 Total meals per week: 9 meals
 """
 
-from pathlib import Path
-from typing import List, Optional, Dict, Tuple
 import argparse
-import random
-import sys
-import os
-from datetime import datetime, timedelta
-import re
 import json
+import os
+import random
+import re
+import sys
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
 
 # Add the parent directory to the Python path to import plan_menu
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from tools.generate_grocery_list import (format_grocery_list,
+                                         generate_grocery_list)
 from tools.plan_menu import plan_menu
-from tools.generate_grocery_list import generate_grocery_list, format_grocery_list
 
 
 def get_default_meal_plan() -> Dict[str, Dict[int, Tuple[int, int]]]:
@@ -119,7 +120,7 @@ def parse_meal_plan(meal_plan_str: str) -> Dict[str, Dict[int, Tuple[int, int]]]
             # If that fails, try to convert unquoted keys to quoted keys
             # This regex finds unquoted keys (word characters followed by colon)
             # and adds quotes around them
-            fixed_str = re.sub(r'(\w+):', r'"\1":', meal_plan_str)
+            fixed_str = re.sub(r"(\w+):", r'"\1":', meal_plan_str)
             parsed = json.loads(fixed_str)
 
         # Convert to the expected format
@@ -151,7 +152,7 @@ def parse_preparation_time(time_str: str) -> int:
     time_str = time_str.lower().strip()
 
     # Extract number and unit
-    match = re.search(r'(\d+(?:\.\d+)?)\s*(minute|hour|day|week)s?', time_str)
+    match = re.search(r"(\d+(?:\.\d+)?)\s*(minute|hour|day|week)s?", time_str)
     if not match:
         return 0
 
@@ -159,13 +160,13 @@ def parse_preparation_time(time_str: str) -> int:
     unit = match.group(2)
 
     # Convert to minutes
-    if unit == 'minute':
+    if unit == "minute":
         return int(number)
-    elif unit == 'hour':
+    elif unit == "hour":
         return int(number * 60)
-    elif unit == 'day':
+    elif unit == "day":
         return int(number * 24 * 60)
-    elif unit == 'week':
+    elif unit == "week":
         return int(number * 7 * 24 * 60)
 
     return 0
@@ -182,29 +183,29 @@ def get_recipe_preparation_time(recipe_file_path: str) -> int:
         int: Preparation time in minutes, 0 if not found
     """
     try:
-        with open(recipe_file_path, 'r', encoding='utf-8') as f:
+        with open(recipe_file_path, "r", encoding="utf-8") as f:
             content = f.read()
 
         # Look for preparation time in the Cooking Time section
-        lines = content.split('\n')
+        lines = content.split("\n")
         in_cooking_time_section = False
 
         for line in lines:
             line = line.strip()
 
             # Check if we're entering the Cooking Time section
-            if line.lower().startswith('## cooking time'):
+            if line.lower().startswith("## cooking time"):
                 in_cooking_time_section = True
                 continue
 
             # Check if we're leaving the Cooking Time section
-            if in_cooking_time_section and line.startswith('##'):
+            if in_cooking_time_section and line.startswith("##"):
                 break
 
             # Look for preparation time line
-            if in_cooking_time_section and 'preparation time:' in line.lower():
+            if in_cooking_time_section and "preparation time:" in line.lower():
                 # Extract the time part after the colon
-                time_part = line.split(':', 1)[1].strip()
+                time_part = line.split(":", 1)[1].strip()
                 return parse_preparation_time(time_part)
 
         return 0
@@ -213,7 +214,11 @@ def get_recipe_preparation_time(recipe_file_path: str) -> int:
         return 0
 
 
-def plan_week(recipe_dir: Path, meal_plan: Optional[Dict[str, Dict[int, Tuple[int, int]]]] = None, ensure_variety: bool = True) -> List[List[str]]:
+def plan_week(
+    recipe_dir: Path,
+    meal_plan: Optional[Dict[str, Dict[int, Tuple[int, int]]]] = None,
+    ensure_variety: bool = True,
+) -> List[List[str]]:
     """
     Plan a week of meals with configurable schedule and time constraints.
 
@@ -238,7 +243,9 @@ def plan_week(recipe_dir: Path, meal_plan: Optional[Dict[str, Dict[int, Tuple[in
         meal_plan = get_default_meal_plan()
 
     # Use the flexible meal planning function
-    return plan_menu(recipe_dir=recipe_dir, meal_plan=meal_plan, ensure_variety=ensure_variety)
+    return plan_menu(
+        recipe_dir=recipe_dir, meal_plan=meal_plan, ensure_variety=ensure_variety
+    )
 
 
 def create_meal_calendar(
@@ -341,7 +348,7 @@ def create_meal_calendar(
                 f"recipes/home_creation/{github_filename.lower()}.md",
                 f"recipes/japanese/{github_filename.lower()}.md",
                 f"recipes/mexican/{github_filename.lower()}.md",
-                f"recipes/turkish/{github_filename.lower()}.md"
+                f"recipes/turkish/{github_filename.lower()}.md",
             ]
 
             for recipe_path in possible_paths:
@@ -355,7 +362,9 @@ def create_meal_calendar(
         if max_prep_time_minutes > 0:
             prep_datetime = meal_datetime - timedelta(minutes=max_prep_time_minutes)
             prep_start = prep_datetime.strftime("%Y%m%dT%H%M%S")
-            prep_end = (prep_datetime + timedelta(minutes=30)).strftime("%Y%m%dT%H%M%S")  # 30 min prep event
+            prep_end = (prep_datetime + timedelta(minutes=30)).strftime(
+                "%Y%m%dT%H%M%S"
+            )  # 30 min prep event
             prep_uid = f"prep-{day_name.lower()}-{meal_type.lower()}-{meal_datetime.strftime('%Y%m%d')}@busybee-recipes"
 
             # Format preparation time for display
@@ -368,8 +377,14 @@ def create_meal_calendar(
             else:
                 prep_time_str = f"{max_prep_time_minutes} minute{'s' if max_prep_time_minutes > 1 else ''}"
 
-            prep_recipes = [f"• {recipe} ({prep_time // 60}h {prep_time % 60}m)" if prep_time >= 60 else f"• {recipe} ({prep_time}m)"
-                           for recipe, prep_time in recipes_with_prep]
+            prep_recipes = [
+                (
+                    f"• {recipe} ({prep_time // 60}h {prep_time % 60}m)"
+                    if prep_time >= 60
+                    else f"• {recipe} ({prep_time}m)"
+                )
+                for recipe, prep_time in recipes_with_prep
+            ]
 
             ics_content.extend(
                 [
@@ -379,7 +394,7 @@ def create_meal_calendar(
                     f"DTEND:{prep_end}",
                     f"SUMMARY:Prep for {day_name} {meal_type} ({prep_time_str} ahead)",
                     f"DESCRIPTION:Preparation needed for:\\n{'\\n'.join(prep_recipes)}",
-                    f"LOCATION:Kitchen",
+                    "LOCATION:Kitchen",
                     "END:VEVENT",
                 ]
             )
@@ -397,7 +412,7 @@ def create_meal_calendar(
                 f"DTEND:{event_end}",
                 f"SUMMARY:{day_name} {meal_type}: {meal_name}",
                 f"DESCRIPTION:Recipes:\\n{'\\n'.join(recipe_links)}",
-                f"LOCATION:Kitchen",
+                "LOCATION:Kitchen",
                 "END:VEVENT",
             ]
         )
@@ -495,7 +510,7 @@ Note: Grocery list and calendar file are automatically generated.
         "--meal-plan",
         type=str,
         default=None,
-        help='Custom meal plan as JSON-like string. Example: \'{Monday: {1: [20, 40]}, Tuesday: {1: [20, 40]}}\'',
+        help="Custom meal plan as JSON-like string. Example: '{Monday: {1: [20, 40]}, Tuesday: {1: [20, 40]}}'",
     )
 
     # Parse command line arguments
@@ -516,14 +531,18 @@ Note: Grocery list and calendar file are automatically generated.
             custom_meal_plan = parse_meal_plan(args.meal_plan)
 
         # Generate weekly meal plan (with variety by default)
-        meals = plan_week(recipe_dir=recipe_dir, meal_plan=custom_meal_plan, ensure_variety=True)
+        meals = plan_week(
+            recipe_dir=recipe_dir, meal_plan=custom_meal_plan, ensure_variety=True
+        )
 
         # Display the generated meal plan in a user-friendly format
         print("Generated weekly meal plan:")
         print("=" * 60)
 
         # Create dynamic meal schedule based on the actual meal plan used
-        meal_plan_used = custom_meal_plan if custom_meal_plan else get_default_meal_plan()
+        meal_plan_used = (
+            custom_meal_plan if custom_meal_plan else get_default_meal_plan()
+        )
         meal_schedule = []
         for day, day_meals in meal_plan_used.items():
             for meal_num, (active_time, total_time) in day_meals.items():
@@ -576,7 +595,9 @@ Note: Grocery list and calendar file are automatically generated.
         # Create calendar file automatically
         calendar_filename = "weekly_meal_plan.ics"
         print(f"\nCreating calendar file: {calendar_filename}")
-        calendar_content = create_meal_calendar(meals, formatted_grocery_list, meal_plan_used)
+        calendar_content = create_meal_calendar(
+            meals, formatted_grocery_list, meal_plan_used
+        )
         calendar_path = Path(calendar_filename)
         with open(calendar_path, "w", encoding="utf-8") as f:
             f.write(calendar_content)

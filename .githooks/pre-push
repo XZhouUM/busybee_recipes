@@ -32,7 +32,7 @@ while read local_ref local_sha remote_ref remote_sha; do
 
     black $CHANGED_PYTHON_FILES --line-length 88
     isort $CHANGED_PYTHON_FILES
-    flake8 $CHANGED_PYTHON_FILES --max-line-length=88 --ignore=E501,W503
+    flake8 $CHANGED_PYTHON_FILES --max-line-length=88 --ignore=E501,W503,E402
     pytype $CHANGED_PYTHON_FILES
   fi
 
