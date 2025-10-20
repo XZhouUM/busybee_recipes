@@ -2,11 +2,11 @@ name: Weekly Meal Planning
 
 on:
   schedule:
-    # Run every Thursday at 5 PM Eastern Time
-    # During EST (Nov-Mar): 5 PM EST = 10 PM UTC (22:00)
-    # During EDT (Mar-Nov): 5 PM EDT = 9 PM UTC (21:00)
-    # Using 9 PM UTC to cover EDT (most of the year)
-    - cron: '0 21 * * 4'
+    # Run every Friday at 10 PM Eastern Time
+    # During EST (Nov-Mar): 10 PM EST = 3 AM UTC the following day
+    # During EDT (Mar-Nov): 5 PM EDT = 2 AM UTC the following day
+    # Using 3 AM UTC on Saturday
+    - cron: '0 3 * * 6'
   
   # Allow manual triggering of the workflow
   workflow_dispatch:
