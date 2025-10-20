@@ -7,13 +7,15 @@ on:
     # During EDT (Mar-Nov): 5 PM EDT = 9 PM UTC (21:00)
     # Using 9 PM UTC to cover EDT (most of the year)
     - cron: '0 21 * * 5'
-  
+
   # Allow manual triggering of the workflow
   workflow_dispatch:
 
 jobs:
   plan-weekly-meals:
     runs-on: ubuntu-latest
+    # Only run on master branch
+    if: github.ref == 'refs/heads/master'
     
     steps:
     - name: Checkout repository
