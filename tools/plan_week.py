@@ -138,6 +138,81 @@ def parse_meal_plan(meal_plan_str: str) -> Dict[str, Dict[int, Tuple[int, int]]]
         raise ValueError(f"Invalid meal plan structure: {e}")
 
 
+def parse_preparation_time(time_str: str) -> int:
+    """
+    Parse preparation time string and return minutes.
+
+    Args:
+        time_str (str): Time string like "2 hours", "1 day", "30 minutes"
+
+    Returns:
+        int: Time in minutes
+    """
+    time_str = time_str.lower().strip()
+
+    # Extract number and unit
+    match = re.search(r'(\d+(?:\.\d+)?)\s*(minute|hour|day|week)s?', time_str)
+    if not match:
+        return 0
+
+    number = float(match.group(1))
+    unit = match.group(2)
+
+    # Convert to minutes
+    if unit == 'minute':
+        return int(number)
+    elif unit == 'hour':
+        return int(number * 60)
+    elif unit == 'day':
+        return int(number * 24 * 60)
+    elif unit == 'week':
+        return int(number * 7 * 24 * 60)
+
+    return 0
+
+
+def get_recipe_preparation_time(recipe_file_path: str) -> int:
+    """
+    Extract preparation time from a recipe file.
+
+    Args:
+        recipe_file_path (str): Path to the recipe markdown file
+
+    Returns:
+        int: Preparation time in minutes, 0 if not found
+    """
+    try:
+        with open(recipe_file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Look for preparation time in the Cooking Time section
+        lines = content.split('\n')
+        in_cooking_time_section = False
+
+        for line in lines:
+            line = line.strip()
+
+            # Check if we're entering the Cooking Time section
+            if line.lower().startswith('## cooking time'):
+                in_cooking_time_section = True
+                continue
+
+            # Check if we're leaving the Cooking Time section
+            if in_cooking_time_section and line.startswith('##'):
+                break
+
+            # Look for preparation time line
+            if in_cooking_time_section and 'preparation time:' in line.lower():
+                # Extract the time part after the colon
+                time_part = line.split(':', 1)[1].strip()
+                return parse_preparation_time(time_part)
+
+        return 0
+
+    except (FileNotFoundError, IOError):
+        return 0
+
+
 def plan_week(recipe_dir: Path, meal_plan: Optional[Dict[str, Dict[int, Tuple[int, int]]]] = None) -> List[List[str]]:
     """
     Plan a week of meals with configurable schedule and time constraints.
@@ -245,8 +320,11 @@ def create_meal_calendar(
         else:
             meal_name = " + ".join(meal)
 
-        # Create GitHub links for each recipe
+        # Create GitHub links for each recipe and check for preparation times
         recipe_links = []
+        max_prep_time_minutes = 0
+        recipes_with_prep = []
+
         for recipe in meal:
             # Convert recipe name to GitHub-friendly filename
             github_filename = re.sub(r"[^\w\s-]", "", recipe).strip()
@@ -254,7 +332,57 @@ def create_meal_calendar(
             github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/main/recipes/{github_filename}.yaml"
             recipe_links.append(f"• {recipe}: {github_link}")
 
-        # Create event
+            # Check for preparation time in recipe file
+            # Try different possible file paths and extensions
+            possible_paths = [
+                f"recipes/chinese/{github_filename.lower()}.md",
+                f"recipes/home_creation/{github_filename.lower()}.md",
+                f"recipes/japanese/{github_filename.lower()}.md",
+                f"recipes/mexican/{github_filename.lower()}.md",
+                f"recipes/turkish/{github_filename.lower()}.md"
+            ]
+
+            for recipe_path in possible_paths:
+                prep_time = get_recipe_preparation_time(recipe_path)
+                if prep_time > 0:
+                    max_prep_time_minutes = max(max_prep_time_minutes, prep_time)
+                    recipes_with_prep.append((recipe, prep_time))
+                    break
+
+        # Create preparation event if any recipe requires preparation
+        if max_prep_time_minutes > 0:
+            prep_datetime = meal_datetime - timedelta(minutes=max_prep_time_minutes)
+            prep_start = prep_datetime.strftime("%Y%m%dT%H%M%S")
+            prep_end = (prep_datetime + timedelta(minutes=30)).strftime("%Y%m%dT%H%M%S")  # 30 min prep event
+            prep_uid = f"prep-{day_name.lower()}-{meal_type.lower()}-{meal_datetime.strftime('%Y%m%d')}@busybee-recipes"
+
+            # Format preparation time for display
+            if max_prep_time_minutes >= 1440:  # 1 day or more
+                days = max_prep_time_minutes // 1440
+                prep_time_str = f"{days} day{'s' if days > 1 else ''}"
+            elif max_prep_time_minutes >= 60:  # 1 hour or more
+                hours = max_prep_time_minutes // 60
+                prep_time_str = f"{hours} hour{'s' if hours > 1 else ''}"
+            else:
+                prep_time_str = f"{max_prep_time_minutes} minute{'s' if max_prep_time_minutes > 1 else ''}"
+
+            prep_recipes = [f"• {recipe} ({prep_time // 60}h {prep_time % 60}m)" if prep_time >= 60 else f"• {recipe} ({prep_time}m)"
+                           for recipe, prep_time in recipes_with_prep]
+
+            ics_content.extend(
+                [
+                    "BEGIN:VEVENT",
+                    f"UID:{prep_uid}",
+                    f"DTSTART:{prep_start}",
+                    f"DTEND:{prep_end}",
+                    f"SUMMARY:Prep for {day_name} {meal_type} ({prep_time_str} ahead)",
+                    f"DESCRIPTION:Preparation needed for:\\n{'\\n'.join(prep_recipes)}",
+                    f"LOCATION:Kitchen",
+                    "END:VEVENT",
+                ]
+            )
+
+        # Create meal event
         event_start = meal_datetime.strftime("%Y%m%dT%H%M%S")
         event_end = (meal_datetime + timedelta(hours=1)).strftime("%Y%m%dT%H%M%S")
         event_uid = f"meal-{day_name.lower()}-{meal_type.lower()}-{meal_datetime.strftime('%Y%m%d')}@busybee-recipes"
