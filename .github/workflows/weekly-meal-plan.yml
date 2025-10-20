@@ -43,10 +43,15 @@ jobs:
           weekly_meal_plan.ics
         retention-days: 7
 
+    - name: Prepare calendar folder
+      run: |
+        mkdir -p calendar
+        cp weekly_meal_plan.ics calendar/
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: ./weekly_meal_plan.ics
+        publish_dir: ./calendar
 
