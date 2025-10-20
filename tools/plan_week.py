@@ -545,9 +545,9 @@ def create_meal_calendar(
             ]
         )
 
-    # Add grocery shopping event (Saturday 10 PM)
-    saturday_date = start_date + timedelta(days=5)  # Saturday is 5 days after Monday
-    shopping_datetime = saturday_date.replace(
+    # Add grocery shopping event (Saturday 10 AM of previous week)
+    previous_saturday_date = start_date - timedelta(days=2)  # Saturday is 2 days before Monday
+    shopping_datetime = previous_saturday_date.replace(
         hour=10, minute=0, second=0, microsecond=0
     )
     shopping_start = shopping_datetime.strftime("%Y%m%dT%H%M%S")
@@ -565,7 +565,7 @@ def create_meal_calendar(
             f"UID:{shopping_uid}",
             f"DTSTART;TZID={timezone_name}:{shopping_start}",
             f"DTEND;TZID={timezone_name}:{shopping_end}",
-            "SUMMARY:Grocery Shopping for Weekly Meals",
+            "SUMMARY:Grocery Shopping for Upcoming Week's Meals",
             f"DESCRIPTION:{escaped_grocery_list}",
             "LOCATION:Grocery Store",
             "END:VEVENT",
