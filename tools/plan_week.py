@@ -462,7 +462,9 @@ def create_meal_calendar(
                     return path.relative_to(full_dir)
                 return None
 
-            recipe_file_path = find_file_relative_path(f"{recipe.lower()}.md", Path("recipes"))
+            recipe_file_path = find_file_relative_path(
+                f"{recipe.lower()}.md", Path("recipes")
+            )
             # Convert recipe name to GitHub-friendly filename
 
             github_link = f"https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/{recipe_file_path}"
