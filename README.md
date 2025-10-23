@@ -26,20 +26,6 @@ After cloning the repo, run the following command to set up the repo. This comma
 ./post_clone.sh
 ```
 
-### Add a New Recipe
-
-1. Manually add a new file in any language and in any format.
-2. Ask Gemini to format the recipe file. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the GEMINI.md file.
-3. The pre-push hook will automatically update the index file before the changes are pushed to the repo.
-
-Alternatively,
-1. Ask Gemini to search for a recipe on the internet and add it to the repo. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the GEMINI.md file.
-2. The pre-push hook will automatically update the index file before the changes are pushed to the repo.
-
-### Search, Selection, and Filtering
-
-You can search for recipes using the Gemini CLI. You can also use the CLI to select and filter recipes based on your preferences.
-
 ### Plan a Week of Meals
 
 You can use the `plan_week.py` script to plan a week of meals. The script will automatically generate a calendar file for the week. The calendar file can be imported into your calendar app to see meal events, grocery shopping reminder, and preparation time reminder.
@@ -99,3 +85,17 @@ Example usage:
 ```bash
 python tools/generate_grocery_list.py "Firm Tofu" "Fried Beef" "Egg Drop Soup"
 ```
+
+### Add a New Recipe
+
+1. Manually add a new file in any language and in any format.
+2. Ask Gemini to format the recipe file. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the GEMINI.md file.
+3. The pre-push hook will automatically update the index file before the changes are pushed to the repo.
+
+Alternatively,
+1. Ask Gemini to search for a recipe on the internet and add it to the repo. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the GEMINI.md file.
+2. The pre-push hook will automatically update the index file before the changes are pushed to the repo.
+
+### Search, Selection, and Filtering
+
+You can search for recipes using the Gemini CLI. You can also use the CLI to select and filter recipes based on your preferences.
