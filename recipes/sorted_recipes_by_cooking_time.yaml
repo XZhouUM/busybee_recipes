@@ -79,6 +79,11 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 25
     tags: ['Protein']
     file_path: "recipes/chinese/sauteed_vermicelli_with_minced_meat.md"
+  - name: "Oven-Roasted Chestnuts"
+    active_cooking_time_minutes: 15
+    total_cooking_time_minutes: 35
+    tags: []
+    file_path: "recipes/chinese/oven_roasted_chestnuts.md"
   - name: "Mushroom Chicken Soup"
     active_cooking_time_minutes: 15
     total_cooking_time_minutes: 40
@@ -131,7 +136,7 @@ sorted_recipes_by_active_cooking_time:
     file_path: "recipes/japanese/sushi_meal.md"
 
 summary:
-  total_recipes: 26
+  total_recipes: 27
   active_cooking_time_range:
     min_minutes: 5
     max_minutes: 60
