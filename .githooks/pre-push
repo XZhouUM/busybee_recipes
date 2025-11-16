@@ -11,9 +11,10 @@ while read local_ref local_sha remote_ref remote_sha; do
   if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
     echo "First push of new branch detected."
 
-    # Only get tracked files that are staged for commit
-    CHANGED_PYTHON_FILES=$(git diff --name-only --cached --diff-filter=ACM '*.py')
-    CHANGED_RECIPE_FILES=$(git diff --name-only --cached --diff-filter=ACM '*.md')
+    # Get files changed in this branch compared to the default branch (master/main)
+    DEFAULT_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+    CHANGED_PYTHON_FILES=$(git diff --name-only "origin/$DEFAULT_BRANCH" "$local_sha" --diff-filter=ACM -- '*.py')
+    CHANGED_RECIPE_FILES=$(git diff --name-only "origin/$DEFAULT_BRANCH" "$local_sha" --diff-filter=ACM -- '*.md')
 
   elif [ "$local_sha" = "$remote_sha" ]; then
     echo "No new commits to push."
