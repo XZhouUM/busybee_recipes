@@ -161,6 +161,8 @@ Order the list of ingredients in the way that the ones with quantity and unit co
 
 At last, polish the wording in the instruction section for better readability. There is no need to add special formatting.
 
+When the user requests to format a new recipe, there is no need to run sort_recipes_by_cooking_time.py after adding the new recipe. The pre-push hook will automatically run the script before the changes are pushed to the repo.
+
 ### Add New Recipes through Internet Search
 
 A developer can also ask Gemini to search for a recipe on the internet and add them to the repo. The recipe found on the internet should be converted to the correct format as described in [Recipe Format](#recipe-format) after added to the corresponding folder. An example search can be
