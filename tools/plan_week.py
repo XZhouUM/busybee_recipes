@@ -53,8 +53,8 @@ WEEKLY SCHEDULE (Saturday to Friday):
 
 Weekends (Saturday-Sunday):
 - Lunch: 30 minutes active, 60 minutes total
-- Dinner: 30 minutes active, 60 minutes total
-- Exception: Saturday dinner: 60 minutes active, 120 minutes total
+- Dinner: 60 minutes active, 120 minutes total
+- Exception: Saturday dinner: 60 minutes active, 240 minutes total
 
 Weekdays (Monday-Friday):
 - 1 meal per day: 20 minutes active, 40 minutes total (special meal)
@@ -84,18 +84,18 @@ def get_default_meal_plan() -> Dict[str, Dict[int, Tuple[int, int]]]:
     """Get the default weekly meal plan (Saturday to Friday)."""
     return {
         "Saturday": {
-            1: (30, 60),  # Weekend lunch: 30 min active, 60 min total
-            2: (60, 120),  # Special Saturday dinner: 60 min active, 120 min total
+            1: (30, 60),
+            2: (60, 240),
         },
         "Sunday": {
-            1: (30, 60),  # Weekend lunch: 30 min active, 60 min total
-            2: (30, 60),  # Weekend dinner: 30 min active, 60 min total
+            1: (30, 60),
+            2: (60, 120),
         },
-        "Monday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
-        "Tuesday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
-        "Wednesday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
-        "Thursday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
-        "Friday": {1: (20, 40)},  # Weekday meal: 20 min active, 40 min total
+        "Monday": {1: (30, 60)},
+        "Tuesday": {1: (30, 60)},
+        "Wednesday": {1: (30, 60)},
+        "Thursday": {1: (30, 60)},
+        "Friday": {1: (30, 60)},
     }
 
 
