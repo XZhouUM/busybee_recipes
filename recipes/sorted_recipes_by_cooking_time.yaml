@@ -114,6 +114,16 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 40
     tags: ['Vegetables']
     file_path: "recipes/chinese/pumpkin_pancake.md"
+  - name: "Lamb Shank Stew"
+    active_cooking_time_minutes: 20
+    total_cooking_time_minutes: 140
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/middle_eastern/lamb_shank_stew.md"
+  - name: "Roasted Lamb Shank"
+    active_cooking_time_minutes: 20
+    total_cooking_time_minutes: 160
+    tags: ['Protein']
+    file_path: "recipes/home_creation/roasted_lamb_shank.md"
   - name: "Tomato Hot Pot"
     active_cooking_time_minutes: 30
     total_cooking_time_minutes: 30
@@ -136,7 +146,7 @@ sorted_recipes_by_active_cooking_time:
     file_path: "recipes/japanese/sushi_meal.md"
 
 summary:
-  total_recipes: 27
+  total_recipes: 29
   active_cooking_time_range:
     min_minutes: 5
     max_minutes: 60
