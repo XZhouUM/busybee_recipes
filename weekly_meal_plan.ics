@@ -21,99 +21,107 @@ RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:prep-saturday-lunch-20251220@busybee-recipes
-DTSTART;TZID=America/New_York:20251220T100000
-DTEND;TZID=America/New_York:20251220T103000
+UID:prep-saturday-lunch-20251227@busybee-recipes
+DTSTART;TZID=America/New_York:20251227T100000
+DTEND;TZID=America/New_York:20251227T103000
 SUMMARY:Prep for Saturday Lunch (2 hours ahead)
 DESCRIPTION:Preparation needed for:\n• Popcorn Chicken (2h 0m)
 LOCATION:Kitchen
 END:VEVENT
 BEGIN:VEVENT
-UID:meal-saturday-lunch-20251220@busybee-recipes
-DTSTART;TZID=America/New_York:20251220T120000
-DTEND;TZID=America/New_York:20251220T130000
-SUMMARY:Saturday Lunch: Popcorn Chicken + Braised Eggplant
-DESCRIPTION:Recipes:\n• Popcorn Chicken: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/popcorn_chicken.md\n• Braised Eggplant: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/braised_eggplant.md
+UID:meal-saturday-lunch-20251227@busybee-recipes
+DTSTART;TZID=America/New_York:20251227T120000
+DTEND;TZID=America/New_York:20251227T130000
+SUMMARY:Saturday Lunch: Popcorn Chicken + Air Fried Cauliflower
+DESCRIPTION:Recipes:\n• Popcorn Chicken: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/popcorn_chicken.md\n• Air Fried Cauliflower: (recipe file not found)
 LOCATION:Kitchen
 END:VEVENT
 BEGIN:VEVENT
-UID:prep-saturday-dinner-20251220@busybee-recipes
-DTSTART;TZID=America/New_York:20251218T180000
-DTEND;TZID=America/New_York:20251218T183000
-SUMMARY:Prep for Saturday Dinner (2 days ahead)
-DESCRIPTION:Preparation needed for:\n• Pickles (48h 0m)
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-saturday-dinner-20251220@busybee-recipes
-DTSTART;TZID=America/New_York:20251220T180000
-DTEND;TZID=America/New_York:20251220T190000
-SUMMARY:Saturday Dinner: Sauteed Vermicelli with Minced Meat + Pickles
-DESCRIPTION:Recipes:\n• Sauteed Vermicelli with Minced Meat: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/sauteed_vermicelli_with_minced_meat.md\n• Pickles: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/pickles.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-sunday-lunch-20251221@busybee-recipes
-DTSTART;TZID=America/New_York:20251221T120000
-DTEND;TZID=America/New_York:20251221T130000
-SUMMARY:Sunday Lunch: Curry Rice
-DESCRIPTION:Recipes:\n• Curry Rice: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/curry_rice.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-sunday-dinner-20251221@busybee-recipes
-DTSTART;TZID=America/New_York:20251221T180000
-DTEND;TZID=America/New_York:20251221T190000
-SUMMARY:Sunday Dinner: Fried Beef + Homemade Nachos
-DESCRIPTION:Recipes:\n• Fried Beef: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/fried_beef.md\n• Homemade Nachos: (recipe file not found)
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-monday-dinner-20251222@busybee-recipes
-DTSTART;TZID=America/New_York:20251222T180000
-DTEND;TZID=America/New_York:20251222T190000
-SUMMARY:Monday Dinner: Chinese Salad + Air Fried Cauliflower
-DESCRIPTION:Recipes:\n• Chinese Salad: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/chinese_salad.md\n• Air Fried Cauliflower: (recipe file not found)
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-tuesday-dinner-20251223@busybee-recipes
-DTSTART;TZID=America/New_York:20251223T180000
-DTEND;TZID=America/New_York:20251223T190000
-SUMMARY:Tuesday Dinner: Shrimp and Mango Salsa
-DESCRIPTION:Recipes:\n• Shrimp and Mango Salsa: (recipe file not found)
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-wednesday-dinner-20251224@busybee-recipes
-DTSTART;TZID=America/New_York:20251224T180000
-DTEND;TZID=America/New_York:20251224T190000
-SUMMARY:Wednesday Dinner: Silken Tofu
-DESCRIPTION:Recipes:\n• Silken Tofu: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/silken_tofu.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-thursday-dinner-20251225@busybee-recipes
-DTSTART;TZID=America/New_York:20251225T180000
-DTEND;TZID=America/New_York:20251225T190000
-SUMMARY:Thursday Dinner: Dumpling Filling
+UID:meal-saturday-dinner-20251227@busybee-recipes
+DTSTART;TZID=America/New_York:20251227T180000
+DTEND;TZID=America/New_York:20251227T190000
+SUMMARY:Saturday Dinner: Dumpling Filling
 DESCRIPTION:Recipes:\n• Dumpling Filling: (recipe file not found)
 LOCATION:Kitchen
 END:VEVENT
 BEGIN:VEVENT
-UID:meal-friday-dinner-20251226@busybee-recipes
-DTSTART;TZID=America/New_York:20251226T180000
-DTEND;TZID=America/New_York:20251226T190000
-SUMMARY:Friday Dinner: Mushroom Chicken Soup
+UID:meal-sunday-lunch-20251228@busybee-recipes
+DTSTART;TZID=America/New_York:20251228T120000
+DTEND;TZID=America/New_York:20251228T130000
+SUMMARY:Sunday Lunch: Steamed Fish + Fried Vegetables
+DESCRIPTION:Recipes:\n• Steamed Fish: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/steamed_fish.md\n• Fried Vegetables: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/fried_vegetables.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:prep-sunday-dinner-20251228@busybee-recipes
+DTSTART;TZID=America/New_York:20251228T173000
+DTEND;TZID=America/New_York:20251228T180000
+SUMMARY:Prep for Sunday Dinner (30 minutes ahead)
+DESCRIPTION:Preparation needed for:\n• Pumpkin Pancake (30m)
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-sunday-dinner-20251228@busybee-recipes
+DTSTART;TZID=America/New_York:20251228T180000
+DTEND;TZID=America/New_York:20251228T190000
+SUMMARY:Sunday Dinner: Fried Yellow Croaker + Pumpkin Pancake
+DESCRIPTION:Recipes:\n• Fried Yellow Croaker: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/fried_yellow_croaker.md\n• Pumpkin Pancake: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/pumpkin_pancake.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-monday-dinner-20251229@busybee-recipes
+DTSTART;TZID=America/New_York:20251229T180000
+DTEND;TZID=America/New_York:20251229T190000
+SUMMARY:Monday Dinner: Mushroom Chicken Soup
 DESCRIPTION:Recipes:\n• Mushroom Chicken Soup: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/mushroom_chicken_soup.md
 LOCATION:Kitchen
 END:VEVENT
 BEGIN:VEVENT
-UID:grocery-shopping-20251220@busybee-recipes
-DTSTART;TZID=America/New_York:20251220T100000
-DTEND;TZID=America/New_York:20251220T110000
+UID:prep-tuesday-dinner-20251230@busybee-recipes
+DTSTART;TZID=America/New_York:20251228T180000
+DTEND;TZID=America/New_York:20251228T183000
+SUMMARY:Prep for Tuesday Dinner (2 days ahead)
+DESCRIPTION:Preparation needed for:\n• Pickles (48h 0m)
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-tuesday-dinner-20251230@busybee-recipes
+DTSTART;TZID=America/New_York:20251230T180000
+DTEND;TZID=America/New_York:20251230T190000
+SUMMARY:Tuesday Dinner: Sauteed Vermicelli with Minced Meat + Pickles
+DESCRIPTION:Recipes:\n• Sauteed Vermicelli with Minced Meat: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/sauteed_vermicelli_with_minced_meat.md\n• Pickles: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/pickles.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-wednesday-dinner-20251231@busybee-recipes
+DTSTART;TZID=America/New_York:20251231T180000
+DTEND;TZID=America/New_York:20251231T190000
+SUMMARY:Wednesday Dinner: Tomato Hot Pot
+DESCRIPTION:Recipes:\n• Tomato Hot Pot: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/tomato_hot_pot.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-thursday-dinner-20260101@busybee-recipes
+DTSTART;TZID=America/New_York:20260101T180000
+DTEND;TZID=America/New_York:20260101T190000
+SUMMARY:Thursday Dinner: Firm Tofu
+DESCRIPTION:Recipes:\n• Firm Tofu: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/firm_tofu.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-friday-dinner-20260102@busybee-recipes
+DTSTART;TZID=America/New_York:20260102T180000
+DTEND;TZID=America/New_York:20260102T190000
+SUMMARY:Friday Dinner: Simplified Gongbao Chicken
+DESCRIPTION:Recipes:\n• Simplified Gongbao Chicken: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/simplified_gongbao_chicken.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:grocery-shopping-20251227@busybee-recipes
+DTSTART;TZID=America/New_York:20251227T100000
+DTEND;TZID=America/New_York:20251227T110000
 SUMMARY:Grocery Shopping for Upcoming Week's Meals
-DESCRIPTION:GROCERY SHOPPING LIST\n==================================================\n\n• Beef: 350 gram\n• Carrot: 1 unit\n• Cauliflower: 0.5 unit\n• Chestnut: 0.5 cup\n• Chicken Thighs: 2 unit\n• Chinese Eggplants: 2 unit\n• Chinese Ham Sausage: 1 unit\n• Chopped Whole Chicken: 500 g\n• Cilantro: 2 small handful\n• Corn: 0.5 cup\n• Corn Flour: 50 g\n• Curry Block: 1 block\n• Egg: 2 unit\n• Flour: 50 g\n• Garlic: 2 -3 clove\n• Garlic Powder: 1 tablespoon\n• Garlic Sprouts: 3 unit\n• Green Onion: 1 unit\n• Green Pepper: 1 unit\n• Jalapeno Pepper: 1 unit\n• Lemon: 0.5 unit\n• Mango: 1 unit\n• Olive Oil: 20 ml\n• Onion: 0.5 unit\n• Oyster Sauce: 3 tablespoon\n• Paprika: 1 tablespoon\n• Pixian Doubanjiang 郫县豆瓣酱: 1 tablespoon\n• Rice: 2 cup\n• Salt: 0.5 tablespoon\n• Sesame Oil: 3.5 tablespoon\n• Shiitake Mushroom: 4 unit\n• Shrimp: 1 lb\n• Silken Tofu: 1 box\n• Soy Sauce: 12 tablespoon\n• Soybean Paste: 2 tablespoon\n• Sugar: 1.5 tablespoon\n• Tomato: 1 unit\n• Vegetable Oil: 5 tablespoon\n• Vinegar: 2 tablespoon\n• Warm Water: 80 g\n• White Sesame: 1 tablespoon\n• Any Vegetables Or Proteins: as needed\n• Black Pepper: as needed\n• Carrots: as needed\n• Chicken Essence: as needed\n• Cooking Oil: as needed\n• Dark Soy Sauce: as needed\n• Five-Spice Powder: as needed\n• Ginger: as needed\n• Goji Berries: as needed\n• Green Onions: as needed\n• Ground Beef: as needed\n• Light Soy Sauce: as needed\n• Meat: as needed\n• Oil: as needed\n• Parsley Flakes: as needed\n• Pepper: as needed\n• Red Dates: as needed\n• Scallions: as needed\n• Sweet Potato Vermicelli: as needed\n• Various Vegetables: as needed\n• Dried Mushrooms: Any (shiitake mushrooms\, bamboo fungus\, cordyceps flower\, tea tree mushrooms\, morels\, chanterelles\, king oyster mushrooms)\n• Starch: a pinch\n\nTotal ingredients: 63
+DESCRIPTION:GROCERY SHOPPING LIST\n==================================================\n\n• Cauliflower: 0.5 unit\n• Celery: 5 stalk\n• Chicken Thighs: 5 unit\n• Chili Pepper: 2 unit\n• Chopped Whole Chicken: 500 g\n• Cilantro: 2 small handful\n• Diced Pepper: 1 unit\n• Egg: 2 unit\n• Firm Tofu: 1 block\n• Fish: 1 unit\n• Garlic: 4 clove\n• Garlic Sprouts: 3 unit\n• Ginger: 5 thin piece\n• Green Onion: 2 unit\n• Green Onions: 3 unit\n• Green Pepper: 1 unit\n• Oyster Sauce: 1 tablespoon\n• Peeled And Seeded Sweet Pumpkin: 600 gram\n• Pixian Doubanjiang: 1 tablespoon\n• Salt: 1 teaspoon\n• Sesame Oil: 0.5 tablespoon\n• Soy Sauce: 5 tablespoon\n• Soybean Paste: 2 tablespoon\n• Sugar: 0.5 teaspoon\n• Tomatoes: 10 unit\n• Vegetable Oil: 2 tablespoon\n• Vinegar: 1 dessert spoon\n• White Sugar: 50 gram\n• Carrots: as needed\n• Chicken Essence: as needed\n• Ciba Chili Paste 糍粑辣椒: as needed\n• Cooking Oil: as needed\n• Dark Soy Sauce: as needed\n• Five-Spice Powder: as needed\n• Garlic Powder: as needed\n• Goji Berries: as needed\n• Ground Beef: as needed\n• Hot Pepper Sauce: as needed\n• Light Soy Sauce: as needed\n• Oil: as needed\n• Pepper: as needed\n• Red Dates: as needed\n• Scallions: as needed\n• Sweet Potato Vermicelli: as needed\n• Dried Mushrooms: Any (shiitake mushrooms\, bamboo fungus\, cordyceps flower\, tea tree mushrooms\, morels\, chanterelles\, king oyster mushrooms)\n• Peanuts: a handful\n• Starch: a pinch\n\nTotal ingredients: 47
 LOCATION:Grocery Store
 END:VEVENT
 END:VCALENDAR
