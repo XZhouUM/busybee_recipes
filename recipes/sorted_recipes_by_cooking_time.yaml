@@ -14,6 +14,11 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 15
     tags: ['Vegetables_Protein']
     file_path: "recipes/chinese/egg_drop_soup.md"
+  - name: "Mozzarella Shrimp"
+    active_cooking_time_minutes: 5
+    total_cooking_time_minutes: 20
+    tags: ['Protein']
+    file_path: "recipes/home_creation/mozzarella_shrimp.md"
   - name: "Steamed Fish"
     active_cooking_time_minutes: 5
     total_cooking_time_minutes: 25
@@ -114,6 +119,11 @@ sorted_recipes_by_active_cooking_time:
     total_cooking_time_minutes: 40
     tags: ['Vegetables']
     file_path: "recipes/chinese/pumpkin_pancake.md"
+  - name: "Apple Beef Stew"
+    active_cooking_time_minutes: 20
+    total_cooking_time_minutes: 70
+    tags: ['Vegetables_Protein']
+    file_path: "recipes/chinese/apple_beef_stew.md"
   - name: "Lamb Shank Stew"
     active_cooking_time_minutes: 20
     total_cooking_time_minutes: 140
@@ -146,7 +156,7 @@ sorted_recipes_by_active_cooking_time:
     file_path: "recipes/japanese/sushi_meal.md"
 
 summary:
-  total_recipes: 29
+  total_recipes: 31
   active_cooking_time_range:
     min_minutes: 5
     max_minutes: 60
