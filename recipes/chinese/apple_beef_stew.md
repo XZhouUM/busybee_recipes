@@ -1,5 +1,5 @@
 
-# Red Wine Beef Stew with Apple
+# Apple Beef Stew
 
 #Vegetables_Protein
 
