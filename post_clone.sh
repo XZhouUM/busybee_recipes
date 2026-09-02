@@ -25,14 +25,14 @@ source .venv/bin/activate
 pip install -r requirements.txt
 echo "Dependencies installed in virtual environment."
 
-# Install GEMINI CLI
-read -p "Do you want to install GEMINI CLI? (y/n): " -n 1 -r
+# Option to install Antigravity CLI
+read -p "[LINUX/MAC Only] Do you want to install Antigravity CLI? You can install other agents of your preference instead. (y/n): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  echo "Installing GEMINI CLI..."
-  brew install gemini-cli
+  echo "Installing Antigravity CLI..."
+  curl -fsSL https://antigravity.google/cli/install.sh | bash
 else
-  echo "Skipping GEMINI CLI installation."
+  echo "Skipping Antigravity CLI installation."
 fi
 
 echo "Repo setup complete."
