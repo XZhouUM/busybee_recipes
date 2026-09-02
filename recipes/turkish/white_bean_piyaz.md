@@ -1,7 +1,6 @@
 # White Bean Piyaz
 
-#Vegetables #Protein
-
+#Vegetables_Protein
 ## Cooking Time
 
 - Active Cooking Time: 20 minutes
@@ -10,9 +9,9 @@
 
 ## Ingredients
 
-- Dried beans [1-1.5 cups]
-- Tomato [3-4 units]
-- Green pepper [10-15 units]
+- Dried beans [1 cups]
+- Tomato [3 units]
+- Green pepper [10 units]
 - Fresh green onion [1 bunch] or dry onion [1 unit]
 - Olive oil
 - Salt
