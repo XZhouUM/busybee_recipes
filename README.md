@@ -11,7 +11,7 @@ Most of the recipes contained in this repo is designed to be:
 
 There are still a small portion of the recipes that are designed to be used for treat days. These recipes are usually longer in active cooking time and are for the days when you have more time and want to treat the family with something special.
 
-The interactive feature of the cookbook is supported by both the python scripts developed for this repo and the Gemini CLI. You need to [install the Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/README.md) to use it.
+The interactive feature of the cookbook is supported by both the python scripts developed for this repo and any AI agent as the users prefer. For example, I am currently using [Antigravity CLI](https://github.com/google-antigravity/antigravity-cli) on my local machine.
 
 ## User Guide
 
@@ -89,11 +89,11 @@ python tools/generate_grocery_list.py "Firm Tofu" "Fried Beef" "Egg Drop Soup"
 ### Add a New Recipe
 
 1. Manually add a new file in any language and in any format.
-2. Ask Gemini to format the recipe file. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the GEMINI.md file.
+2. Ask Gemini to format the recipe file. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the AGENTS.md file.
 3. The pre-push hook will automatically update the index file before the changes are pushed to the repo.
 
 Alternatively,
-1. Ask Gemini to search for a recipe on the internet and add it to the repo. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the GEMINI.md file.
+1. Ask Gemini to search for a recipe on the internet and add it to the repo. Gemini will automatically translate the recipe to English and convert it to the correct format specified in the AGENTS.md file.
 2. The pre-push hook will automatically update the index file before the changes are pushed to the repo.
 
 ### Search, Selection, and Filtering

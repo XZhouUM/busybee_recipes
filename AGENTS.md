@@ -1,4 +1,4 @@
-# Gemini Configuration File
+# Agent Configuration File
 
 ## Project Overview
 
@@ -153,9 +153,9 @@ Secondly, look for recipes with Extension section. Some recipes can also be easi
 
 ### Convert New Recipes to English and the Correct Format
 
-A developer can add new recipes to the repo by creating a new markdown file in the appropriate folder based on the recipe's origin, and writing down the recipe in any language and in any format. The Gemini CLI will automatically translate the recipe to English and convert the recipe to the correct format. The format is given in the section [Recipe Format](#recipe-format) above.
+A developer can add new recipes to the repo by creating a new markdown file in the appropriate folder based on the recipe's origin, and writing down the recipe in any language and in any format. The AI agent will automatically translate the recipe to English and convert the recipe to the correct format. The format is given in the section [Recipe Format](#recipe-format) above.
 
-Usually the list of ingredients is already given in a recipe. When the ingredient list is not available, the CLI can deduce the ingredient list from the instructions.
+Usually the list of ingredients is already given in a recipe. When the ingredient list is not available, the agent can deduce the ingredient list from the instructions.
 
 Order the list of ingredients in the way that the ones with quantity and unit come first, followed by the ones without quantity and unit.
 
@@ -165,7 +165,7 @@ When the user requests to format a new recipe, there is no need to run sort_reci
 
 ### Add New Recipes through Internet Search
 
-A developer can also ask Gemini to search for a recipe on the internet and add them to the repo. The recipe found on the internet should be converted to the correct format as described in [Recipe Format](#recipe-format) after added to the corresponding folder. An example search can be
+A developer can also ask the agent to search for a recipe on the internet and add them to the repo. The recipe found on the internet should be converted to the correct format as described in [Recipe Format](#recipe-format) after added to the corresponding folder. An example search can be
 
 - Search the internet for a recipe for Chinese fried vegetables, and add to the repo.
 - Search the internet for a recipe that uses ground beef and califlower, and add to the repo.
