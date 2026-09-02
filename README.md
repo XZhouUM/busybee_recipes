@@ -20,7 +20,7 @@ The interactive feature of the cookbook is supported by both the python scripts 
 After cloning the repo, run the following command to set up the repo. This command will:
 1. Install the pre-push hook that is used to format the tooling scripts and index the recipe database.
 2. Install the python dependencies needed to run the tooling scripts.
-3. Prompt you to install Antigravity CLI. Select NO if you are using other agents.
+3. Prompt you to install Antigravity CLI. Select n if you are using other agents.
 
 ```bash
 ./post_clone.sh
