@@ -9,7 +9,7 @@
 
 ## Ingredients
 
-- Dried beans [1 cups]
+- Dried beans [1 cup]
 - Tomato [3 units]
 - Green pepper [10 units]
 - Fresh green onion [1 bunch] or dry onion [1 unit]
