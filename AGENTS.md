@@ -169,15 +169,6 @@ At last, polish the wording in the instruction section for better readability. T
 
 When the user requests to format a new recipe, there is no need to run sort_recipes_by_cooking_time.py after adding the new recipe. The pre-push hook will automatically run the script before the changes are pushed to the repo.
 
-### Git Workflow for Recipe Changes
-
-Recipes are reviewed through a pull request, and the feature branch is typically deleted by GitHub once that PR merges. Before pushing a follow-up commit to a branch that already has (or had) a PR, check the PR's state first (e.g. `gh pr view <branch> --json state,mergeStateStatus`):
-
-- If its PR is still open, merge the latest target branch into the feature branch locally and resolve any conflicts before pushing, so the PR doesn't go stale or show conflicts.
-- If its PR has already merged, don't push more commits onto that same local branch — its remote counterpart is likely gone, and doing so recreates an orphaned branch tied to no PR. Instead, start a new branch from the latest target branch for the additional change and open a new PR.
-
-Keeping each round of edits to a recipe on a fresh branch avoids the repeated add/add and content conflicts that come from a branch's PR being merged out from under it mid-edit.
-
 ### Add New Recipes through Internet Search
 
 A developer can also ask the agent to search for a recipe on the internet and add them to the repo. The recipe found on the internet should be converted to the correct format as described in [Recipe Format](#recipe-format) after added to the corresponding folder. An example search can be
