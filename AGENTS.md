@@ -67,11 +67,13 @@ Tags are used to help users search for recipes. Right now, the following tags ar
 
 `#Vegetables_Protein`: Recipes that are made of both vegetables and protein.
 
+When a recipe contains both a vegetable and a protein component, use the single combined tag `#Vegetables_Protein` instead of tagging `#Vegetables` and `#Protein` separately.
+
 - Cooking Time (Second level heading)
 
     - Active Cooking Time: The time you need to be actively involved in the cooking process
     - Total Cooking Time: May be longer than active time, but includes hands-off periods that require no or minimal supervision
-    - Preparation Time [optional]: Time required for preparation before the active cooking time starts; this can sometimes include prep work like marinating, resting, or soaking
+    - Preparation Time [optional]: Time required for preparation before the active cooking time starts; this can sometimes include prep work like marinating, resting, or soaking. Write it as a plain `[number] [minutes/hours/days]` value with no parenthetical explanation (e.g. `8 hours`, not `8 hours (overnight soak)`); the reason for the wait, if worth mentioning, belongs in the Instructions step instead.
 
 - Efficiency Tools (Second level heading; optional)
 
@@ -82,9 +84,13 @@ Tags are used to help users search for recipes. Right now, the following tags ar
     - List of ingredients required for the recipe
     - Ingredients are written in the following format. The bracket that contains quantity and unit is optional for ingredients that are very little.
     - The ingredient list starts with the ingedients with quantity and unit, followed by the ones without.
-    - Spell out the unit instead of using abbreviation. For example, use "teaspoon" instead of "tsp", and use "tablespoon" instead of "tbsp". If there is no unit but just quantity, use "unit" instead of abbreviation.
+    - Spell out the unit instead of using abbreviation. For example, use "teaspoon" instead of "tsp", and use "tablespoon" instead of "tbsp". If there is no unit but just quantity, always write out "unit"/"units" instead of leaving a bare number (e.g. `Onion [1 unit]`, not `Onion [1]`). Apply this rule even if an older recipe file in the repo doesn't follow it — that file is out of date, not a counterexample.
+    - Give quantities as a single number, not a range — pick one reasonable amount instead of leaving it open. `Green pepper [10-15 units]` is not acceptable; write `Green pepper [10 units]`.
+    - When an ingredient can be substituted with an alternative, list both on one line separated by "or", each with its own quantity if applicable (e.g. `Salmon or tuna [2 pieces]`, `Fresh green onion [1 bunch] or dry onion [1 unit]`).
 ```
 - Ingredient name [quantity unit]
+- Ingredient name [quantity unit] or other ingredient name [quantity unit]
+- Ingredient name
 ```
 
 - Instructions (Second level heading)
