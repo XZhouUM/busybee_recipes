@@ -21,107 +21,107 @@ RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:meal-saturday-lunch-20261031@busybee-recipes
-DTSTART;TZID=America/New_York:20261031T120000
-DTEND;TZID=America/New_York:20261031T130000
-SUMMARY:Saturday Lunch: Steamed Fish + Fried Vegetables
-DESCRIPTION:Recipes:\n• Steamed Fish: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/steamed_fish.md\n• Fried Vegetables: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/fried_vegetables.md
+UID:prep-saturday-lunch-20261107@busybee-recipes
+DTSTART;TZID=America/New_York:20261107T115500
+DTEND;TZID=America/New_York:20261107T122500
+SUMMARY:Prep for Saturday Lunch (5 minutes ahead)
+DESCRIPTION:Preparation needed for:\n• Mozzarella Shrimp (5m)
 LOCATION:Kitchen
 END:VEVENT
 BEGIN:VEVENT
-UID:prep-saturday-dinner-20261031@busybee-recipes
-DTSTART;TZID=America/New_York:20261030T180000
-DTEND;TZID=America/New_York:20261030T183000
-SUMMARY:Prep for Saturday Dinner (1 day ahead)
-DESCRIPTION:Preparation needed for:\n• Teriyaki Salmon (24h 0m)
+UID:meal-saturday-lunch-20261107@busybee-recipes
+DTSTART;TZID=America/New_York:20261107T120000
+DTEND;TZID=America/New_York:20261107T130000
+SUMMARY:Saturday Lunch: Mozzarella Shrimp + Fried Vegetables
+DESCRIPTION:Recipes:\n• Mozzarella Shrimp: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/home_creation/mozzarella_shrimp.md\n• Fried Vegetables: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/fried_vegetables.md
 LOCATION:Kitchen
 END:VEVENT
 BEGIN:VEVENT
-UID:meal-saturday-dinner-20261031@busybee-recipes
-DTSTART;TZID=America/New_York:20261031T180000
-DTEND;TZID=America/New_York:20261031T190000
-SUMMARY:Saturday Dinner: Teriyaki Salmon + Air Fried Cauliflower
-DESCRIPTION:Recipes:\n• Teriyaki Salmon: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/japanese/teriyaki_salmon.md\n• Air Fried Cauliflower: (recipe file not found)
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-sunday-lunch-20261101@busybee-recipes
-DTSTART;TZID=America/New_York:20261101T120000
-DTEND;TZID=America/New_York:20261101T130000
-SUMMARY:Sunday Lunch: Curry Rice
-DESCRIPTION:Recipes:\n• Curry Rice: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/curry_rice.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:prep-sunday-dinner-20261101@busybee-recipes
-DTSTART;TZID=America/New_York:20261101T173000
-DTEND;TZID=America/New_York:20261101T180000
-SUMMARY:Prep for Sunday Dinner (30 minutes ahead)
-DESCRIPTION:Preparation needed for:\n• Pumpkin Pancake (30m)
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-sunday-dinner-20261101@busybee-recipes
-DTSTART;TZID=America/New_York:20261101T180000
-DTEND;TZID=America/New_York:20261101T190000
-SUMMARY:Sunday Dinner: La Zi Ji + Pumpkin Pancake
-DESCRIPTION:Recipes:\n• La Zi Ji: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/la_zi_ji.md\n• Pumpkin Pancake: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/pumpkin_pancake.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-monday-dinner-20261102@busybee-recipes
-DTSTART;TZID=America/New_York:20261102T180000
-DTEND;TZID=America/New_York:20261102T190000
-SUMMARY:Monday Dinner: Egg Drop Soup
-DESCRIPTION:Recipes:\n• Egg Drop Soup: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/egg_drop_soup.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:prep-tuesday-dinner-20261103@busybee-recipes
-DTSTART;TZID=America/New_York:20261101T180000
-DTEND;TZID=America/New_York:20261101T183000
-SUMMARY:Prep for Tuesday Dinner (2 days ahead)
-DESCRIPTION:Preparation needed for:\n• Mozzarella Shrimp (5m)\n• Pickles (48h 0m)
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-tuesday-dinner-20261103@busybee-recipes
-DTSTART;TZID=America/New_York:20261103T180000
-DTEND;TZID=America/New_York:20261103T190000
-SUMMARY:Tuesday Dinner: Mozzarella Shrimp + Pickles
-DESCRIPTION:Recipes:\n• Mozzarella Shrimp: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/home_creation/mozzarella_shrimp.md\n• Pickles: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/pickles.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-wednesday-dinner-20261104@busybee-recipes
-DTSTART;TZID=America/New_York:20261104T180000
-DTEND;TZID=America/New_York:20261104T190000
-SUMMARY:Wednesday Dinner: Mushroom Chicken Soup
-DESCRIPTION:Recipes:\n• Mushroom Chicken Soup: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/mushroom_chicken_soup.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-thursday-dinner-20261105@busybee-recipes
-DTSTART;TZID=America/New_York:20261105T180000
-DTEND;TZID=America/New_York:20261105T190000
-SUMMARY:Thursday Dinner: Baked Fish Salad
-DESCRIPTION:Recipes:\n• Baked Fish Salad: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/home_creation/baked_fish_salad.md
-LOCATION:Kitchen
-END:VEVENT
-BEGIN:VEVENT
-UID:meal-friday-dinner-20261106@busybee-recipes
-DTSTART;TZID=America/New_York:20261106T180000
-DTEND;TZID=America/New_York:20261106T190000
-SUMMARY:Friday Dinner: Shrimp and Mango Salsa
+UID:meal-saturday-dinner-20261107@busybee-recipes
+DTSTART;TZID=America/New_York:20261107T180000
+DTEND;TZID=America/New_York:20261107T190000
+SUMMARY:Saturday Dinner: Shrimp and Mango Salsa
 DESCRIPTION:Recipes:\n• Shrimp and Mango Salsa: (recipe file not found)
 LOCATION:Kitchen
 END:VEVENT
 BEGIN:VEVENT
-UID:grocery-shopping-20261031@busybee-recipes
-DTSTART;TZID=America/New_York:20261031T100000
-DTEND;TZID=America/New_York:20261031T110000
+UID:prep-sunday-lunch-20261108@busybee-recipes
+DTSTART;TZID=America/New_York:20261106T120000
+DTEND;TZID=America/New_York:20261106T123000
+SUMMARY:Prep for Sunday Lunch (2 days ahead)
+DESCRIPTION:Preparation needed for:\n• Pickles (48h 0m)
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-sunday-lunch-20261108@busybee-recipes
+DTSTART;TZID=America/New_York:20261108T120000
+DTEND;TZID=America/New_York:20261108T130000
+SUMMARY:Sunday Lunch: Fried Beef + Pickles
+DESCRIPTION:Recipes:\n• Fried Beef: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/fried_beef.md\n• Pickles: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/pickles.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-sunday-dinner-20261108@busybee-recipes
+DTSTART;TZID=America/New_York:20261108T180000
+DTEND;TZID=America/New_York:20261108T190000
+SUMMARY:Sunday Dinner: Fried Yellow Croaker + Braised Eggplant
+DESCRIPTION:Recipes:\n• Fried Yellow Croaker: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/fried_yellow_croaker.md\n• Braised Eggplant: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/braised_eggplant.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-monday-dinner-20261109@busybee-recipes
+DTSTART;TZID=America/New_York:20261109T180000
+DTEND;TZID=America/New_York:20261109T190000
+SUMMARY:Monday Dinner: Simplified Gongbao Chicken
+DESCRIPTION:Recipes:\n• Simplified Gongbao Chicken: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/simplified_gongbao_chicken.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:prep-tuesday-dinner-20261110@busybee-recipes
+DTSTART;TZID=America/New_York:20261110T160000
+DTEND;TZID=America/New_York:20261110T163000
+SUMMARY:Prep for Tuesday Dinner (2 hours ahead)
+DESCRIPTION:Preparation needed for:\n• Popcorn Chicken (2h 0m)
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-tuesday-dinner-20261110@busybee-recipes
+DTSTART;TZID=America/New_York:20261110T180000
+DTEND;TZID=America/New_York:20261110T190000
+SUMMARY:Tuesday Dinner: Popcorn Chicken + Homemade Nachos
+DESCRIPTION:Recipes:\n• Popcorn Chicken: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/popcorn_chicken.md\n• Homemade Nachos: (recipe file not found)
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-wednesday-dinner-20261111@busybee-recipes
+DTSTART;TZID=America/New_York:20261111T180000
+DTEND;TZID=America/New_York:20261111T190000
+SUMMARY:Wednesday Dinner: Tomato Hot Pot
+DESCRIPTION:Recipes:\n• Tomato Hot Pot: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/tomato_hot_pot.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-thursday-dinner-20261112@busybee-recipes
+DTSTART;TZID=America/New_York:20261112T180000
+DTEND;TZID=America/New_York:20261112T190000
+SUMMARY:Thursday Dinner: Mushroom Chicken Soup
+DESCRIPTION:Recipes:\n• Mushroom Chicken Soup: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/mushroom_chicken_soup.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:meal-friday-dinner-20261113@busybee-recipes
+DTSTART;TZID=America/New_York:20261113T180000
+DTEND;TZID=America/New_York:20261113T190000
+SUMMARY:Friday Dinner: Egg Drop Soup
+DESCRIPTION:Recipes:\n• Egg Drop Soup: https://github.com/XZhouUM/busybee_recipes/blob/master/recipes/chinese/egg_drop_soup.md
+LOCATION:Kitchen
+END:VEVENT
+BEGIN:VEVENT
+UID:grocery-shopping-20261107@busybee-recipes
+DTSTART;TZID=America/New_York:20261107T100000
+DTEND;TZID=America/New_York:20261107T110000
 SUMMARY:Grocery Shopping for Upcoming Week's Meals
-DESCRIPTION:GROCERY SHOPPING LIST\n==================================================\n\n• Avocado: 1 unit\n• Boneless Chicken Thighs: 2 \n• Carrot: 1 unit\n• Cauliflower: 0.5 unit\n• Chestnut: 0.5 cup\n• Chinese Ham Sausage: 1 unit\n• Chopped Whole Chicken: 500 g\n• Corn: 0.5 cup\n• Curry Block: 1 block\n• Dried Chili Peppers: 100 gram\n• Egg: 1 unit\n• Fish: 1 unit\n• Garlic: 3 unit\n• Ginger: 5 thin piece\n• Green Bell Pepper: 0.5 unit\n• Green Onion: 2 unit\n• Green Pepper: 1 -2 unit\n• Honey: 1 tablespoon\n• Lemon: 0.5 unit\n• Mango: 1 unit\n• Olive Oil: 0.5 tablespoon\n• Onion: 0.75 unit\n• Oyster Sauce: 0.5 tablespoon\n• Peeled And Seeded Sweet Pumpkin: 600 gram\n• Plain Hummus: 2 teaspoon\n• Rice: 2 cup\n• Rice Wine: 1 tablespoon\n• Salmon Or Tuna: 2 -3 piece\n• Salt: 2.25 teaspoon\n• Sesame Oil: 1 tablespoon\n• Shiitake Mushroom: 4 unit\n• Shrimp: 250 gram\n• Sichuan Peppercorns: 15 gram\n• Soy Sauce: 4 tablespoon\n• Sugar: 0.5 teaspoon\n• Tomato: 1 unit\n• Vegetable Oil: 2 tablespoon\n• White Sugar: 50 gram\n• Yellow Bell Pepper: 0.5 unit\n• Any Vegetables: as needed\n• Basil: as needed\n• Black Pepper: as needed\n• Black Sesame: as needed\n• Chicken Powder: as needed\n• Cooked Rice For Serving: as needed\n• Cooking Oil: as needed\n• Goji Berries: as needed\n• Lemon Juice: as needed\n• Mozzarella Cheese: as needed\n• Parsley Flakes: as needed\n• Red Dates: as needed\n• Red Pepper Flakes: as needed\n• Salmon Or Chicken: as needed\n• Scallions: as needed\n• Starch: as needed\n• White Sesame Seeds: as needed\n• Cumin: a pinch\n• Dried Mushrooms: Any (shiitake mushrooms\, bamboo fungus\, cordyceps flower\, tea tree mushrooms\, morels\, chanterelles\, king oyster mushrooms)\n\nTotal ingredients: 58
+DESCRIPTION:GROCERY SHOPPING LIST\n==================================================\n\n• Beef: 350 gram\n• Celery: 5 stalk\n• Chicken Thighs: 5 unit\n• Chili Pepper: 2 unit\n• Chinese Eggplants: 2 unit\n• Chopped Whole Chicken: 500 g\n• Corn Flour: 50 g\n• Egg: 2 unit\n• Flour: 50 g\n• Garlic: 3 unit\n• Ginger: 5 slice\n• Green Onion: 1 unit\n• Green Onions: 3 unit\n• Green Pepper: 1 -2 unit\n• Jalapeno Pepper: 1 unit\n• Lemon: 0.5 unit\n• Mango: 1 unit\n• Olive Oil: 20 ml\n• Onion: 0.5 unit\n• Oyster Sauce: 3 tablespoon\n• Pixian Doubanjiang: 1 tablespoon\n• Salt: 1 teaspoon\n• Sesame Oil: 1.5 tablespoon\n• Shrimp: 250 gram\n• Soy Sauce: 6 tablespoon\n• Sugar: 0.5 tablespoon\n• Tomato: 1 unit\n• Tomatoes: 10 unit\n• Vegetable Oil: 3 tablespoon\n• Vinegar: 1 tablespoon\n• Warm Water: 80 g\n• Any Vegetables: as needed\n• Black Pepper: as needed\n• Ciba Chili Paste 糍粑辣椒: as needed\n• Goji Berries: as needed\n• Lemon Juice: as needed\n• Mozzarella Cheese: as needed\n• Oil: as needed\n• Parsley Flakes: as needed\n• Pepper: as needed\n• Red Dates: as needed\n• Scallions: as needed\n• Starch: as needed\n• Dried Mushrooms: Any (shiitake mushrooms\, bamboo fungus\, cordyceps flower\, tea tree mushrooms\, morels\, chanterelles\, king oyster mushrooms)\n• Garlic Powder: a hint\n• Peanuts: a handful\n\nTotal ingredients: 46
 LOCATION:Grocery Store
 END:VEVENT
 END:VCALENDAR
